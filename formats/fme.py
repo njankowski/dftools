@@ -103,7 +103,7 @@ def read_from_wax(file):
     if (data.compressed == 0):
         data.raw = file.read()
     else:
-        # file.seek(data._column_offset + DISPLAY_PROP_SIZE + DATA_PROP_SIZE)
+        file.seek(data._column_offset + DISPLAY_PROP_SIZE + DATA_PROP_SIZE + origin)
 
         offset_table = []
         for offset in range(data.x):
