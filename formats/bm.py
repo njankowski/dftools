@@ -37,12 +37,12 @@ def read(filename):
         # multiple BMs
         if (bm.x == 1 and bm.y != 1):
             bm.frame_rate = struct.unpack('B', file.read(1))[0]
-            if struct.unpack('B', file.read(2))[0] != 2:
+            if struct.unpack('B', file.read(1))[0] != 2:
                 raise Exception("BM Multiple has bad magic identifier.")
 
             offset_table = []
             for i in range(bm._idem_y):
-                offset_table.append(struct.unpack('<i', file.read(4))[0])
+                offset_table.append(struct.unpack('<i', file.read(4))[0] + 34)
 
             for offset in offset_table:
                 sub_bm = Bm()
