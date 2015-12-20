@@ -77,8 +77,6 @@ def read(filename):
     return fme
 
 def read_from_wax(file):
-    origin = file.tell()
-
     display = FmeDisplayProperties()
     data = FmeDataProperties()
 
@@ -103,8 +101,6 @@ def read_from_wax(file):
     if (data.compressed == 0):
         data.raw = file.read()
     else:
-        file.seek(data._column_offset + DISPLAY_PROP_SIZE + DATA_PROP_SIZE + origin)
-
         offset_table = []
         for offset in range(data.x):
             # Offset points right to the column. No special offset.
@@ -156,4 +152,7 @@ def write(filename, fme):
 
 def to_image(fme, rgba_palette):
     from PIL import Image
-    return imaging.to_image(fme.data.raw, fme.data.y, fme.data.x, rgba_palette).rotate(90, expand=True)
+    image = imaging.to_image(fme.data.raw, fme.data.y, fme.data.x, rgba_palette).rotate(90, expand=True)
+    if fme.display.flip == 1:
+        image = image.transpose(Image.FLIP_LEFT_RIGHT)
+    return image

@@ -97,12 +97,21 @@ def write(filename):
     pass
 
 
-def to_png(wax, rgba_palette):
-    pass
-
-
-def to_pngs(wax, rgba_palette):
-    pass
+def to_images(wax, rgba_palette):
+    images = []
+    state_num = 0
+    angle_num = 0
+    frame_num = 0
+    for state in wax.actor_states:
+        angle_num = 0
+        for angle in state.actor_angles:
+            frame_num = 0
+            for frame in angle.actor_frames:
+                images.append((general_wax_states[state_num] + " (angle " + str(angle_num) + ") (frame " + str(frame_num) + ")", fme.to_image(frame, rgba_palette)))
+                frame_num += 1
+            angle_num += 1
+        state_num += 1
+    return images
 
 
 general_wax_states = {
