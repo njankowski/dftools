@@ -26,5 +26,8 @@ def write_files(directory, entries):
     for entry in entries:
         os.makedirs(directory, exist_ok=True)
         file_name = os.path.join(directory, entry[0])
-        with open(file_name, 'wb') as open_file:
-            open_file.write(entry[1])
+        try:
+            with open(file_name, 'wb') as open_file:
+                open_file.write(entry[1])
+        except OSError:
+            print('Bad filename "' + file_name + '". File not written. Continuing...')

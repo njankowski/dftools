@@ -8,6 +8,10 @@ Keep in mind that the "row" being operated on is actually a column of image data
 """
 import struct
 
+NONE = 0
+RLE1 = 1
+RLE0 = 2
+
 
 def rle0_decompress(file, width, row_offsets):
     decompressed = []
@@ -268,8 +272,8 @@ def calculate_ideal_compression(data, width):
 
     # In order of preference.
     if (uncompressed <= rle0 and uncompressed <= rle1):
-        return 0
+        return NONE
     if (rle0 <= uncompressed and rle0 <= rle1):
-        return 1
+        return RLE0
     if (rle1 <= uncompressed and rle1 <= rle0):
-        return 2
+        return RLE1
