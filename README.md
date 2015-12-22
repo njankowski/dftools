@@ -10,10 +10,26 @@ Tools for Star Wars: Dark Forces assets.
 
 ### Examples
 
+**fmetool**
+
 ![Jan Ors](examples/jan.png "Jan Ors")
+
+*Jan Ors*
+
 ![Stormtrooper Rifle](examples/ist-gunu.png "Stormtrooper Rifle")
 
-*Converted from FME to PNG with fmetool.*
+*Stormtrooper Rifle*
+
+**waxtool**
+
+![Phase 1 Dark Trooper](examples/phase1.png "Phase 1 Dark Trooper")
+![Phase 1 Dark Trooper (GROMAS)](examples/phase1-gromas.png "Phase 1 Dark Trooper (GROMAS)")
+
+*Phase 1 Dark Trooper (Right-side has GROMAS color palette for that extra spooky red tinge!)*
+
+![Stormtrooper](examples/stormfin.png "Stormtrooper")
+
+*Stormtrooper*
 
 ***
 
@@ -78,11 +94,11 @@ Tools for Star Wars: Dark Forces assets.
 
 *Tool uses glob (e.x. wildcard) patterns for file(s) specification.*
 
+*Writes converted files into the same directory."*
+
 `python fmetool.py "sprites/*.fme"`
 
 *Converts all FME files in the sprites directory to "filename.png" using default palette SECBASE.*
-
-*Writes converted files into the same directory."*
 
 `python fmetool.py -p JABSHIP "sprites/JAN.fme"`
 
@@ -93,5 +109,27 @@ Tools for Star Wars: Dark Forces assets.
 *Converts a single FME "JAN.FME" in the sprites directory to "JAN.png" using external palette "palettes/custom.pal".*
 
 **Make an FME**
+
+*Not supported.*
+
+#### waxtool
+**Convert a WAX**
+
+*PNG only.*
+
+*Images are auto-labeled based on sprite state.*
+
+*Only can convert one WAX at a time. Make sure to gather converted files before continuing use.*
+
+*Writes converted files into the same directory.*
+
+*Palette can be specified, much like fmetool.*
+
+`python waxtool.py "sprites/PHASE1.WAX"`
+
+*Converts a single WAX "PHASE1.WAX" into multiple images.*
+
+
+**Make a WAX**
 
 *Not supported.*
