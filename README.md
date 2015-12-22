@@ -8,6 +8,13 @@ Tools for Star Wars: Dark Forces assets.
 * Python 3
 * Pillow (PIL Fork)
 
+### Examples
+
+![Jan Ors](examples/jan.png "Jan Ors")
+![Stormtrooper Rifle](examples/ist-gunu.png "Stormtrooper Rifle")
+
+*Converted from FME to PNG with fmetool.*
+
 ***
 
 ### Supported Formats
