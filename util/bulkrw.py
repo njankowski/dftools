@@ -22,10 +22,31 @@ def read_files(directory, recursive):
     return entries
 
 
-def write_files(directory, entries):
+def write_files(directory, entries, organize):
+    # Make top-level.
+    os.makedirs(directory, exist_ok=True)
+
+    extensions = set()
+    if organize:
+        # Collect extensions.
+        for entry in entries:
+            extensions.add(os.path.splitext(entry[0])[1][1:])
+        # Create subdirectories
+        for extension in set(extensions):
+            try:
+                os.makedirs(os.path.join(directory, extension), exist_ok=True)
+            except OSError:
+                # Remove bad extensions.
+                extensions.remove(extension)
+                print('Could not make directory "' + extension + '". Files with this extension will be in the top-level directory if possible.')
+
+    # Write files.
     for entry in entries:
-        os.makedirs(directory, exist_ok=True)
-        file_name = os.path.join(directory, entry[0])
+        file_extension = os.path.splitext(entry[0])[1][1:]
+        if file_extension in extensions:
+            file_name = os.path.join(directory, file_extension, entry[0])
+        else:
+            file_name = file_name = os.path.join(directory, entry[0])
         try:
             with open(file_name, 'wb') as open_file:
                 open_file.write(entry[1])

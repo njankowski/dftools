@@ -20,7 +20,7 @@ def extract_gob():
           args.directory + "\"")
 
     entries = gob.read(args.gob)
-    bulkrw.write_files(args.directory, entries)
+    bulkrw.write_files(args.directory, entries, args.organize)
 
     print("Done")
 
@@ -31,6 +31,9 @@ if __name__ == "__main__":
 
     parser.add_argument("-r", "--recursive",
                         help="archive all files in the directory and its subdirectories (archive mode only)",
+                        action="store_true")
+    parser.add_argument("-o", "--organize",
+                        help="create a subdirectory for each file extension in the archive (extract mode only)",
                         action="store_true")
 
     parser.add_argument("mode", choices=["archive", "extract"],

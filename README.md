@@ -33,11 +33,22 @@ Tools for Star Wars: Dark Forces assets.
 #### gobtool
 **Extract a GOB**
 
+*There are some GOBs out there with bad filenames archived inside (e.x. the Dark Forces demo). The tool will print a warning if it tried to write a file but could not.*
+
 `python gobtool.py extract "DARK.GOB" "DARK"`
 
 *Extracts a GOB named "DARK.GOB" in the current directory, to a folder "DARK" in the current directory.*
 
 *Will automatically create directories that do not exist.*
+
+`python gobtool.py extract -o "DARK.GOB" "DARK"`
+
+`python gobtool.py extract --organize "DARK.GOB" "DARK"`
+
+
+*Extracts a GOB named "DARK.GOB" in the current directory, to a folder "DARK" in the current directory.*
+
+*Will create a subdirectory (within the specified directory) for each file extension in the archive. Will place each file into the appropriate subdirectory.*
 
 **Make a GOB**
 
@@ -62,7 +73,7 @@ Tools for Star Wars: Dark Forces assets.
 
 `python fmetool.py "sprites/*.fme"`
 
-*Converts all FME files in the sprites directory to "filename.png" using default palette SECBASE."*
+*Converts all FME files in the sprites directory to "filename.png" using default palette SECBASE.*
 
 *Writes converted files into the same directory."*
 
