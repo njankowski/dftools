@@ -150,9 +150,9 @@ def write(filename, fme):
             file.write(bytes(compressed_data[0]))
 
 
-def to_image(fme, rgba_palette):
+def to_image(fme, rgb_palette):
     from PIL import Image
-    image = imaging.to_image(fme.data.raw, fme.data.y, fme.data.x, rgba_palette).rotate(90, expand=True)
+    image = imaging.to_image(fme.data.raw, fme.data.y, fme.data.x, rgb_palette, True).rotate(90, expand=True)
     if fme.display.flip == 1:
         image = image.transpose(Image.FLIP_LEFT_RIGHT)
     return image

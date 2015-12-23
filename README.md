@@ -31,6 +31,12 @@ Tools for Star Wars: Dark Forces assets.
 
 *Stormtrooper*
 
+**bmtool**
+
+![Stormtrooper Rifle (First Person)](examples/rifle1.png "Stormtrooper Rifle (First Person)")
+
+*Stormtrooper Rifle (First Person)*
+
 ***
 
 ### Supported Formats
@@ -133,3 +139,7 @@ Tools for Star Wars: Dark Forces assets.
 **Make a WAX**
 
 *Not supported.*
+
+#### bmtool
+
+*Refer to fmetool. Its operation is identical, except that bmtool may generate multiple image files per BM.*

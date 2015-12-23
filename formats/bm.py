@@ -2,6 +2,8 @@ import struct
 from util import compression
 from util import imaging
 
+TRANSPARENCY_NONE = 0x36
+
 class Bm:
     def __init__(self):
         self.x = 0
@@ -78,12 +80,18 @@ def read(filename):
 
         return bm
 
-def to_images(bm, rgba_palette):
+def to_images(bm, rgb_palette):
     from PIL import Image
     images = []
     if not bm.sub_bms:
-        images.append(imaging.to_image(bm.raw_data, bm.y, bm.x, rgba_palette).rotate(90, expand=True))
+        if bm.transparent == TRANSPARENCY_NONE:
+            images.append(imaging.to_image(bm.raw_data, bm.y, bm.x, rgb_palette, False).rotate(90, expand=True))
+        else:
+            images.append(imaging.to_image(bm.raw_data, bm.y, bm.x, rgb_palette, True).rotate(90, expand=True))
     else:
         for sub_bm in bm.sub_bms:
-            images.append(imaging.to_image(sub_bm.raw_data, sub_bm.y,sub_bm.x, rgba_palette).rotate(90, expand=True))
+            if bm.transparent == TRANSPARENCY_NONE:
+                images.append(imaging.to_image(sub_bm.raw_data, sub_bm.y,sub_bm.x, rgb_palette, False).rotate(90, expand=True))
+            else:
+                images.append(imaging.to_image(sub_bm.raw_data, sub_bm.y,sub_bm.x, rgb_palette, True).rotate(90, expand=True))
     return images

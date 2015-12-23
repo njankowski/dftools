@@ -38,7 +38,7 @@ def read(filename):
 
     return fnt
 
-def to_image(fnt, rgba_palette):
+def to_image(fnt, rgb_palette):
     from PIL import Image
     from util import imaging
 
@@ -50,7 +50,7 @@ def to_image(fnt, rgba_palette):
 
     x = 0
     for character in fnt.fnt_characters:
-        image.paste(imaging.to_image(character.raw_data, fnt.height, character.width, rgba_palette).rotate(90), (x, 0))
+        image.paste(imaging.to_image(character.raw_data, fnt.height, character.width, rgb_palette, True).rotate(90), (x, 0))
         x += character.width + 10
 
     return image
