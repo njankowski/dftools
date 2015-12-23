@@ -37,6 +37,16 @@ Tools for Star Wars: Dark Forces assets.
 
 *Stormtrooper Rifle (First Person)*
 
+**fnttool**
+
+![Ammo Font](examples/amonum.png "Ammo Font")
+
+*Ammo Font*
+
+![Glowing Font](examples/glowing.png "Glowing Font")
+
+*Glowing Font*
+
 ***
 
 ### Supported Formats
@@ -143,3 +153,7 @@ Tools for Star Wars: Dark Forces assets.
 #### bmtool
 
 *Refer to fmetool. Its operation is identical, except that bmtool may generate multiple image files per BM.*
+
+#### fnttool
+
+*Refer to fmetool. Its operation is identical.*
