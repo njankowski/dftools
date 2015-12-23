@@ -85,13 +85,13 @@ def to_images(bm, rgb_palette):
     images = []
     if not bm.sub_bms:
         if bm.transparent == TRANSPARENCY_NONE:
-            images.append(imaging.to_image(bm.raw_data, bm.y, bm.x, rgb_palette, False).rotate(90, expand=True))
+            images.append(imaging.to_image(bm.raw_data, bm.y, bm.x, rgb_palette, False).transpose(Image.ROTATE_90))
         else:
-            images.append(imaging.to_image(bm.raw_data, bm.y, bm.x, rgb_palette, True).rotate(90, expand=True))
+            images.append(imaging.to_image(bm.raw_data, bm.y, bm.x, rgb_palette, True).transpose(Image.ROTATE_90))
     else:
         for sub_bm in bm.sub_bms:
             if bm.transparent == TRANSPARENCY_NONE:
-                images.append(imaging.to_image(sub_bm.raw_data, sub_bm.y,sub_bm.x, rgb_palette, False).rotate(90, expand=True))
+                images.append(imaging.to_image(sub_bm.raw_data, sub_bm.y,sub_bm.x, rgb_palette, False).transpose(Image.ROTATE_90))
             else:
-                images.append(imaging.to_image(sub_bm.raw_data, sub_bm.y,sub_bm.x, rgb_palette, True).rotate(90, expand=True))
+                images.append(imaging.to_image(sub_bm.raw_data, sub_bm.y,sub_bm.x, rgb_palette, True).transpose(Image.ROTATE_90))
     return images

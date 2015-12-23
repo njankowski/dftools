@@ -45,12 +45,12 @@ def to_image(fnt, rgb_palette):
     height = fnt.height
     total_width = 0
     for character in fnt.fnt_characters:
-        total_width += character.width + 10
+        total_width += character.width + 1
     image = Image.new("RGBA", (total_width, height))
 
     x = 0
     for character in fnt.fnt_characters:
-        image.paste(imaging.to_image(character.raw_data, fnt.height, character.width, rgb_palette, True).rotate(90), (x, 0))
-        x += character.width + 10
+        image.paste(imaging.to_image(character.raw_data, fnt.height, character.width, rgb_palette, False).transpose(Image.ROTATE_90), (x, 0))
+        x += character.width + 1
 
     return image

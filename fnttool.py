@@ -2,14 +2,14 @@ import argparse
 import glob
 import os
 from PIL import Image
-from formats import bm
+from formats import fnt
 from formats import pal
 
 
 args = None
 
 
-def convert_bm():
+def convert_fnt():
     if args.external:
         rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
         print('Loaded external palette "' + args.external + '"')
@@ -21,18 +21,14 @@ def convert_bm():
     for image in images:
         imageName = os.path.splitext(image)[0]
         print('Converting "' + image + '"')
-        converted_images = bm.to_images(bm.read(image), rgb_palette)
-        for i in range(len(converted_images)):
-            if len(converted_images) == 1:
-                converted_images[i].save(imageName + '.png')
-            else:
-                converted_images[i].save(imageName + ' ('+ str(i) + ')' + '.png')
+        fnt.to_image(fnt.read(image), rgb_palette).save(imageName + '.png')
+
     print('Done')
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='bmtool',
-                                     description='Tool for Star Wars: Dark Forces BM graphics.')
+    parser = argparse.ArgumentParser(prog='fnt',
+                                     description='Tool for Star Wars: Dark Forces FNT graphics.')
     parser.add_argument('-p', '--palette',
                         help='Built-in color palette to use during conversion. SECBASE when unspecified.',
                         choices=['ARC','BUYIT','DTENTION','EXECUTOR','FUELSTAT','GROMAS','IMPCITY','JABSHIP','NARSHADA','RAMSHED','ROBOTICS','SECBASE','SEWERS','TALAY','TESTBASE','WAIT'],
@@ -44,4 +40,4 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    convert_bm()
+    convert_fnt()

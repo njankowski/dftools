@@ -11,17 +11,17 @@ args = None
 
 def convert_fme():
     if args.external:
-        rgba_palette = pal.vga13h_to_rgba(pal.read(args.external))
+        rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
         print('Loaded external palette "' + args.external + '"')
     else:
-        rgba_palette = pal.default_palettes[args.palette]
+        rgb_palette = pal.default_palettes[args.palette]
         print('Loaded built-in palette "' + args.palette + '"')
 
     images = glob.glob(args.file)
     for image in images:
         imageName = os.path.splitext(image)[0]
         print('Converting "' + image + '"')
-        fme.to_image(fme.read(image), rgba_palette).save(imageName + '.png')
+        fme.to_image(fme.read(image), rgb_palette).save(imageName + '.png')
 
     print('Done')
 

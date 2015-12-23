@@ -10,14 +10,14 @@ args = None
 
 def extract_wax():
     if args.external:
-        rgba_palette = pal.vga13h_to_rgba(pal.read(args.external))
+        rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
         print('Loaded external palette "' + args.external + '"')
     else:
-        rgba_palette = pal.default_palettes[args.palette]
+        rgb_palette = pal.default_palettes[args.palette]
         print('Loaded built-in palette "' + args.palette + '"')
 
     print('Converting "' + args.file + '"')
-    images = wax.to_images(wax.read(args.file), rgba_palette)
+    images = wax.to_images(wax.read(args.file), rgb_palette)
     waxName = os.path.splitext(args.file)[0]
     for image in images:
         image[1].save(waxName + ' ' + image[0] + '.png')
