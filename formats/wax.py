@@ -4,7 +4,10 @@ Star Wars: Dark Forces WAX image functions.
 import struct
 from formats import fme
 
+
 WAX_VERSION = 0x00100100
+# The "Day of the Tentacle" (point-and-click game by Lucas Arts) WAX included as an easter egg in Dark Forces uses this magic value.
+WAX_VERSION_ALT = 0x00000100
 
 
 class ActorAngle:
@@ -38,7 +41,8 @@ class Wax:
 def read(filename):
     wax = Wax()
     with open(filename, "rb") as file:
-        if struct.unpack(">i", file.read(4))[0] != WAX_VERSION:
+        magic = struct.unpack(">i", file.read(4))[0]
+        if magic != WAX_VERSION and magic != WAX_VERSION_ALT:
             raise Exception("WAX version is incorrect.")
 
         wax.num_sequences = struct.unpack("<i", file.read(4))[0]
