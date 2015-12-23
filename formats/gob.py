@@ -29,7 +29,7 @@ def get_gob_size(entries):
 
     data_size = 0
     for entry in entries:
-        data_size += len(entries[1])
+        data_size += len(entry[1])
 
     return (meta_size, data_size)
 
