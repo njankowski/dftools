@@ -202,13 +202,18 @@ def find_duplicate_rows(data, width):
             if split_data[i] == split_data[j]:
                 removed_rows.append((i, j))
 
-    # Remove duplicates (backwards).
-    for removed in reversed(removed_rows):
-        del split_data[removed[1]]
+    # Remove duplicates.
+    cleaned_data = []
+    for i in range(height):
+        # Do not copy data if marked as duplicate.
+        if [item for item in removed_rows if item[1] == i]:
+            continue
+        else:
+            cleaned_data.append(split_data[i])
 
     # Flatten data.
     flattened_data = []
-    for row in split_data:
+    for row in cleaned_data:
         flattened_data.extend(row)
 
     return (removed_rows, flattened_data)
