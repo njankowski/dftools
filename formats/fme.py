@@ -117,16 +117,20 @@ def read_from_wax(file):
 
 def write(filename, fme):
     with open(filename, "wb") as file:
-        if fme.data.compressed == 0:
+        compression_type = compression.calc_ideal_compression_fme(fme.data.raw, fme.data.y)
+        # RLE1 not allowed.
+        if compression_type == compression.NONE:
             data_length = len(fme.data.raw)
+            fme.data.compressed = 0
         else:
             compressed_data = compression.rle0_compress(fme.data.raw, fme.data.y)
             data_length = len(compressed_data[0])
+            fme.data.compressed = 1
 
         file.write(struct.pack("<i", fme.display.x_offset))
         file.write(struct.pack("<i", fme.display.y_offset))
         file.write(struct.pack("<i", fme.display.flip))
-        file.write(struct.pack("<i", 32))
+        file.write(struct.pack("<i", DISPLAY_PROP_SIZE))
         file.write(struct.pack("<i", fme.display._unit_width))
         file.write(struct.pack("<i", fme.display._unit_height))
         file.write(struct.pack("<i", 0))
@@ -135,14 +139,18 @@ def write(filename, fme):
         file.write(struct.pack("<i", fme.data.x))
         file.write(struct.pack("<i", fme.data.y))
         file.write(struct.pack("<i", fme.data.compressed))
-        file.write(struct.pack("<i", DATA_PROP_SIZE + data_length))
+
+        if fme.data.compressed == 0:
+            file.write(struct.pack("<i", DATA_PROP_SIZE + data_length))
+        else:
+            file.write(struct.pack("<i", DATA_PROP_SIZE + data_length + fme.data.x * 4))
         file.write(struct.pack("<i", 0))
         file.write(struct.pack("<i", 0))
 
-        if fme.data.compressed != 0:
-            data_offset = fme.data.x * 4 + DATA_PROP_SIZE
+        # Only write column table when compressed.
+        if fme.data.compressed == 1:
             for column_offset in compressed_data[1]:
-                file.write(struct.pack("<i", column_offset + data_offset))
+                file.write(struct.pack("<i", fme.data.x * 4 + DATA_PROP_SIZE + column_offset))
 
         if fme.data.compressed == 0:
             file.write(fme.data.raw)

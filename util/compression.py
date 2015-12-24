@@ -264,8 +264,16 @@ def get_non_contiguous_count(list, start, end, contiguous_limit, contiguous_valu
         index += contiguous
     return total
 
+def calc_ideal_compression_fme(data, width):
+    uncompressed = len(data)
+    rle0 = len(rle0_compress(data, width)[0])
+    # In order of preference.
+    if uncompressed <= rle0:
+        return NONE
+    else:
+        return RLE0
 
-def calculate_ideal_compression(data, width):
+def calculate_ideal_compression_all(data, width):
     uncompressed = len(data)
     rle0 = len(rle0_compress(data, width)[0])
     rle1 = len(rle1_compress(data, width)[0])
