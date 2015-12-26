@@ -44,13 +44,13 @@ def rle0_compress(data, width):
     row_offsets = []
 
     # Optimize by removing duplicate rows.
-    removed_rows, data = find_duplicate_rows(data, width)
+    removed_rows, trimmed_data = find_duplicate_rows(data, width)
 
     index = 0
-    while index < len(data):
+    while index < len(trimmed_data):
         # Limit compression to the current row.
         # i.e. Do not go into the next row of data in search of bytes to compress.
-        zero_bytes = get_contiguous_count(data, index, min((index // width) * width + width, len(data)), 0)
+        zero_bytes = get_contiguous_count(trimmed_data, index, min((index // width) * width + width, len(trimmed_data)), 0)
 
         # Only compress if there are at least two (zero) bytes to compress.
         if zero_bytes >= 2:
@@ -72,7 +72,7 @@ def rle0_compress(data, width):
             # Get bytes up to first [0, 0] pattern.
             # Limit compression to the current row.
             # i.e. Do not go into the next row of data in search of non-contiguous bytes.
-            non_contiguous_bytes = get_non_contiguous_count(data, index, min((index // width) * width + width, len(data)), 2, [0])
+            non_contiguous_bytes = get_non_contiguous_count(trimmed_data, index, min((index // width) * width + width, len(trimmed_data)), 2, [0])
 
             # Clamp non-contiguous bytes.
             if non_contiguous_bytes > 128:
@@ -86,13 +86,31 @@ def rle0_compress(data, width):
             if index % width == 0:
                 row_offsets.append(len(compressed) - 1)
 
-            compressed.extend(data[index : index + non_contiguous_bytes])
+            compressed.extend(trimmed_data[index : index + non_contiguous_bytes])
 
             index += non_contiguous_bytes
 
-    # Add duplicate rows as offsets to the parent row.
-    for removed in removed_rows:
-        row_offsets.insert(removed[1], row_offsets[removed[0]])
+    # Rebuild offset table.
+    if removed_rows:
+        # Start with a list of exact length, filled with invalid offsets.
+        final_offsets = [-2] * (len(data) // width)
+
+        # Flag child rows.
+        for removed in removed_rows:
+            final_offsets[removed[1]] = -1
+
+        # Fill parent and non-removed rows.
+        parent_offset = 0
+        for i in range(len(final_offsets)):
+            if final_offsets[i] == -2:
+                final_offsets[i] = row_offsets[parent_offset]
+                parent_offset += 1
+
+        # Fill child rows.
+        for removed in removed_rows:
+            final_offsets[removed[1]] = final_offsets[removed[0]]
+
+        row_offsets = final_offsets
 
     return (compressed, row_offsets)
 
@@ -124,17 +142,19 @@ def rle1_compress(data, width):
     if (len(data) % width != 0):
         raise Exception("width does not evenly divide data")
 
+
+
     compressed = []
     row_offsets = []
 
     # Optimize by removing duplicate rows.
-    removed_rows, data = find_duplicate_rows(data, width)
+    removed_rows, trimmed_data = find_duplicate_rows(data, width)
 
     index = 0
-    while index < len(data):
+    while index < len(trimmed_data):
         # Limit compression to the current row.
         # i.e. Do not go into the next row of data in search of bytes to compress.
-        contiguous_bytes = get_contiguous_count(data, index, min((index // width) * width + width, len(data)), data[index])
+        contiguous_bytes = get_contiguous_count(trimmed_data, index, min((index // width) * width + width, len(trimmed_data)), trimmed_data[index])
 
         # Only compress if there are at least three bytes to compress.
         if contiguous_bytes >= 3:
@@ -150,13 +170,13 @@ def rle1_compress(data, width):
             if index % width == 0:
                 row_offsets.append(len(compressed) - 1)
 
-            compressed.append(data[index])
+            compressed.append(trimmed_data[index])
 
             index += contiguous_bytes
         # No gainful compression available at the current index. Mark non-compressable bytes.
         else:
             # Get bytes up to first [n, n, n] pattern.
-            non_contiguous_bytes = get_non_contiguous_count(data, index, min((index // width) * width + width, len(data)), 3)
+            non_contiguous_bytes = get_non_contiguous_count(trimmed_data, index, min((index // width) * width + width, len(trimmed_data)), 3)
 
             # Clamp non-contiguous bytes.
             if non_contiguous_bytes > 128:
@@ -170,13 +190,31 @@ def rle1_compress(data, width):
             if index % width == 0:
                 row_offsets.append(len(compressed) - 1)
 
-            compressed.extend(data[index : index + non_contiguous_bytes])
+            compressed.extend(trimmed_data[index : index + non_contiguous_bytes])
 
             index += non_contiguous_bytes
 
-    # Add duplicate rows as offsets to the parent row.
-    for removed in removed_rows:
-        row_offsets.insert(removed[1], row_offsets[removed[0]])
+    # Rebuild offset table.
+    if removed_rows:
+        # Start with a list of exact length, filled with invalid offsets.
+        final_offsets = [-2] * (len(data) // width)
+
+        # Flag child rows.
+        for removed in removed_rows:
+            final_offsets[removed[1]] = -1
+
+        # Fill parent and non-removed rows.
+        parent_offset = 0
+        for i in range(len(final_offsets)):
+            if final_offsets[i] == -2:
+                final_offsets[i] = row_offsets[parent_offset]
+                parent_offset += 1
+
+        # Fill child rows.
+        for removed in removed_rows:
+            final_offsets[removed[1]] = final_offsets[removed[0]]
+
+        row_offsets = final_offsets
 
     return (compressed, row_offsets)
 
@@ -278,7 +316,7 @@ def calc_ideal_compression_fme(data, width):
     else:
         return RLE0
 
-def calculate_ideal_compression_all(data, width):
+def calc_ideal_compression_bm(data, width):
     uncompressed = len(data)
     rle0 = len(rle0_compress(data, width)[0])
     rle1 = len(rle1_compress(data, width)[0])

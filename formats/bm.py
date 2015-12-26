@@ -80,6 +80,44 @@ def read(filename):
 
         return bm
 
+def write(filename, bm):
+    with open(filename, 'wb') as file:
+        compression_type = compression.calc_ideal_compression_bm(bm.raw_data, bm.y)
+        if compression_type == compression.NONE:
+            data_length = len(bm.raw_data)
+            bm.compressed = compression.NONE
+        elif compression_type == compression.RLE0:
+            compressed_data = compression.rle0_compress(bm.raw_data, bm.y)
+            data_length = len(compressed_data[0])
+            bm.compressed = compression.RLE0
+        elif compression_type == compression.RLE1:
+            compressed_data = compression.rle1_compress(bm.raw_data, bm.y)
+            data_length = len(compressed_data[0])
+            bm.compressed = compression.RLE1
+
+        file.write(b'BM \x1e')
+        if bm.x == 1 and bm.y != 1:
+            raise Exception()
+        file.write(struct.pack('<h', bm.x))
+        file.write(struct.pack('<h', bm.y))
+        file.write(struct.pack('<h', bm._idem_x))
+        file.write(struct.pack('<h', bm._idem_y))
+        file.write(struct.pack('B', bm.transparent))
+        file.write(struct.pack('B', bm.log_size_y))
+        file.write(struct.pack('<h', bm.compressed))
+        file.write(struct.pack('<i', data_length))
+        file.write(b'\0' * 12)
+
+        if bm.compressed == compression.NONE:
+            file.write(bm.raw_data)
+        else:
+            file.write(bytes(compressed_data[0]))
+
+        # Column table is at the end of the file.
+        if bm.compressed != compression.NONE:
+            for column_offset in compressed_data[1]:
+                file.write(struct.pack("<i", column_offset))
+
 def to_images(bm, rgb_palette):
     from PIL import Image
     images = []
