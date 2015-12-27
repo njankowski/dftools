@@ -49,7 +49,10 @@ def read(filename):
         for i in range(num_entries):
             offset = struct.unpack('<i', file.read(4))[0]
             length = struct.unpack('<i', file.read(4))[0]
-            name = file.read(13).decode('ascii').rstrip('\0')
+
+            raw_name = file.read(13)
+            name = raw_name[0 : raw_name.index(0)].decode('ascii')
+
             data = b''
 
             if length > 0:
