@@ -1,5 +1,4 @@
 import argparse
-import os
 from formats import gob
 from util import bulkrw
 
