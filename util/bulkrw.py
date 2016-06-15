@@ -1,9 +1,13 @@
 import os
+import sys
 
 
 def read_files(directory, recursive):
-    # list (filename, data)
+    # (filename, data)
     entries = []
+
+    # Get absolute path, just in case working directory changes.
+    directory = os.path.abspath(directory)
 
     # Recursively read all files.
     if recursive:
@@ -23,15 +27,22 @@ def read_files(directory, recursive):
 
 
 def write_files(directory, entries, organize):
+    # (filename, data)
+    bad_entries = []
+
+    # Get absolute path, just in case working directory changes.
+    directory = os.path.abspath(directory)
+
     # Make top-level.
     os.makedirs(directory, exist_ok=True)
 
+    # Prepare extensions for translation into directories.
     extensions = set()
     if organize:
         # Collect extensions.
         for entry in entries:
             extensions.add(os.path.splitext(entry[0])[1][1:])
-        # Create subdirectories
+        # Create subdirectories.
         for extension in set(extensions):
             try:
                 os.makedirs(os.path.join(directory, extension), exist_ok=True)
@@ -46,9 +57,67 @@ def write_files(directory, entries, organize):
         if file_extension in extensions:
             file_name = os.path.join(directory, file_extension, entry[0])
         else:
-            file_name = file_name = os.path.join(directory, entry[0])
+            file_name = os.path.join(directory, entry[0])
         try:
             with open(file_name, 'wb') as open_file:
                 open_file.write(entry[1])
         except OSError:
-            print('Bad filename "' + file_name + '". File not written. Continuing...')
+            bad_entries.append(entry)
+            print('Bad filename "' + file_name + '". File not written.')
+
+    return bad_entries
+
+def rename_and_write_files_interactive(directory, entries):
+    # Nothing to write if entries are empty.
+    if not entries:
+        return
+
+    # Get absolute path, just in case working directory changes.
+    directory = os.path.abspath(directory)
+
+    # Initial prompt.
+    print('Type "s" to skip saving a file, or "q" to quit.')
+
+    # Loop through entries, prompting for action.
+    i = 0
+    while i < len(entries):
+        entry = entries[i]
+        new_filename = input('"' + entry[0] + '" -> ')
+        # Skip entry.
+        if new_filename.strip().lower() == 's':
+            print('Skipped renaming of file "' + entry[0] + '"')
+            i += 1
+            continue
+        # Quit
+        elif new_filename.strip().lower() == 'q':
+            break
+        # Rename entry.
+        else:
+            try:
+                new_filename = os.path.join(directory, new_filename)
+                # Check if a file with that name already exists.
+                if os.path.isfile(new_filename):
+                    print('A file with that name already exists in the top-level directory.')
+                    print('"r" to rename again. "o" to overwrite. "s" to skip. "q" to quit.')
+                    choice = input().strip().lower()
+                    # Skip
+                    if choice == 's':
+                        print('Skipped renaming of file "' + entry[0] + '"')
+                        i += 1
+                        continue
+                    # Rename entry again.
+                    elif choice == 'r':
+                        continue
+                    # Quit
+                    elif choice == 'q':
+                        break
+                # Write file.
+                with open(new_filename, 'wb') as open_file:
+                    open_file.write(entry[1])
+                print('Wrote renamed file to "' + new_filename + '"')
+            # Still a bad filename.
+            except OSError:
+                print('Bad filename. Please try again.');
+            # Successfully wrote file.
+            else:
+                i += 1
