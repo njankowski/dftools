@@ -23,7 +23,7 @@ def extract_gob():
 
     if args.interactive and bad_entries:
         print('Some files could not be saved. Please provide a name for each file when prompted.')
-        bulkrw.rename_and_write_files_interactive(args.directory, bad_entries)
+        bulkrw.write_files_interactive(args.directory, bad_entries)
     elif bad_entries:
         print('Some files could not be saved. Use the "-i" or "--interactive" option to extract these files.')
 

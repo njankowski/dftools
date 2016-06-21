@@ -1,8 +1,11 @@
+"""Utility functions for reading and writing files in bulk."""
+
+
 import os
-import sys
 
 
 def read_files(directory, recursive):
+    """Read all files in a directory."""
     # (filename, data)
     entries = []
 
@@ -11,7 +14,7 @@ def read_files(directory, recursive):
 
     # Recursively read all files.
     if recursive:
-        for root, directories, files in os.walk(directory):
+        for root, _, files in os.walk(directory):
             for file in files:
                 with open(os.path.join(root, file), 'rb') as open_file:
                     entries.append((file, open_file.read()))
@@ -27,6 +30,7 @@ def read_files(directory, recursive):
 
 
 def write_files(directory, entries, organize):
+    """Write a list of file entries to a directory."""
     # (filename, data)
     bad_entries = []
 
@@ -49,7 +53,9 @@ def write_files(directory, entries, organize):
             except OSError:
                 # Remove bad extensions.
                 extensions.remove(extension)
-                print('Could not make directory "' + extension + '". Files with this extension will be in the top-level directory if possible.')
+                print('Could not make directory "{extension}. \
+                Files with this extension will be in the top-level directory \
+                if possible.'.format(extension=extension))
 
     # Write files.
     for entry in entries:
@@ -67,7 +73,9 @@ def write_files(directory, entries, organize):
 
     return bad_entries
 
-def rename_and_write_files_interactive(directory, entries):
+
+def write_files_interactive(directory, entries):
+    """Write a list of file entries to a directory, with interactive renaming."""
     # Nothing to write if entries are empty.
     if not entries:
         return
@@ -117,7 +125,7 @@ def rename_and_write_files_interactive(directory, entries):
                 print('Wrote renamed file to "' + new_filename + '"')
             # Still a bad filename.
             except OSError:
-                print('Bad filename. Please try again.');
+                print('Bad filename. Please try again.')
             # Successfully wrote file.
             else:
                 i += 1
