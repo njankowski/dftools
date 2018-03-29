@@ -1,0 +1,68 @@
+
+  NWX Files
+
+------------------------------------------------------------------------
+
+*NWX Files General*
+
+Nwx files are used for just about all moving or non moving objects. Ie:
+badguys and a canteen both use a NWX.
+
+NWX structures are:
+
+*TNWXHeader=packed record*
+magic:array[0..3] of char; //  four letters - 'WAXF'
+long2, {=2}             
+Long1:longint; {=1}
+LongUn,longUn1:longint;
+CELT_offs,                 // Offset to CELT chunk
+FRMT_offs,                 // Offset to FRMT chunk
+CHOT_offs:longint;         // Offset to CHOT chunk
+end;
+
+*TCELLHeader=packed record*
+ID:longint;                // Numeric ID of the cell
+cCELLSize:longint;         // Size of the cell
+width,height:longint;      // X and Y sizes of the image
+Flags:longint;             // bit 0 - if set,
+                              image is stored by columns,
+                              otherwise - by rows.
+end;
+
+*TCELTHeader=packed record*
+magic:array[0..3] of char;  // 4 letters - 'CELT'
+nCELLs:longint;             // Number of cells in CELT
+size:longint;               // size of CELT
+end;
+
+------------------------------------------------------------------------
+
+The format of file:
+
+TNWXHeader
+CELT chunk
+CHOT chunk
+FRMT chunk
+
+The format of CELT chunk:
+
+TCELTHeader
+variable number of CELLs (number of cells is specified in CELT header)
+
+The format of CELL:
+
+TCELLHeader
+Table of column/row offsets (bit 0 of CELL flags determines whether the
+table has WIDTH or HEIGHT entries). Each entry of the table is 32 bit
+offset to the beginning or the column/row from the beginning of the CELL.
+
+Columns/rows are encoded as follows: (pseudocode}
+
+b:=next byte;
+Counter:=b/2+1;
+IF bit 0 is set in b THEN copy Counter bytes from input buffer to row/column
+ELSE b:=next byte; fill next Counter bytes in row/column with color b
+
+Basically the same as DF RLE, except that counter byte is different.
+
+------------------------------------------------------------------------

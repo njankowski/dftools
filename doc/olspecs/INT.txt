@@ -1,0 +1,636 @@
+
+  ITM Files
+
+------------------------------------------------------------------------
+*INT *
+------------------------------------------------------------------------
+
+*Listing of INT (integer) type variables and their use.The* *letters
+"INT" preceed all the variable types plus a "space".Then the actual
+variable.*
+
+AGGRESSIVENESS <#INT_aggressiveness>
+ALLOW_BOUNCE <#INT_allow_bounce>
+AUTO_RELOAD <#INT_auto_reload>
+BASE_MODE <#INT_basemode>
+CHEST_DIE_CHOR <#INT_chest_die>
+COUNT <#INT_count>
+COUNT1 <#INT_count1>
+CROUCHRUN_CHOR <#INT_crouchrun_chor>
+CROUCHSTAND_CHOR <#INT_crouchstand_chor>
+CROUCHWALK_CHOR <#INT_crouchwalk_chor>
+DIE_CHOR <#INT_die_chor>
+DUCK_CHOR <#INT_duck_chor>
+FIRE_CHOR_1 <#INT_fire_chor_1>
+FLASH_INTENSITY <#INT_flash_intensity>
+GENERATEE_FLAGS <#INT_generatee_flags>
+GORE_DEF <#INT_gore_def>
+GORE_SWITCH <#INT_gore_switch>
+HEALTH_B <#INT_health_b>
+HIT_CHOR <#INT_hit_chor>
+INT ICON_ACT 11
+LEFT_DIE_CHOR <#INT_left_die_chor>
+LEG_DIE_CHOR <#INT_leg_die>
+LIFE <#INT_life>
+MAX_COUNT <#INT_max_count>
+MAX_GENERATEES <#INT_max_generatees>
+NO_AMMO_CHOR_1 <#INT_no_ammo_chor_1>
+NO_AMMO_CHOR_2 <#INT_no_ammo_chor_2>
+NO_DROP <#INT_no_drop>
+NO_SHOW <#INT_no_show>
+NUM_TERMNINATE <#INT_num_terminate>
+PICKUP_COUNT <#INT_pickup_count>
+PICKUP_MSG <#INT_pickup_msg>
+INT PRIME_ACT 1
+RELOAD_CHOR <#INT_reload_chor>
+REST_CHOR <#INT_rest_chor>
+RIGHT_DIE_CHOR <#INT_right_die_chor>
+RUN_CHOR <#INT_run_chor>
+RUN_SHOOT_CHOR <#INT_run_shoot_chor>
+SCOPE_FIRE_CHOR_1 <#INT_scope_fire_chor_1>
+SCOPE_NO_AMMO_CHOR_1 <#INT_scope_no_ammo_chor_1>
+SCOPE_REST_CHOR <#INT_scope_rest_chor>
+SCOPE_X <#INT_scope_x>
+SCOPE_Y <#INT_scope_y>
+INT SECOND_ACT 1
+SHOOT_CHOR <#INT_shoot_chor>
+SHOT_CAPACITY
+<https://web.archive.org/web/20010503122732fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/@int_shot_capacity>
+SHOT_MULTIPLES <#INT_shot_multiples>
+SLOT <#INT_slot>
+STAND_CHOR <#INT_stand_chor>
+START_COUNT_1 <#INT_start_count_1>
+START_COUNT_2 <#INT_start_count_2>
+START_COUNT_3 <#INT_start_count_3>
+START_COUNT_4 <#INT_start_count_4>
+START_COUNT_5 <#INT_start_count_5>
+START_OIL <#INT_start_oil>
+ST_BULL <#INT_st_bull>
+ST_CART <#INT_st_cart>
+ST_DYNM <#INT_st_dynm>
+ST_SHEL <#INT_st_shel>
+INT THIRD_ACT 1
+USE_ID <#INT_use_id>
+VOL_FEET <#INT_vol_feet>
+WALK_CHOR <#INT_walk_chor>
+WALK_SHOOT_CHOR <#INT_walk_shoot_chor>
+WATCH_CHOR 3
+<https://web.archive.org/web/20010503122732fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/INT_watch_chor>
+START_WEAPON <#INT_start_weapon>
+
+
+------------------------------------------------------------------------
+*INT Variable Descriptions*
+
+------------------------------------------------------------------------
+*INT AGGRESSIVENESS*
+
+AGGRESSIVENESS 2
+    Aggressiveness factor determines how aggressive the enemy will be.
+    Normaly 4 ( 0 -7 max) 7 is most aggressive. If set to 4 or more he
+    will shoot back immediately after getting hit. 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT ALLOW_BOUNCE*
+
+ALLOW_BOUNCE 1
+    If set to 1 the 3do will bounce ,if set to 0 it will be destroyed
+    upon collision . 
+    Used in pdynam.itm and pknife.itm files 
+
+------------------------------------------------------------------------
+*INT AUTO_RELOAD*
+
+AUTO_RELOAD 1
+    automaticly reloads weapon,normaly only used in igatgun.itm 
+    Used in inventory weapon files 
+
+------------------------------------------------------------------------
+*INT BASEMODE*
+
+BASEMODE 2
+    BASE_MODE 
+    Sets the basic behavior of enemy Normaly 0 -3 
+    Modes
+
+      * 0 Normal
+      * 1 Sniper
+      * 2 Ambush 1
+      * 3 Ambush 2
+          o Sniper 1 Stays in duck mode untill player sees their mid
+            section,these will shoot
+          o Ambush 1 Will hide without shooting until a lower body line
+            of sight,which then enemy reverts to normal type.
+          o Ambush 2 Same as ambush 1 except when player gets within 15
+            feet will also make him revert to normal 
+
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT CHEST_DIE*
+
+CHEST_DIE 20
+    The Nwx choreography to play when enemy hit in chest Try ( 20) for
+    tarantula 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT COUNT*
+
+COUNT 12
+    How many of the items to pickup, generaly used with STR PICKUP
+    <https://web.archive.org/web/20010503122732fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itms.htm#STR_pickup>
+
+    Used in ground pickup items files 
+
+------------------------------------------------------------------------
+*INT COUNT1*
+
+COUNT1 12
+    Same function as INT COUNT ,if the item file has more than one thing
+    to pick up each is gven a number .How many of the items to pickup,
+    generaly used with STR PICKUP1
+    <https://web.archive.org/web/20010503122732fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itms.htm#STR_pickup1>
+
+    Used in ground pickup items files 
+
+------------------------------------------------------------------------
+*INT CROUCHRUN_CHOR*
+
+CROUCHRUN_CHOR 3
+    Always 3. used to specify the crouch and run chor 
+    Used in player CID*.ITM files 
+
+------------------------------------------------------------------------
+*INT CROUCHSTAND_CHOR*
+
+CROUCHSTAND_CHOR 3
+    Always 3. used to specify the crouch and stand chor 
+    Used in player CID*.ITM files 
+
+------------------------------------------------------------------------
+*INT CROUCHWALK_CHOR*
+
+CROUCHRUN_CHOR 3
+    Always 3. used to specify the crouch and walk chor 
+    Used in player CID*.ITM files 
+
+------------------------------------------------------------------------
+*INT DIE_CHOR*
+
+DIE_CHOR 21
+    Always 21. used to specify the crouch and run chor 
+    Used in player CID*.ITM files 
+
+------------------------------------------------------------------------
+*INT DUCK_CHOR*
+
+DUCK_CHOR 3
+    The duck choreography to play. depends on the NWX file some have
+    duck some don`t,Only limited information is available on NWX
+    structure at this time.best advice would be to look in some ITM
+    files Try ( 3 ) for badguys 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT FIRE_CHOR_1*
+
+FIRE_CHOR_1 3
+    Used to specify the weapon primary firing chor 
+    Used in Inventory Weapon files 
+
+------------------------------------------------------------------------
+*INT FLASH_INTENSITY*
+
+FLASH_INTENSITY 2
+    Used to specify the weapon flash when fired ,normaly 2 
+    Used in Inventory Weapon files 
+
+------------------------------------------------------------------------
+*INT GENERATEE_FLAGS*
+
+GENERATEE_FLAGS 16
+    Allows a generator to set object flags 
+    Used in generator files 
+
+------------------------------------------------------------------------
+*INT GORE_DEF*
+
+GORE_DEF 1
+    Used to specify the default gore 
+    Used in Outlaws.itm files 
+
+------------------------------------------------------------------------
+*INT GORE_SWITCH*
+
+GORE_SWITCH 1
+    Used to specify the default gore on /off 
+    Used in Outlaws.itm files 
+
+------------------------------------------------------------------------
+*INT HEALTH_B*
+
+HEALTH_B 100
+    Instant health points,from 10 to 100 in steps of 10 
+    Used in inventory health item files 
+
+------------------------------------------------------------------------
+*INT HIT_CHOR*
+
+HIT_CHOR 1
+    The Nwx choreography to play when enemy hit Try ( 1) for tarantula 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT LEFT_DIE_CHOR*
+
+LEFT_DIE_CHOR 20
+    The Nwx choreography to play when enemy gets hit in left side Try (
+    20 for tarantula) 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT LEG_DIE_CHOR*
+
+LEG_DIE_CHOR 20
+    The Nwx choreography to play when enemy gets hit in leg Try ( 20 for
+    tarantula) 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT LIFE*
+
+LIFE 4500
+    The Life time of the projectile before it explodes(dynamite) 
+    Used in PDYNAM.ITM file 
+
+------------------------------------------------------------------------
+*INT MAX_COUNT*
+
+MAX_COUNT 20
+    maximum count of this item in inventory 
+    Used in Inventory files 
+
+------------------------------------------------------------------------
+*INT MAX_GENERATEES*
+
+MAX_GENERATEES 5
+    Sets the maximum number of objects to generate at once Normaly 5 
+    Used in generator files 
+
+------------------------------------------------------------------------
+*INT NO_AMMO_CHOR_1*
+
+NO_AMMO_CHOR_1
+    Choreography for when weapon is out of ammo in the primary fire mode
+    Normaly 9 
+    Used in Weapon Inventory files 
+------------------------------------------------------------------------
+*INT NO_AMMO_CHOR_2*
+
+NO_AMMO_CHOR_2
+    Choreography for when weapon is out of ammo in the secondary fire
+    mode Normaly 9 
+    Used in Weapon Inventory files 
+
+------------------------------------------------------------------------
+*INT NO_DROP*
+
+NO_DROP 1
+    Used for inventory items so that they will not be dropped. Default
+    is probably 0 
+    Used in Inventory files 
+
+------------------------------------------------------------------------
+*INT NO_SHOW*
+
+NO_SHOW 1
+    Used for inventory items so that they will not be shown on inventory
+    status panel. Default is probably 0 
+    Used in Inventory files 
+
+------------------------------------------------------------------------
+*INT NUM_TERMINATE*
+
+NUM_TERMINATE 15
+    Stop generating after this many objects have been generated Normaly 15 
+    Used in generator files 
+
+------------------------------------------------------------------------
+*INT PICKUP_COUNT*
+
+PICKUP_COUNT 3
+    Describes how many Objects to pickup. the first item would be INT
+    COUNT ,second INT COUNT1 etc 
+    Used in Ground Object files 
+
+------------------------------------------------------------------------
+*INT PICKUP_MSG*
+
+INT PICKUP_MSG 200
+    Refers to the message number in the *Local.Msg* file. 
+    Used in files
+
+    ------------------------------------------------------------------------
+    *INT RELOAD_CHOR*
+
+RELOAD_CHOR 8
+    Descibes the choreography to use for relaoding weapon ,Normaly 8 
+    Used in Weapon Inventory files 
+
+------------------------------------------------------------------------
+*INT REST_CHOR*
+
+REST_CHOR 0
+    Default rest choreography for weapon . Normaly 0 
+    Used in Weapon Inventory files 
+
+------------------------------------------------------------------------
+*INT RIGHT_DIE_CHOR*
+
+RIGHT_DIE_CHOR 20
+    The Nwx choreography to play when enemy gets hit in leg Try ( 20 for
+    tarantula) 
+    Used in badguy files
+
+    ------------------------------------------------------------------------
+    *INT RUN_CHOR*
+
+RUN_CHOR 20
+    The Nwx choreography to play when enemy runs.Doesn`t seem to be used
+    in normal badguys. 
+    Used in badguy files
+
+    ------------------------------------------------------------------------
+    *INT RUN_SHOOT_CHOR*
+
+RUN_SHOOT_CHOR 20
+    The Nwx choreography to play when enemy runs and shoots.Doesn`t seem
+    to be used in normal badguys. 
+    Used in badguy files
+
+    ------------------------------------------------------------------------
+    *INT SCOPE_FIRE_CHOR_1*
+
+SCOPE_FIRE_CHOR_1 21
+    The Nwx choreography to play when firing with rifle scope on.Normaly 21 
+    Used in Weapon inventory I*RIFLE.ITM files
+
+    ------------------------------------------------------------------------
+    *INT SCOPE_NO_AMMO_CHOR_1*
+
+SCOPE_NO_AMMO_CHOR_1 22
+    The Nwx choreography to play when no ammo with rifle scope
+    on.Normaly 22 
+    Used in Weapon inventory I*RIFLE.ITM files
+
+    ------------------------------------------------------------------------
+    *INT SCOPE_REST_CHOR*
+
+SCOPE_REST_CHOR 20
+    The Nwx choreography to play when in rest position with rifle scope
+    on.Normaly 20 
+    Used in Weapon inventory I*RIFLE.ITM files
+
+    ------------------------------------------------------------------------
+    *INT SCOPE_X*
+
+SCOPE_X 0
+    The rifle scopes horizontal offset to correct for it`s position on
+    the screen. Normaly 0 
+    Used in Weapon inventory I*RIFLE.ITM files
+
+    ------------------------------------------------------------------------
+    *INT SCOPE_Y*
+
+SCOPE_Y -186
+    The rifle scopes vertical offset to correct for it`s position on the
+    screen. Normaly -186 
+    Used in Weapon inventory I*RIFLE.ITM files
+
+    ------------------------------------------------------------------------
+    *INT SHOT_CAPACITY*
+
+SHOT_CAPACITY 6
+    The amount of ammo weapon has before reloading 
+    Used in Weapon inventory files
+
+    ------------------------------------------------------------------------
+    *INT SHOOT_CHOR*
+
+SHOOT_CHOR 12
+    The Nwx choreography to play when enemy shoots Try ( 12) for bgy2boom 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT SHOT_MULTIPLES*
+
+SHOT_MULTIPLES 5
+    Defines the number of projectiles in the shot used with Str Weapon
+    <https://web.archive.org/web/20010503122732fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itms.htm#STR_weapon>
+    and Float Damage
+    <https://web.archive.org/web/20010503122732fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/imtf.htm#FLOAT_damage>
+
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*INT SLOT*
+
+SLOT 2
+    This represents which key will call the weapon,normaly they are kept
+    to standard configuration IE: 1 = fist , 2 = pistol etc. 
+    Used in Weapon inventory files
+
+    ------------------------------------------------------------------------
+    *INT STAND_CHOR*
+
+STAND_CHOR 0
+    Specifies the standing choreography to use. normaly 0 
+    Used in Player CID*.ITM files
+
+    ------------------------------------------------------------------------
+    *INT START_COUNT_1*
+
+START_COUNT_1 20
+    Specifies how many of each ammo type to be issued at player
+    spawn.The number is incremented for each new weapon he has. 
+    Used in Player CID*.ITM files
+
+    ------------------------------------------------------------------------
+    *INT START_COUNT_2*
+
+START_COUNT_2 20
+    Specifies how many of each ammo type to be issued at player
+    spawn.The number is incremented for each new weapon he has. 
+    Used in Player CID*.ITM files
+
+    ------------------------------------------------------------------------
+    *INT START_COUNT_3*
+
+START_COUNT_3 20
+    Specifies how many of each ammo type to be issued at player
+    spawn.The number is incremented for each new weapon he has. 
+    Used in Player CID*.ITM files
+
+    ------------------------------------------------------------------------
+    *INT START_COUNT_4*
+
+START_COUNT_4 20
+    Specifies how many of each ammo type to be issued at player
+    spawn.The number is incremented for each new weapon he has. 
+    Used in Player CID*.ITM files
+
+    ------------------------------------------------------------------------
+    *INT START_COUNT_5*
+
+START_COUNT_5 20
+    Specifies how many of each ammo type to be issued at player
+    spawn.The number is incremented for each new weapon he has. 
+    Used in Player CID*.ITM files
+
+    ------------------------------------------------------------------------
+    *INT START_OIL*
+
+START_OIL 20
+    Specifies how much Oil the player stars with. 
+    Used in Player.ITM file
+
+    ------------------------------------------------------------------------
+    *INT START_WEAPON*
+
+START_WEAPON 4
+    Specifies which weapon the player starts with. normaly 1 - 5 
+    Used in CID*.ITM files
+
+    ------------------------------------------------------------------------
+    *INT ST_BULL*
+
+ST_BULL 24
+    Specifies how many bullets the player starts with. 
+    Used in Player.ITM files
+
+    ------------------------------------------------------------------------
+    *INT ST_CART*
+
+ST_CART 24
+    Specifies how many rifle cartridges the player starts with. 
+    Used in Player.ITM files
+
+    ------------------------------------------------------------------------
+    *INT ST_DYNM*
+
+ST_DYNM 0
+    Specifies how many dynamite sticks the player starts with. 
+    Used in Player.ITM files
+
+    ------------------------------------------------------------------------
+    *INT ST_SHEL*
+
+ST_SHEL 0
+    Specifies how many shotgun shells the player starts with. 
+    Used in Player.ITM files
+
+    ------------------------------------------------------------------------
+    *INT USE_ID*
+
+USE_ID 101
+    The Use_Id is a number assigned to an item. This number is generaly
+    used in the INF ,it`s biggest use is for key doors. To use one for a
+    key door you would first construct your door,then place your ground
+    object key ie: gbrsskey. this is the actual key. Next you make the
+    inf entry for your door then add some extra code to make a reference
+    to the key.
+    Heres an example.
+
+    /*-------- BRASSKEY DOOR ------*/
+
+    ITEM: SECTOR  NAME: BRSSKEYDR
+    SEQ
+    	CLASS: ELEVATOR MOVE_CEILING
+    	STOP: 1 HOLD
+    	STOP: 9 5
+    	SOUND: 2 IRONDR.WAV
+    	SOUND: 3 HVYSTOP.WAV
+    	SPEED: 5
+    	EVENT_MASK: 48
+    	OBJECT: 101 65536 AUTO
+    	CLASS: TRIGGER STANDARD
+    	CLIENT: SYSTEM
+    	MESSAGE: USER_MSG 801
+    	OBJECT_EXCLUDE: 101 AUTO
+    SEQEND
+
+    The 3 things you need from the table below are the ID # and ground
+    item to use. The ID# must go in the INF replacing the 101 in example
+    above.Also you must change the message number. The proper number can
+    be found in the Local.msg file for your key.
+
+    INVENTORY
+    ITM File	GROUND ITEM
+    ITM FILE	Used FOR	Use_ID #	ITEM_CLASS	LOCAL.MSG #
+    IADEP	USED IN INF	ASSOCIATE DEPUTY RANK	1	BADG	
+    IBRSSKEY	GBRSSKEY	BRASS KEY	101	KEY	301/801
+    ICROWBAR	GROWBAR	CROWBAR	111	PUZZ	305/805
+    IDEP	USEDIN INF	DEPUTY RANK	2	BADG	
+    IGBAR	GGBAR	GOLDBAR	117	GBAR	320
+    IGEAR1	GGEAR1	GEAR1
+    SEE MWG1.PCX	112	PUZZ	318/815
+    IGEAR2	GGEAR2	GEAR2
+    SEE MWG2.PCX	112	PUZZ	318/815
+    IGEAR3	GGEAR3	GEAR3
+    SEE MWG3.PCX	112	PUZZ	318/815
+    IGSAK	GGSAK	GOLD SACK	118	GSAK	321
+    IIDOL	GIDOL	IDOL 	118	GSAK	326/818
+    IINK	GINK	INK BOTTLE	109	PUZZ	816
+    IIRONKEY	GIRONKEY	IRON KEY	100	KEY	300/802
+    IMARSH	USED IN INF	MARSHAL RANK	4	BADG	
+    IRKEY	GIRKEY	ROUND STONE KEY
+    SEE DWKEY2.PCX	108	KEY	313/803
+    ISCOPE	GISCOPE	RIFLE SCOPE	84	WEAP	114
+    ISHER	USED IN INF	SHERRIF RANK	3	BADG	
+    ISHOVEL	GSHOVEL	SHOVEL	110	PUZZ	306
+    ISTEEKEY	GSTEEKEY	STEEL KEY	102	KEY	302/800
+    ISQRKEYA	GSQRKEYA	SQUARE STONE KEY
+    SEE DWSQRKYA.PCX	103	PUZZ	314/804
+    ISQRKEYB	GSQRKEYB	SQUARE STONE KEY
+    SEE DWSQRKYB.PCX	104	KEY	314/804
+    ISQRKEYC	GSQRKEYC	SQUARE STONE KEY
+    SEE DWSQRKYC.PCX	105	KEY	314/804
+    ISQRKEYD	GSQRKEYD	SQUARE STONE KEY
+    SEE DWSQRKYD.PCX	106	KEY	314/804
+    ISQRKEYE	GSQRKEYE	SQUARE STONE KEY
+    SEE DWSQRKYE.PCX	107	KEY	314/804
+
+    ------------------------------------------------------------------------
+    *INT VOL_FEET*
+
+VOL_FEET 124
+    Specifies the sound volume for the players foot steps,Range is 0 - 127. 
+    Used in CID*.ITM and James.ITM files
+
+    ------------------------------------------------------------------------
+    *INT WALK_CHOR*
+
+WALK_CHOR 1
+    The Nwx choreography to play when enemy walks Try ( 1) for
+    Taranantula and (2 ) for poodle 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT WALK_SHOOT_CHOR*
+
+WALK_SHOOT_CHOR 1
+    The Nwx choreography to play when enemy walks and shoots .Doesn`t
+    sem to be used in normal badguy files 
+    Used in badguy files 
+
+------------------------------------------------------------------------
+*INT WATCH_CHOR*
+
+INT WATCH_CHOR 3
+    The Nwx choreography to play when enemy watchs (crouches) Try ( 3) 
+    Used in Badguy Files
+
+
+------------------------------------------------------------------------

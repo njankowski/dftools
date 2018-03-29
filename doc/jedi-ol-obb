@@ -1,0 +1,61 @@
+Jedi Engine Binary Level Object Format for Outlaws (OBB)
+
+"OBject Binary" -> "OBB"
+
+This format is the binary equivalent of the plaintext OBT format.
+
+This format is not documented anywhere, to the best of my knowledge.
+It seems to be used alongside the plaintext OBT format.
+
+
+All multi-byte values are little-endian unless noted otherwise.
+
+All character values are from the ASCII character set.
+
+Fields without '=' have values that will vary.
+
+Fields are described in order of appearance.
+
+Curly braces '{' and '}' are used to logically seperate descriptions.
+
+Coordinates are floating-point numbers in the LVT format.
+They use the IEEE-754 format.
+
+
+GeneralSection
+{
+    uint32  = 0x00000000        // Padding
+    char[4] = ".OBT"            // Magic Identifier
+
+    uint32  = 0x00000000        // Version Section Identifier
+    uint8   = 0x02              // Number of Records Present
+    uint32  = 0x00000001        // Major Version
+    uint32  = 0x0000000         // Minor Version
+
+    uint32  = 0x00000001        // Level Name Section Identifier
+    uint8   = 0x01              // Number of Records Present
+    char[]                      // Level Name as Null-Terminated String
+}
+
+ObjectSection
+{
+    uint32  = 0x00000002        // Object Section Identifier
+    uint8   = 0x01              // Number of Records Present
+    uint32                      // Number of Objects
+    Object
+    {
+        uint32  = 0x00000003    // Object Identifier
+        uint8   = 0x0B          // Number of Records Present
+        char[]                  // Object Name as Null-Terminated String
+        uint32                  // Object ID
+        uint32                  // Sector ID
+        float                   // X (IEEE-754)
+        float                   // Y (IEEE-754)
+        float                   // Z (IEEE-754)
+        float                   // Pitch (IEEE-754)
+        float                   // Yaw (IEEE-754)
+        float                   // Roll (IEEE-754)
+        uint32                  // Flag 0
+        uint32                  // Flag 1
+    }
+}

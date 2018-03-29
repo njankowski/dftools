@@ -1,0 +1,108 @@
+
+  ITM Files
+
+------------------------------------------------------------------------
+*ITM Files General *
+------------------------------------------------------------------------
+
+ITM files contain parameters that control many aspects of the outlaws
+game enviorment.
+The basic header of a ITM file is
+
+ITEM 1.0 	(all files so far 1.0)
+#	comment line
+NAME 	(generaly the same as the file name)
+FUNC <#FUNC> 	(function type)
+ANIM 	(generaly the name of NWX file to animate)
+PRELOAD: 	(in level file)
+DATA 9 	(Use a larger num than the number of parameter lines you have)
+
+The parameter strings are next , There are three types of data used.
+These are on seperate pages ,the files got too large.
+
+FLOAT
+<https://web.archive.org/web/20010127225400fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itmf.htm#FLT>
+Floating point eg: 1.0
+INT
+<https://web.archive.org/web/20010127225400fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itmi.htm#INT>
+Integer eg: 1
+STR
+<https://web.archive.org/web/20010127225400fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itms.htm#STR>
+String eg: help
+
+
+------------------------------------------------------------------------
+
+*FUNC*
+This is the function types found so far. Each function type has a common
+set of variables used with it,,not all variables are used in everycase.
+*Note:* The FUNC ( variable ) appear to be case sensitive. So if your
+creating your own files and it doesn`t work ,something to look for.
+
+Lets break these up in to sub groups
+
+BadGuys	Used For
+BGY_New	for all regular enemy badguys
+
+Level Enemys	Used For
+Bloodeye_New 	BloodEye Tim
+Bob_New	Bob Graham
+Buckshot_New 	Buckshot Bill Morgan
+DrDeath_New	Matt Dr Death & Henry George Bowers
+Dynamite_New	Dynamite Dick Clifton
+Marshal_New	Marshal
+Mary_New	Bloody Mary Nash
+Sanchez_New	Spittin Jack Sanchez
+ShBill_New 	Historical Bill Morgan
+ShBlood_New	Historical Tim BloodEye
+ShChez_New	Historical Sanchez
+ShDick_New	Historical Dynamite Dick
+ShMary_New	Historical Mary
+Simms_New	Chubby Russel Simms
+Slim_New	Slim Sam Fulton
+TwoFeathers_New 	Chief Two Feathers
+Civilian_New	Man1.itm,woman1.itm
+Farmer_New	Rattlesnake Dick Farmer
+
+Misc	Used For
+Chicken_New	Chickens
+FX_MineCar	
+Gen_New	Generators (things that regenerate,spawn) most of these files
+start with Na (new actor)
+Inv_GBallObject 	Multiplayer chicken
+Inv_GBFlagBaseObject	Multiplayer blue flag base ground item
+Inv_GBFlagObject	Multiplayer blue flag ground item
+Inv_GDocObject	Multiplayer ground document
+Inv_GenericObject 	Generic items ammo ,armor etc ,used internaly (inventory)
+Inv_GRFlagBaseObject	MP red flag base ground item
+Inv_GRFlagObject	MP red flag ground item
+Inv_GroundObject	Ground objects ammo,oil,keys etc (you pick up these)
+Inv_GSafeObject	
+Inv_GSheriffStar 	Sheriffs star you pick up
+Inv_GVanishingCream	Vanishing cream you pick up
+Inv_HealthObject	Health items used internaly (inventory)
+Inv_IBallObject	MP chicken used internaly (inventory)
+Inv_IBFlagObject	MP blue flag used internaly (inventory)
+Inv_IDocObject	MP document used internaly (inventory)
+Inv_InstantGroundObject	health items you pick up (ground object)
+Inv_IRFlagObject	MP red flag used internaly (inventory)
+Inv_Object	cows,horses,bottles etc shootable objects
+Node_New	Hide node and Nav nodes,placed to help your enemies hide or
+navigate to positions
+NULL	cactus ,trees items only take up space
+
+Weapons	Used For
+shot_ProjectileDispatch	Dyanmite pick up item
+Weapon_DBShotgunHandler	Double shotgun variable files
+Weapon_FistHandler	Fist variables
+Weapon_GatlingHandler	GatlingGun variables
+Weapon_KnifeHandler	Knife variables
+Weapon_PistolHandler	Pistol variables
+Weapon_RifleHandler	Rifle variables
+Weapon_SawedShotgunHandler	SawedOff shotgun variables
+Weapon_ShotgunHandler	Shotgun variables
+Weapon_TNTHandler	Dynamite variables
+x	Dynamite and Knife action files
+
+
+------------------------------------------------------------------------

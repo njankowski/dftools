@@ -1,0 +1,296 @@
+Jedi Engine Binary Level Geometry Format for Outlaws (LVB)
+
+"LeVel Binary" -> "LVB"
+
+This format is the binary equivalent of the plaintext LVT format.
+
+This format is not documented anywhere, to the best of my knowledge.
+It seems to be used alongside the plaintext LVT format.
+
+
+All multi-byte values are little-endian unless noted otherwise.
+
+All character values are from the ASCII character set.
+
+Fields without '=' have values that will vary.
+
+Fields are described in order of appearance.
+
+Curly braces '{' and '}' are used to logically seperate descriptions.
+
+Coordinates are floating-point numbers in the LVT format.
+They use the IEEE-754 format.
+
+
+GeneralSection
+{
+    uint32  = 0x00000000    // Padding
+    char[4] = ".LVT"        // Magic Identifier
+
+    uint32  = 0x00000000    // Version Section Identifier
+    uint8   = 0x02          // Number of Records Present
+    uint32  = 0x00000001    // Major Version
+    uint32  = 0x00000001    // Minor Version
+
+    uint32  = 0x00000001    // Level Name Section Identifier
+    uint8   = 0x01          // Number of Records Present
+    char[]                  // Level Name as Null-Terminated String
+
+    uint32  = 0x00000002    // Level Version Section Identifier
+    uint8   = 0x02          // Number of Records Present
+    uint32  = 0x00000416    // Level Major Version
+    uint32  = 0x000053F9    // Level Minor Version
+                            // Format is "<major>.<minor / 1,000,000>"
+}
+
+PaletteSection
+{
+    uint32  = 0x00000003    // Palette Section Identifier
+    uint8   = 0x01          // Number of Records Present
+    uint32                  // Number of Palettes
+    Palette
+    {
+        uint32 = 0x00000004     // Palette List Identifier
+        uint8  = 0x01           // Number of Records Present
+        char[]                  // Palette Name as Null-Terminated String
+    }
+}
+
+ColormapSection
+{
+    uint32  = 0x00000005    // Colormap Section Identifier
+    uint8   = 0x01          // Number of Records Present
+    uint32                  // Number of Colormaps
+    Colormap
+    {
+        uint32 = 0x00000006     // Colormap List Identifier
+        uint8  = 0x01           // Number of Records Present
+        char[]                  // Colormap Name as Null-Terminated String
+    }
+}
+
+MusicSection
+{
+    uint32  = 0x00000007    // Music Section Identifier
+    uint8   = 0x01          // Number of Records Present
+    char[]                  // MSC Name as Null-Terminated String
+}
+
+ParallaxSection
+{
+    uint32  = 0x00000008    // Parallax Section Identifier
+    uint8   = 0x02          // Number of Records Present
+    float                   // X Parallax (IEEE-754)
+    float                   // Y Parallax (IEEE-754)
+}
+
+LightSourceSection
+{
+    uint32  = 0x00000009    // Light Source Section Identifier
+    uint8   = 0x04          // Number of Records Present
+    float[4]                // Light Source Values (IEEE-754)
+}
+
+ShadeSection
+{
+    uint32  = 0x0000000A    // Shade Section Identifier
+    uint8   = 0x01          // Number of Records Present
+    uint32                  // Number of Shades
+    Shade
+    {
+        uint32 = 0x0000000B     // Shade Identifier
+        uint8  = 0x06           // Number of Records Present
+        uint32                  // Shade ID
+        uint32                  // Shade Parameter 1
+        uint32                  // Shade Parameter 2
+        uint32                  // Shade Parameter 3
+        uint32                  // Shade Parameter 4
+        char[2]                 // Shade Parameter 5 (Single Character + Null-Terminator)
+    }
+}
+
+TextureSection
+{
+    uint32  = 0x0000000C    // Texture Section Identifier
+    uint8   = 0x01          // Number of Records Present
+    uint32                  // Number of Textures
+    Texture
+    {
+        uint32 = 0x0000000D     // Texture Identifier
+        uint8  = 0x01           // Number of Records Present
+        char[]                  // Texture Name as Null-Terminated String
+    }
+}
+
+SectionSection
+{
+    uint32  = 0x0000000E    // Sector Section Identifier
+    uint8   = 0x01          // Number of Records Present
+    uint32                  // Number of Sectors
+    Sector
+    {
+        uint32 = 0x0000000F     // Sector Identifier
+        uint8  = 0x01           // Number of Records Present
+        uint32                  // Sector ID
+
+        uint32 = 0x00000010     // Sector Name Identifier
+        uint8                   // Number of Records Present
+        // Only if (Number of Records Present > 0)
+        char[]                  // Sector Name as Null-Terminated String
+
+        uint32 = 0x00000011     // Ambient Identifier
+        uint8  = 0x01           // Number of Records Present
+        uint32                  // Ambient Value
+
+        uint32 = 0x00000012     // Palette Identifier
+        uint8  = 0x01           // Number of Records Present
+        uint32                  // Palette Value
+
+        uint32 = 0x00000013     // Colormap Identifier
+        uint8  = 0x01           // Number of Records Present
+        uint32                  // Colormap Value
+
+        uint32 = 0x00000014     // Friction Identifier
+        uint8  = 0x01           // Number of Records Present
+        float                   // Friction Value (IEEE-754)
+
+        uint32 = 0x00000015     // Gravity Identifier
+        uint8  = 0x01           // Number of Records Present
+        float                   // Gravity Value (IEEE-754)
+
+        uint32 = 0x00000016     // Elasticity Identifier
+        uint8  = 0x01           // Number of Records Present
+        float                   // Elasticity Value (IEEE-754)
+
+        uint32 = 0x00000017     // Velocity Identifier
+        uint8  = 0x01           // Number of Records Present
+        // (X, Y, Z)
+        float[3]                // Velocity Values (IEEE-754)
+
+        uint32 = 0x00000018     // Vertical Adjoin Identifier
+        uint8  = 0x01           // Number of Records Present
+        // (-1) if not present.
+        int32                   // Vertical Adjoin ID
+
+        uint32 = 0x00000019     // Floor Sound Identifier
+        uint8  = 0x01           // Number of Records Present
+        char[]                  // Floor Sound Material as Null-Terminated String
+
+        uint32 = 0x0000001A     // Floor Y Identifier
+        uint8  = 0x05           // Number of Records Present
+        float                   // Floor Altitude (IEEE-754)
+        uint32                  // Floor Texture
+        float                   // Floor Texture Offset X (IEEE-754)
+        float                   // Floor Texture Offset Y (IEEE-754)
+        float                   // Floor Texture Angle (IEEE-754)
+
+        uint32 = 0x0000001B     // Ceiling Y Identifier
+        uint8  = 0x05           // Number of Records Present
+        float                   // Ceiling Altitude (IEEE-754)
+        uint32                  // Ceiling Texture
+        float                   // Ceiling Texture Offset X (IEEE-754)
+        float                   // Ceiling Texture Offset Y (IEEE-754)
+        float                   // Ceiling Texture Angle (IEEE-754)
+
+        uint32 = 0x0000001C     // Floor Overlay Identifier
+        uint8  = 0x04           // Number of Records Present
+        int32                   // Floor Overlay Texture
+        float                   // Floor Overlay Texture Offset X (IEEE-754)
+        float                   // Floor Overlay Texture Offset Y (IEEE-754)
+        float                   // Floor Overlay Texture Angle (IEEE-754)
+
+        uint32 = 0x0000001D     // Ceiling Overlay Identifier
+        uint8  = 0x04           // Number of Records Present
+        int32                   // Ceiling Overlay Texture
+        float                   // Ceiling Overlay Texture Offset X (IEEE-754)
+        float                   // Ceiling Overlay Texture Offset Y (IEEE-754)
+        float                   // Ceiling Overlay Texture Angle (IEEE-754)
+
+        uint32 = 0x0000001E     // Floor Offsets Identifier
+        uint8  = 0x01           // Number of Records Present
+        uint32                  // Floor Offsets Parameter 0
+
+        // This field is not used.
+        // This is a best-guess at its structure.
+        // It would appear as a sector attribute called "OFFSET" if it were used.
+        uint32 = 0x0000001F     // Offset Identifier
+        uint8  = 0x04           // Number of Records Present
+        float                   // Unknown (IEEE-754)
+        int32                   // Unknown
+        float                   // Unknown (IEEE-754)
+        float                   // Unknown (IEEE-754)
+
+
+        uint32 = 0x00000020     // Flags Identifier
+        uint8  = 0x02           // Number of Records Present
+        int32                   // Flag 0
+        int32                   // Flag 1
+
+        uint32 = 0x00000021     // Sloped Floor Identifier
+        uint8  = 0x03           // Number of Records Present
+        int32                   // Sloped Floor Sector (Index, Not Sector ID)
+        int32                   // Sloped Floor Wall (Top of Slope)
+        float                   // Sloped Floor Angle (IEEE-754)
+
+        uint32 = 0x00000022     // Sloped Ceiling Identifier
+        uint8  = 0x03           // Number of Records Present
+        int32                   // Sloped Ceiling Sector (Index, Not Sector ID)
+        int32                   // Sloped Ceiling Wall (Top of Slope)
+        float                   // Sloped Ceiling Angle (IEEE-754)
+
+        uint32 = 0x00000023     // Layer Identifier
+        uint8  = 0x01           // Number of Records Present
+        float                   // Layer Value (IEEE-754)
+
+        uint32 = 0x00000024     // Vertices Section Identifier
+        uint8  = 0x01           // Number of Records Present
+        uint32                  // Number of Vertices
+        Vertex
+        {
+            uint32 = 0x00000025     // Vertex Identifier
+            uint8  = 0x02           // Number of Records Present
+            float                   // X (IEEE-754)
+            float                   // Z (IEEE-754)
+        }
+
+        uint32 = 0x00000026     // Walls Section Identifier
+        uint8  = 0x01           // Number of Records Present
+        uint32                  // Number of Walls
+        Wall
+        {
+            uint32 = 0x00000027     // Wall Identifier
+            uint8  = 0x16           // Number of Records Present
+
+            uint32                  // Wall ID
+
+            uint32                  // Left Vertex
+            uint32                  // Right Vertex
+
+            uint32                  // Middle Texture ID
+            float                   // Middle Texture X Offset (IEEE-754)
+            float                   // Middle Texture Y Offset (IEEE-754)
+
+            uint32                  // Top Texture ID
+            float                   // Top Texture X Offset (IEEE-754)
+            float                   // Top Texture Y Offset (IEEE-754)
+
+            uint32                  // Bottom Texture ID
+            float                   // Bottom Texture X Offset (IEEE-754)
+            float                   // Bottom Texture Y Offset (IEEE-754)
+
+            uint32                  // Overlay Texture ID
+            float                   // Overlay Texture X Offset (IEEE-754)
+            float                   // Overlay Texture Y Offset (IEEE-754)
+
+            int32                   // Adjoin
+            int32                   // Mirror
+            int32                   // Double Adjoin
+            int32                   // Double Mirror
+
+            uint32                  // Flag 0
+            uint32                  // Flag 1
+
+            uint32                  // Light
+        }
+    }
+}

@@ -1,0 +1,682 @@
+
+  ITM Files
+
+------------------------------------------------------------------------
+*STR *
+------------------------------------------------------------------------
+
+*Listing of String type variables and their use.The* *letters "STR"
+preceed all the variable types plus a "space".Then the actual variable.*
+
+ACTION_SOUND_1 <#STR_action_sound>
+ACTION_SOUND_2
+ALERT_TAUNTS <#STR_alert_taunts>
+AMMO <#STR_ammo>
+AMMO_2 <#STR_ammo_2>
+BOSS <#STR_boss>
+DEAD_ITEM <#STR_dead_item>
+DEFSND_PICKUP <#STR_defsnd_pickup>
+DIE_SOUND <#STR_die_sound>
+DROP_ITEM <#STR_drop_item>
+EXPLOSION <#STR_explosion>
+EXPLODE_SOUND <#STR_explode_sound>
+FIRE_SOUND_1 <#STR_fire_sound_1>
+FIRE_SOUND_2 <#STR_fire_sound_2>
+FUSE_SOUND <#STR_fuse_sound>
+GENERATE <#STR_generate>
+GROUND_ITEM <#STR_ground_item>
+HIT_SOUND <#STR-hit_sound>
+ITEM_CLASS <#STR_item_class>
+ITEM_CLASS1
+LOS <#STR_los>
+LOS_TAUNTS <#STR_los_taunts>
+MASTER <#STR_master>
+NO_AMMO_SOUND_1 <#STR_no_ammo_sound_1>
+NO_AMMO_SOUND_2 <#STR_no_ammo_sound_2>
+NO_LOS_TAUNTS <#STR_no_los_taunts>
+OPEN1 <#STR_open>
+PC_0 <#STR_pc_0>
+P_MSG <#STR_p_msg>
+P_MSG_TO <#STR_p_msg_to>
+PICKUP <#STR_pickup>
+PICKUP1 <#STR_pickup1>
+PICKUP_SOUND <#STR_pickup_sound>
+PLAYER_WAX <#STR_player_wax>
+PROJECTILE <#STR_projectile>
+RELOAD_SOUND <#STR_reload_sound>
+SCOPE_ITEM <#STR_scope_item>
+SHOOT_SOUND <#STR_shoot_sound>
+SND_ARMOR1HIT <#STR_snd_armor1hit>
+SND_ARMOR2HIT <#STR_snd_armor2hit>
+SND_ARMOR3HIT <#STR_snd_armor3hit>
+SND_CHOKE <#STR_snd_choke>
+SND_CRUNCH <#STR_snd_crunch>
+SND_CRUSH <#STR_snd_crush>
+SND_DIE <#STR_snd_die>
+SND_GASP <#STR_snd_gasp>
+SND_GOTSHOT <#STR_snd_gotshot>
+SND_HITHEAD <#STR_snd_hithead>
+SND_JUMP <#STR_snd_jump>
+SND_LAND <#STR_snd_land>
+SND_LANDLT <#STR_snd_landlt>
+SND_LIGHTLAMP< <#STR_snd_lightlamp>
+SND_SHRIEK <#STR_snd_shriek>
+SND_SPLASH <#STR_snd_splash>
+SND_SPLAT <#STR_snd_splat>
+SND_TIRED <#STR_snd_tired>
+SND_WATERDIE <#STR_snd_waterdie>
+SOUND_0
+<#STR_sound_0>START_ITEM_1 <#STR_start_item_1>
+THROW_ITEM <#STR_throw_item>
+TAUNT_TYPE <#STR_taunt_type>
+TYPE <#STR_type>
+SND_USE_F <#STR_snd_use_f>
+SND_USE_S <#STR_snd_use_s>
+WEAPON <#STR_weapon>
+WEAPON_1 <#STR_weapon_1>
+
+
+------------------------------------------------------------------------
+*STR Variable Descriptions*
+
+------------------------------------------------------------------------
+*STR ACTION_SOUND _1*
+ACTION_SOUND_1 THROW
+    does the first action sound, ACTION_SOUND_2 does the second action
+    sound also throw. 
+    Used in weapon description files 
+
+------------------------------------------------------------------------
+*STR ALERT_TAUNTS*
+
+ALERT_TAUNTS c109.wav
+    Sounds to play when an enemy sees the player after not seeing him
+    for more than 10 secs
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR AMMO*
+
+AMMO ibullit
+    Specifies the ammo to be used in the weapon 
+    Used in weapon description files 
+
+------------------------------------------------------------------------
+*STR AMMO_2*
+
+AMMO_2 ibullit
+    Specifies the ammo to be used with the weapon. *Note:* No Ammo_1 as
+    the fist does not have ammo *Also See:* Weapon_1 <#STR_weapon_1>
+
+    Here is a list of the other Ammo`s
+        STR AMMO_3 icart
+        STR AMMO_4 ishells
+        STR AMMO_5 ishells 
+        STR AMMO_6 ishells 
+        STR AMMO_7 idynam 
+        STR AMMO_8 iknife 
+        STR AMMO_9 iclip 
+
+    Used in OutLaws.itm
+
+------------------------------------------------------------------------
+*STR BOSS*
+
+BOSS TRUE
+    Makes the badguy show up on the map in easy mode..Also makes the
+    "You Killed" message appear in historical levels.
+    Used in badguy files
+
+------------------------------------------------------------------------
+*STR DEAD_ITEM*
+
+DEAD_ITEM gdynam.itm
+    Defines the item to display on the ground when the weapon has
+    finshed firing (throw).
+    Used in the weapon description file (pdynam.itm ) or pknife
+
+------------------------------------------------------------------------
+*STR DEFSND_PICKUP*
+
+DEFSND_PICKUP powerup
+    Defines the sound to use for pickups.
+    Used in Outlaws.itm 
+
+------------------------------------------------------------------------
+*STR DIE_SOUND*
+
+DIE_SOUND BGY1DIE.wav
+    Sound to be played when enemy killed 
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR DROP_ITEM*
+
+DROP_ITEM grop1.itm
+    The item to be dropped when enemy killed 
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR EXPLODE_SOUND*
+
+EXPLODE_SOUND explode
+    The WAV file to play when item explodes ,(in this case dynamite ,and
+    the description file which this is used in is pdynam.itm) *Note: *no
+    extension specified.
+    Used in weapon description files 
+
+------------------------------------------------------------------------
+*STR EXPLOSION*
+
+EXPLOSION tntboom.nwx
+    The NWX file to play when item explodes ,(in this case dynamite ,and
+    the description file which this is used in is pdynam.itm)
+    Used in weapon description files 
+
+------------------------------------------------------------------------
+*STR FIRE_SOUND_1*
+
+FIRE_SOUND_1 single
+    The sound to be played when weapon fires in normal mode 
+    Used in weapon files
+    ------------------------------------------------------------------------
+    *STR FIRE_SOUND_2* 
+FIRE_SOUND_2 single
+    The sound to be played when weapon fires in secondary mode 
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR FUSE_SOUND*
+
+FUSE_SOUND fuse
+    Wav name to play when fuse is lite used in dynamite files
+    (PDYNAM.ITM).*NOTE:*. no file extension specified
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR GENERATE*
+
+GENERATE BGY1.ITM
+    The object to be generated
+    Used in generator files 
+
+------------------------------------------------------------------------
+*STR GROUND_ITEM*
+
+GROUND_ITEM ggatgun
+    The ground item that is picked up by the player.Does not use the itm
+    extension. 
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR HIT_SOUND*
+
+HIT_SOUND BGYHIT1.WAV
+    Sound to be played when enemy wounded 
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR ITEM_CLASS *
+
+ITEM_CLASS AMMO
+    the class the item is 
+    List of values 
+
+  * amo(ammunition)
+  * amr(armor)
+  * badg(badge -eg: historical marshal)
+  * fuel(fuel -eg:oil))
+  * gbar(gold bar)
+  * gsak(gold sack)
+  * heal(health -eg: canteen)
+  * key(key -eg: brasskey)
+  * puzz(puzzle -eg: gears)
+  * weap(weapons)
+
+------------------------------------------------------------------------
+*STR LOS*
+
+LOS TRUE
+    Checks to see if Player is in sight or not. (LOS = Line of sight).
+    Variable choices are TRUE or False
+    Used in generator files 
+
+------------------------------------------------------------------------
+*STR LOS_TAUNTS*
+
+LOS_TAUNTS c105.wav
+    Sounds to play when the enemy sees the player (LOS = Line of sight) 
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR MASTER*
+
+MASTER OFF
+    Defines if an object is on or off at start up,generaly used for
+    generators Can be ON or OFF.
+    Used in generator files 
+
+------------------------------------------------------------------------
+*STR NO_AMMO_SOUND_1*
+
+NO_AMMO_SOUND_1 pistout
+    Sound to play when the weapon ammo is empty in normal mode 
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR NO_AMMO_SOUND_2*
+
+NO_AMMO_SOUND_2 pistout
+    Sound to play when the weapon ammo is empty in secondary mode 
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR NO_LOS_TAUNTS*
+
+NO_LOS_TAUNTS c105.wav
+    Sounds to play when the enemy does not see the player(Los = Line of
+    sight)
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR OPEN 1*
+
+OPEN 1 start.san
+    Movie to play
+    Used in OutLaws.itm
+
+------------------------------------------------------------------------
+*STR PC_0*
+
+PC_0 IBRSSKEY
+    This is object number # 0 that must be picked up to complete
+    level,For more objects you would change the PC_0 to PC_1 etc. Using
+    the cheat code OLJACKPOT gives the player these items.
+    Used in Level ITM files 
+
+------------------------------------------------------------------------
+*STR P_MSG*
+
+P_MSG NEXT_STOP
+    Allows the use of sending a message to the INF
+    <https://web.archive.org/web/20010128000900fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/inf.htm#in_mess>
+    when an object is picked up. All Inf message key words should work
+    Used in Object ITM files 
+
+------------------------------------------------------------------------
+*STR P_MSG_TO*
+
+P_MSG_TO AC34
+    Allows the use of sending messages to triggers and (system) when
+    object is picked up.
+    *Samples:* 
+
+  * P_MSG_TO AC34 {*sector ID* [found in LVT file]}
+  * P_MSG_TO AC34(#45CD) {*sector ID*}({*WALL ID*)}
+  * P_MSG_TO !#AB65 {*Actor ID* [actor =IE: enemy found in OBT file]}
+
+    Used in Object ITM files 
+
+------------------------------------------------------------------------
+*STR PICKUP *
+
+PICKUP ibplate
+    Names the item to pick up (for inventory) also used with INT COUNT
+    <https://web.archive.org/web/20010128000900fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itmi.htm#int_count>
+
+    List of values 
+
+  * ibplate
+  * ibrsskey
+  * ibullit
+  * icart
+  * icrowbar
+  * idocbag
+  * iink
+  * iironkey
+  * ipistol
+  * irifle
+  * iscope
+  * isgun
+  * ishells
+  * ishovel
+  * isteelkey
+
+------------------------------------------------------------------------
+*STR PICKUP1*
+
+PICKUP1 ishovel
+    Same function as STR PICKUP ,but used when more than one different
+    items are to be picked up 
+    Used in Ground Object ITM files 
+
+------------------------------------------------------------------------
+*STR PICKUP_SOUND*
+
+PICKUP_SOUND COOL2
+    Used in ground items ,this describes the sound to play when item is
+    picked up (eg: gambelt.itm).*Note:* no wav extension specified
+    Used in ground objects files 
+
+------------------------------------------------------------------------
+*STR PLAYER_WAX*
+
+PLAYER_WAX twofeath.nwx
+    Defines the costume the player will use(look like),Multiplayer
+    player description file
+    Used in Costume ID (Player) description files (CID*.ITM)
+
+------------------------------------------------------------------------
+*STR PROJECTILE*
+
+PROJECTILE pdynam
+    Used in the (ground item weapon file gdynam.itm in this case) this
+    describes the projectile to be used
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR RELOAD_SOUND*
+
+RELOAD_SOUND preload
+    Sound to be played when weapon is reloading 
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR SCOPE_ITEM*
+
+SCOPE_ITEM iscope
+    Used in the weapon inventory file i*rifle.itm , this describes the
+    item needed to activate scope.
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR SHOOT_SOUND*
+
+SHOOT_SOUND BADGUN.WAV
+    Sound to be played when enemy shoots 
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR SND_ARMOR1HIT*
+
+SND_ARMOR1HIT armor1.wav
+    Defines the sound player will use when light boiler plate is hit
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR SND_ARMOR2HIT*
+
+SND_ARMOR2HIT armor2.wav
+    Defines the sound player will use when medium boiler plate is hit
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR SND_ARMOR3HIT*
+
+SND_ARMOR3HIT armor1.wav
+    Defines the sound player will use when heavy boiler plate is hit
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR SND_CHOKE*
+
+SND_CHOKE choke.wav
+    Defines the choke sound the player will use
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_CRUNCH*
+
+SND_CRUNCH crunch.wav
+    Defines the crunch sound the player will use
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_CRUSH*
+
+SND_CRUSH crush.wav
+    Defines the crush sound the player will use when crushed
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_DIE*
+
+SND_DIE tdie.wav
+    Defines the die sound the player will use when killed
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_GASP*
+
+SND_GASP gasp.wav
+    Defines the sound player will use when he is running out of air
+    underwater
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR SND_GOTSHOT*
+
+SND_GOTSHOT gotshot.wav
+    Defines the gotshot sound the player will use when he gets shot
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR SND_HITHEAD*
+
+SND_HITHEAD hithead.wav
+    Defines the headhit sound the player will use when hits his head
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_JUMP*
+
+SND_JUMP jajump.wav
+    Defines thejump sound the player will use when he jumps
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_LAND*
+
+SND_LAND land.wav
+    Defines the landing sound the player will use when lands after jumping
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_LANDLT*
+
+SND_LANDLT landlite.wav
+    Defines the sound the player will use when lands after a small jump
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_LIGHTLAMP*
+
+SND_LIGHTLAMP light.wav
+    Defines the lighting lantern sound the player will use 
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_SHRIEK*
+
+SND_SHRIEK shriek.wav
+    Defines the sound the player will use when he ?? shrieks (falling
+    long distance )??
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR SND_SPLASH*
+
+SND_SPLASH smsplash.wav
+    Defines the sound the player will use when he goes in water ?? or
+    shoots into water
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR SND_SPLAT*
+
+SND_SPLAT splat.wav
+    Defines the splat sound the player will use when blood splatters
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SND_TIRED*
+
+SND_TIRED tired.wav
+    Defines the tired sound the player will use when he is tired from
+    running or jumping
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR SND_USE_F*
+
+SND_USE_F locked
+    Defines the sound the player will hear when he does not have the
+    proper key to open something *(Fail)*
+    Used in key inventory files such as ibrsskey.itm
+
+------------------------------------------------------------------------
+*STR SND_USE_S*
+
+SND_USE_S unlocked
+    Defines the sound the player will hear when he does have the proper
+    key to open something *(Success)*
+
+Used in key inventory files such as ibrsskey.itm
+
+------------------------------------------------------------------------
+*STR SND_WATERDIE*
+
+SND_WATERDIE waterdie.wav
+    Defines the dying sound the player will use when he drowns
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP 
+
+------------------------------------------------------------------------
+*STR SOUND_0*
+
+SOUND_0 swallow
+    Used in inventory item file IELIXER.ITM ,this describes the sound to
+    use when item is used.*Note:* no wav extension specified
+    Used in weapon files 
+
+------------------------------------------------------------------------
+*STR START_ITEM_1*
+
+START_ITEM_1 ibullit
+    Defines the type of ammo that is assigned to player when first
+    starting.Must be used in conjunction with INT 
+    START_COUNT_1 .Also to add more ammo types use START_ITEM_2 etc .
+    Used in Costume ID (Player) description files (CID*.ITM),CIDJAMES is
+    normal player the other CID are MP
+
+------------------------------------------------------------------------
+*STR TAUNT_TYPE*
+
+TAUNT_TYPE SIMMS
+    Changes the souind of the taunts, available values are
+    ,SIMMS,TOWN,TRAIN,CLIFF,MINE
+    Used in Level.itm files 
+
+------------------------------------------------------------------------
+*STR THROW_ITEM*
+
+THROW_ITEM pdynam.itm
+    This is the item that will be thrown.usualy pdynam.itm or knife,but
+    you could try some others for fun. Enemy will only throw one item at
+    a time. *Note:* Float Throw_ *
+    <https://web.archive.org/web/20010128000900fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itmf.htm>
+    must also be set 
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR TYPE*
+
+TYPE AMB_SOUND
+    Has several uses depending on file type
+	
+Heres the Type variables: 	Used in generator files
+ITEM 	generates an item
+ENEMY 	generates an enemy
+AMB_SOUND 	generates an ambient sound (background)
+POINT_SOUND 	generates a point sound (must be close to generator to hear
+it)
+
+	
+Node_New FUNC 	used in Hidenode and Navnode.itm files
+HIDE 	Used to help a badguy navigate to a hiding spot
+NAV 	Used to help a badguy navigate to a lookout point
+
+	
+Inv_Object FUNC 	eg: barrel1.itm files & horsend.itm
+SHOOT 	displays the next nwx chor when shot
+NUDGE 	acts like a trigger when nudged
+
+------------------------------------------------------------------------
+*STR WEAPON*
+
+WEAPON shotgun
+    Defines the weapon the enemy will use. *See Below*, also Float
+    Damage
+    <https://web.archive.org/web/20010128000900fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itmf.htm#FLOAT_damage>
+    and INT Shot_Multiples
+    <https://web.archive.org/web/20010128000900fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itmi.htm#INT_shot_multiples>
+
+    The WeaponX files will react like a pistol unless a weaponx.itm file
+    is created. 
+    Spread,range,rate,mass values are used from the weaponx.itm and
+    damage and shot multiples are used from the badguy itm file. 
+
+  * PISTOLipistol.itm
+  * SHOTGUNbgsgun.itm
+  * FISTbgfist.itm
+  * WEAPON0weapon0.itm
+  * WEAPON1weapon1.itm
+  * WEAPON2weapon2.itm
+  * WEAPON3weapon3.itm
+  * WEAPON4weapon4.itm
+  * WEAPON5weapon5.itm
+  * WEAPON6weapon6.itm
+  * WEAPON7weapon7.itm
+  * WEAPON8weapon8.itm
+  * WEAPON9weapon9.itm
+
+    Used in bad guy files 
+
+------------------------------------------------------------------------
+*STR WEAPON_1*
+
+WEAPON_1 ifist
+    Describes the weapon to be used in which position (slot)
+
+    Heres the rest of the normal ones
+        STR WEAPON_2 ipistol
+        STR WEAPON_3 irifle 
+        STR WEAPON_4 isgun 
+        STR WEAPON_5 idbsgun 
+        STR WEAPON_6 isawgun 
+        STR WEAPON_7 idynam 
+        STR WEAPON_8 iknife 
+        STR WEAPON_9 igatgun 
+
+    Used in Outlaws.itm 
+
+------------------------------------------------------------------------
+

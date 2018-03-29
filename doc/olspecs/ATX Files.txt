@@ -1,0 +1,32 @@
+
+  ATX Files
+
+------------------------------------------------------------------------
+
+*ATX Files General*
+
+Atx files are used for such things as switches and breaking windows.They
+can be used to play sound files and mostly used for switching textures
+to simulate motion.
+
+The header for an ATX file is:
+
+ATX 1.0
+INST 15
+
+------------------------------------------------------------------------
+
+*ATX Variables*
+
+Here is the variables used in an Atx file and their meaning
+
+INST %d	- Number of animation commands
+TEXTURE %s	- change texture to %s
+- PCX file extension must be specified
+START_SOUND %d %s	- start sound %s. %d must be a set of flags. Typically 64.
+- only the sound file name no extension is specified
+STOP	- stop animation
+GOTO %d	- can be GOTO, GOTO_STOP and GOTO STOP. Go to command # %d
+RATE %d	- changes rate of animation to %d. Units unknown. fps?
+
+------------------------------------------------------------------------

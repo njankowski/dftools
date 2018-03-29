@@ -1,0 +1,34 @@
+
+  Welcome To Outlaws Editing Ver 0.2
+
+------------------------------------------------------------------------
+
+*General *
+
+
+      Welcome
+
+This help is a little more formal type of presentation of outlaws files.
+The main authors are Alexei Novikov and David lovejoy. You`ll have to
+bear with us as documentaion takes considerable time to research and
+compile into something useable.If you would like to contribute something
+feel free to contact us.
+
+
+      How to contact us
+
+Use the OutLaws Forum
+<https://web.archive.org/web/20010124073800/http://www.code-alliance.com/>
+at (http://www.code-alliance.com/ ) or use the message board on the
+LawMaker Site.
+
+If you wish to add updates to the specs, modify the appropriate pages,
+and add you name to the creditd page, zip the pages and mail to "
+plugins@code-alliance.com".
+
+------------------------------------------------------------------------
+
+, Dark Forces are © ® ™ LucasArts Entertainment Company 1994 -1997
+Copyright of © David Lovejoy , Alexei Novikov 1997
+
+

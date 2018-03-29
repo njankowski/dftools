@@ -1,0 +1,224 @@
+Jedi Engine Binary Level Geometry Format for Star Wars: Dark Forces (LVB)
+
+This format is the binary equivalent of the plaintext LEV format.
+However, this format does not implement a "WALK" field when describing sector
+walls.
+
+This format is not documented anywhere, to the best of my knowledge.
+It was used for the demonstration release of Dark Forces, and was scrapped in
+favor of the plain-text format for the final release of the game.
+
+
+All multi-byte values are little-endian unless noted otherwise.
+
+All character values are from the ASCII character set.
+
+Fields without '=' have values that will vary.
+
+Fields are described in order of appearance.
+
+Curly braces '{' and '}' are used to logically seperate descriptions.
+
+Coordinates are floating-point numbers in the LEV format, with two points of
+decimal precision.
+They are stored as 32-bit integers in this format, to be interpreted as
+fixed-point 16.16 numbers.
+That is, 16 bits of integer precision and 16 bits of decimal precision.
+
+
+GeneralSection
+{
+    char[3] = "LVB"                     // Binary level format identifier. (LeVel Binary)
+    uint8 = 0xF4                        // Unknown
+    uint32                              // Size of the LVB - 8. Eight bytes for this section and the
+                                        // VER section.
+
+
+    char[3] = "VER"                     // Version identifier. (VERsion)
+    uint8                               // Major version.
+    uint8                               // Minor version.
+    uint8 = 0                           // Unknown
+
+
+    char[3] = "LNA"                     // Level name identifier. (Level NAme)
+    uint8                               // Length of name. Includes null-terminator.
+    char[length]                        // Name as null-terminated string.
+
+
+    char[3] = "PFL"                     // Palette name identifier. (Palette For Level)
+    uint8                               // Length of name. Includes null-terminator.
+    char[length]                        // Name as null-terminated string.
+
+
+    char[3] = "MFL"                     // Music name identifier. (Music For Level)
+    uint8                               // Length of name. Includes null-terminator.
+    char[length]                        // Name as null-terminated string.
+
+
+    char[3] = "LNF"                     // Sky parallax identifier. (LNF?)
+    uint8 = 0x08                        // Size of parallax section in bytes. Always 8 bytes.
+    uint32                              // X parallax as a fixed-point 16.16 number.
+    uint32                              // Y parallax as a fixed-point 16.16 number.
+}
+
+
+TextureSection
+{
+    char[3] = "TEX"                     // Textures section identifier. (TEXtures)
+    uint8 = 0xF4
+    uint32                              // Size of textures section in bytes.
+
+
+    char[3] = "TNO"                     // Texture count identifier. (Texture NO)
+    uint8 = 0x04                        // Size of texture count section in bytes. Always 4 bytes.
+    uint32                              // Number of textures.
+
+
+    Texture
+    {
+        char[3] = "TNA"                 // Texture name identifier. (Texture NAme)
+        uint8                           // Length of name. Includes null-terminator.
+        uint8[length]                   // Name as null-terminated string.
+    }
+}
+
+
+SectorSection
+{
+
+    char[3] = "SCS"                     // Sectors section identifier. (SeCtorS)
+    uint8 = 0xF4                        // Unknown
+    uint32                              // Size of sectors section in bytes.
+
+
+    char[3] = "SNO"                     // Sector count identifier. (Sector NO)
+    uint8 = 0x04                        // Size of sector count section in bytes. Always 4 bytes.
+    uint32                              // Number of sectors.
+
+
+    Sector
+    {
+        char[3] = "SEC"                 // Sector identifier.
+        uint8 = 0xF4                    // Unknown
+        uint32                          // Size of individual sector section in bytes.
+                                        // That is going to include sector information, vertices, and walls.
+
+
+        // Sector name record is optional, and will not appear if the sector has no name.
+        char[3] = "SNA"                 // Sector NAme
+        uint8                           // Length of name. Includes null-terminator.
+        char[size of name]              // Name as null-terminated string.
+
+
+        char[3] = "SNF"                 // Sector properties. (SNF?)
+        uint8 = 0x2C                    // Length of sector properties section. Always 0x2C bytes.
+
+
+        uint16                          // Floor texture index.
+        int32                           // Floor texture X offset (fixed 16.16).
+        int32                           // Floor texture Y offset (fixed 16.16).
+        uint8                           // Floor texture unused value.
+
+
+        uint16                          // Ceiling texture index.
+        int32                           // Ceiling texture X offset (fixed 16.16).
+        int32                           // Ceiling texture Y offset (fixed 16.16).
+        uint8                           // Ceiling texture unused value.
+
+
+        int32                           // floor altitude (fixed 16.16).
+        int32                           // Ceiling altitude (fixed 16.16).
+        int32                           // Second altitude (fixed 16.16).
+
+
+        uint8                           // Ambient light.
+
+
+        uint8[3]                        // Flag 1, 24-bit Flag
+        uint16                          // Flag 2
+        uint16                          // Flag 3
+
+
+        int16                           // Layer
+
+        Geometry
+        {
+            VertexSection
+            {
+                char[3] = "VNO"         // Number of vertices. (Vertices NO)
+                uint8 = 0x04            // Size of VNO section. Always four bytes.
+                uint32                  // Number of vertices.
+
+
+                Vertex
+                {
+                    char[3] = "VRT"     // VeRTex
+                    uint8 = 0x08        // Size of VRT section. Always eight bytes.
+                    int32               // X (Fixed 16.16)
+                    int32               // Y (Fixed 16.16)
+                }
+            }
+
+            WallSection
+            {
+                char[3] = "WLS"         // WaLLs
+                uint8 = 0xF4            // Unknown
+                uint32                  // Size of WLS section.
+
+
+                char[3] = "WNO"         // Wall NO
+                uint8 = 0x04            // Size of WNO section. Always four bytes.
+                uint32                  // Number of walls.
+
+
+                Wall
+                {
+                    char[3] = "WAL"     // WALl
+                    uint8 = 0x3B        // Size of WAL section in bytes. Always 0x3B.
+
+
+                    uint16              // Middle Texture
+                    int32               // Middle Texture X Offset (Fixed 16.16)
+                    int32               // Middle Texture Y Offset (Fixed 16.16)
+                    uint8               // Middle Texture Unused Field
+
+
+                    uint16              // Top Texture
+                    int32               // Top Texture X Offset (Fixed 16.16)
+                    int32               // Top Texture Y Offset (Fixed 16.16)
+                    uint8               // Top Texture Unused Field
+
+
+                    uint16              // Bottom Texture
+                    int32               // Bottom Texture X Offset (Fixed 16.16)
+                    int32               // Bottom Texture Y Offset (Fixed 16.16)
+                    uint8               // Bottom Texture Unused
+
+
+                    int16               // Sign Texture, (-1) if None
+                    int32               // Sign Texture X Offset (Fixed 16.16)
+                    int32               // Sign Texture Y Offset (Fixed 16.16)
+
+
+                    uint16              // Left Vertex Index
+                    uint16              // Right Vertex Index
+
+
+                    int16               // Adjoin, (-1) if None
+                                        // Sector that shares portal wall.
+                    int16               // Mirror, (-1) if None
+                                        // Wall within adjoining sector that, when combined with this sector and wall, forms a complete portal relationship.
+                    // No WALK field.
+
+
+                    uint16              // Flag 1
+                    uint16              // Flag 2
+                    uint16              // Flag 3
+
+
+                    uint16              // Light
+                }
+            }
+        }
+    }
+}

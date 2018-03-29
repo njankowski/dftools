@@ -1,0 +1,522 @@
+
+  LVT Files
+
+*LVT Files General*
+
+  * LVT Descriptions <#lvtdescrip> 
+
+LVT files contain the level geometry information. It is the equivalent
+of the Dark Forces LEV file. They are similar but has some new additions
+and a few cuts. Outlaws can use either LVB or LVT. The LVB (binary
+version) is smaller in file size, basicly unreadable except with a hex
+editor.The LVT is the Text version and is readable with any text
+editor,the draw back is it takes longer to load and is much larger in
+file size.We will deal with LVT files here.
+
+To run a LVT file you created , at the run command find the path to
+OLWIN.EXE and add the name of the lvt file
+eg: d:\outlaws\olwin.exe front.lvt
+
+A comment line starts with the "#" character.
+
+
+The LVT file can be broken down to several basic parts.
+
+  * LVT Main Section <#lvtm>(only in the file once)
+  * Sector Main Section <#sms> (repeated for each sector)
+  * Sector Vertices <#sv>
+  * Sector Walls <#sw> 
+
+*LVT Main Section *
+
+LVT 1.1
+LEVELNAME FRONT
+VERSION 1619.022497
+PALETTES 2
+   PALETTE: olpal
+   PALETTE: uwater
+CMAPS 2
+   CMAP: olpal
+   CMAP: uwater
+MUSIC TOWN.MSC
+PARALLAX 1024.0000 1024.0000
+LIGHT SOURCE 0.0 0.0 0.0 0.0
+SHADES 1
+   SHADE:  1 200	200 200 10 L	
+TEXTURES 3
+  TEXTURE: DEFAULT.PCX 	 #  0
+  TEXTURE: GAWATER1.PCX	 #  1
+  TEXTURE: GCDRYG.PCX 	 #  2    
+
+
+Next comes the Sector Main Section,Sector Vertices,Sector Walls . These
+3 sections are repeated for each sector.
+
+*Sector Main Section *
+
+ SECTOR    A01    # ORD: 0
+  NAME      TRIPPER
+  AMBIENT   20
+  PALETTE  0
+  CMAP    0
+  FRICTION 1
+  GRAVITY -60
+  ELASTICITY 0.3
+  VELOCITY 0 0 0
+  VADJOIN -1
+  FLOOR SOUND WOOD
+  FLOOR Y      0.00   7    0.00    0.00 0
+  CEILING Y   16  18    0.00    0.00 0	
+  F_OVERLAY  -1    0.00    0.00 0
+  C_OVERLAY  -1    0.00    0.00 0
+  FLOOR OFFSETS 0
+  FLAGS 0 0
+  SLOPEDFLOOR 0 0 -1024
+  SLOPEDCEILING 0 0 -0256
+  LAYER 0
+
+Then the sector Vertices section
+
+*Sector Vertices section*
+
+ 
+VERTICES 00004
+    X:  25.00     Z:  87.00      #  0
+    X:  25.00     Z:  89.00      #  1
+    X:  35.00     Z:  89.00      #  2
+    X:  35.00     Z:  87.00      #  3	
+
+*Sector Walls*
+
+ 
+WALLS 1
+    WALL: 112  V1:   0  V2:   1  MID:  44  -5.00   6.62 TOP:   0   0.00   0.00 
+BOT:   0   0.00   0.00 OVERLAY:  -1   0.00   0.00  ADJOIN:  -1  MIRROR:  -1  
+DADJOIN:  -1  DMIRROR:  -1  FLAGS: 0 0   LIGHT: 0
+    
+
+
+------------------------------------------------------------------------
+
+*LVT Descriptions*
+
+*LVT 1.1*
+
+LVT 1.1
+
+This is the version of LVT file all 1.1
+
+------------------------------------------------------------------------
+*LevelName*
+
+LEVELNAME FRONT
+
+This is the name of the level, should be kept the same as the lvt file
+name eg: FRONT.LVT
+------------------------------------------------------------------------
+*Version*
+
+VERSION 1619.022497
+
+Version number Build # 1619. Feb/2/97 doesn`t seem to make much
+difference what it is,probably ignored
+------------------------------------------------------------------------
+*Palettes*
+
+PALETTES 2
+   PALETTE: olpal
+   PALETTE: uwater
+
+Level Palettes , olpal is the default outlaws palette ,uwater is the
+default underwater palette. These are PCX files in Outlaws.Lab ,You can
+combine as many palettes here as you want it seems. They are referenced
+later.
+------------------------------------------------------------------------
+*Cmaps*
+
+CMAPS 2
+   CMAP: olpal
+   CMAP: uwater
+
+COLOR MAPS Exactly as PALETTES - list of PCX files. PCX files that can
+be used as colormaps has special structure: they are 256x128 bitmpas
+representing the color map.
+------------------------------------------------------------------------
+*Music*
+
+MUSIC TOWN.MSC
+
+Level Music to be played . MSC file format replaces GMD you could use
+"Null" which would indicate no music.
+------------------------------------------------------------------------
+*Parallax*
+
+PARALLAX 1024.0000 1024.0000
+
+Same as DF PARALLAX determines how much of the "exterior" background
+scroll as you turn. 1024 1024 means as you turn around 360 degrees, you
+will see 1024 pixel columns of background sky. Vertical PARALLAX is
+similar, although of course you can't pitch 360 degrees in DF.
+------------------------------------------------------------------------
+*Shades*
+
+SHADES 3
+   SHADE:  1 200 200 200 10 L
+   SHADE:  2 200 200 200 10 G
+   SHADE:  3 200 200 200 10 T	
+
+Shading tables for translucent colors. These happen to be 1-15 in the
+palette pcx decribed above. Translucent colors give you effects such as
+windows,smoke ,fire.
+The letters stand for L= Translucent (used in windows), G =Grayscale
+(used for smoke) ,T =Tint (tinted windows).
+The first number is the shade slot. the next three numbers correspond to
+the Red,Green,Blue component , the last number is a percentage of how
+much of this color to use (the rgb color).
+------------------------------------------------------------------------
+*Textures*
+
+TEXTURES 3
+  TEXTURE: DEFAULT.PCX 	 #  0
+  TEXTURE: GAWATER1.PCX	 #  1
+  TEXTURE: GCDRYG.PCX 	 #  2    
+
+Textures work the same as DF ,only difference is they are Pcx files ,
+you should be able to find them in OLtexu.lab, they are also easy to use
+,most graphics programs will handle PCX files.
+------------------------------------------------------------------------
+*Sector*
+
+SECTOR    A01    # ORD: 0
+
+First is the word sector then an Identifier (A01) this can be just about
+any hex value but it must be Unique and not used anywhere else in the
+Lvt file,it will be used in some of the other files to refer to this
+sector however. #ORD: 0 is a comment added for readablity only it is not
+used.
+------------------------------------------------------------------------
+*Name*
+
+  NAME      TRIPPER
+
+Pretty straight forward it`s the name of the sector if needed for INF
+------------------------------------------------------------------------
+*Ambient*
+
+  AMBIENT   20
+
+sets the light level in the sector not sure of possible values , the DF
+ones seem to work fine 0 ~31
+------------------------------------------------------------------------
+*Palette*
+
+ PALETTE  0
+
+You can specify a seperate palette for each sector , the number is the
+index of the palettes decribed in the Lvt main section eg: 0 is the
+first palette on the list ,1 would be the second etc.
+------------------------------------------------------------------------
+*Cmap*
+
+  CMAP    0
+
+Index of the colormap for this sector.
+------------------------------------------------------------------------
+*Friction*
+
+  FRICTION 1
+
+Specifies the surface traction 1 is normal traction ,0 is slippery
+surface (like DF`s ice floor.
+------------------------------------------------------------------------
+*Gravity*
+
+ GRAVITY -60
+
+It can be used to make anti-gravity.
+------------------------------------------------------------------------
+*Elasticity*
+
+  ELASTICITY 0.3
+
+Haven`t ried this one yet.suspect it gives the surface bounce.
+------------------------------------------------------------------------
+*Velocity*
+
+VELOCITY 0 0 0
+
+Looks like it's used for water current. Also, a flag for object can
+command it to move at sector's velocity.
+------------------------------------------------------------------------
+*Vadjoin*
+
+  VADJOIN -1
+
+Specifies a "vertical adjoin" - a sector that matches the shape of this
+sector perfectly and located exactly above of below it. Used for
+air-water transition. The value is not sector ID. It's sector's ordinal
+number. *Floor sound*
+
+  FLOOR SOUND WOOD
+
+specifies the sound when walking in this sector,Note the wood is a wav
+file but NO extension is used. NULL would be used to indicate no sound.
+------------------------------------------------------------------------
+*Floor Y*
+
+ FLOOR Y      0.00   7    0.00    0.00 0
+
+sets the floor attributes, first value is the floor height,second
+texture index from the LVT texture list , third value is the floor x
+offset , fourth floor y offset, The last value is an angle and rotates
+the texture
+------------------------------------------------------------------------
+*Ceiling Y*
+
+CEILING Y   16  18    0.00    0.00 0
+
+same as floor except it`s the ceiling
+------------------------------------------------------------------------
+*F_overlay*
+
+ F_OVERLAY  -1    0.00    0.00 0
+
+This is the same as a sign in DF except it can go on the floor. first
+value -1 means no sign,otherwise it would be an index value of the Lvt
+texture list , the next values are the x,y,offsets then the rotation value
+------------------------------------------------------------------------
+*C_overlay*
+
+ CEILING Y   16  18    0.00    0.00 0
+
+same as the F-overlay except it is the ceiling
+------------------------------------------------------------------------
+*Floor offsets*
+
+ FLOOR OFFSETS 0
+
+no idea appears to be not used
+------------------------------------------------------------------------
+*Flags*
+
+  FLAGS 0 0
+
+Sector flags: seeSector Flags Table <#sflags>
+------------------------------------------------------------------------
+*Slopedfloor*
+
+ SLOPEDFLOOR 0 0 -1024
+
+Heres how you make a sloped floor.the first number is the sector ordinal
+number (sector number from 0) (sometimes junk values are seen (-429)
+these mean no slope) of where you want the slope,(i guess it should be
+the same one as your working on) , the second number is the wall id
+where you want the slope to start (any valid walls in that sector should
+be ok,it might have to be the whole width /len of sector), -1024 is a
+hex value.not entierly sure of exact conversion but -1024 seems to be
+about 40~45 deg ,-0512=20~25 deg , -0256 = ~10deg ,negative numbers make
+the floor go down ,1024 would make the floor go up . You also need to
+add the flag value. ( Flags 1073741824 0) to enable it
+------------------------------------------------------------------------
+*Slopedceiling*
+
+  SLOPEDCEILING 0 0 -0256
+
+Same as slopedfloor except it has a different flag : Flags 2147483648 0
+------------------------------------------------------------------------
+*Layer*
+
+LAYER 0
+
+This sets the layer that it will show up on the map (floors) valid
+numbers are -19 ~19
+------------------------------------------------------------------------
+*Vertices*
+
+VERTICES 00004
+    X:  25.00     Z:  87.00      #  0
+    X:  25.00     Z:  89.00      #  1
+    X:  35.00     Z:  89.00      #  2
+    X:  35.00     Z:  87.00      #  3
+
+Same as DF cordinates. If the center of your screen is X: 0 , Z: 0 , the
+right side of your screen would be +X , left side -X , top +Z , bottom
+-Z the #num is not needed ,only for readability.
+------------------------------------------------------------------------
+*Walls*
+
+WALLS 1
+    WALL: 112  V1:   0  V2:   1  MID:  44  -5.00   6.62 TOP:   0   0.00   0.00 
+BOT:   0   0.00   0.00 OVERLAY:  -1   0.00   0.00  ADJOIN:  -1  MIRROR:  -1  
+DADJOIN:  -1  DMIRROR:  -1  FLAGS: 0 0   LIGHT: 0
+
+Lots of stuff here. lets break it down .
+
+  *
+    Wall : 112
+        is the wall id ,any valid hex number ,the number must not be the
+      * same as any object/sector /wall number, in otherwords unique .
+        V1: 0
+            This is the same as the DF "Left" vertice,the walls go from
+            left to right vertices so this wall will go from the 0 to 1
+          * vertices in the vertice list
+            V2: 1
+              * Same as the DF "Right" vertice
+                MID: 44 -5.00 6.662
+                    The MId texture attributes. first Number id the
+                    texture index to use from the Lvt texture list, the
+                    next two numbers are the same as DF`s X offset and Y
+                    offset (moves the texture ,used for texture
+                  * stitching/aligning)
+                    TOP: 0 0.00 0.00
+                      * Top texture attributes ,works the same as MID
+                        BOT: 0 0.00 0.00
+                          * Bottom texture attributes,works the same as MID
+                            OVERLAY: -1 0.00 0.00
+                                This is the equivalent of DF`s "SIGN" ,
+                                -1 means no sign used, other wise it
+                              * works the same as MID
+                                ADJOIN: -1
+                                    Used to Join two sectors together so
+                                    you can walk form one to the other,
+                                    -1 means not joined to any other
+                                    sectors other wise the other sectors
+                                    id would be here.(note the mirror
+                                    must be filled in too if used),also
+                                    the other sector must have the
+                                    adjoin & mirror attributes filled in
+                                    to point to this sector if used
+                                    (don`t forget it must be fillled in
+                                    on the proper wall entry. see
+                                  * example 1 below
+                                    MIRROR: -1
+                                        Used to specify which wall of
+                                        the other sector specified in
+                                      * adjoin is to be joined together
+                                        DADJOIN: -1
+                                            works the same as
+                                            adjoin,except it allows you
+                                            to make two adjoins on the
+                                            same wall one above/below
+                                            the other ,something you
+                                            could not do in DF.see
+                                          * example 2 below
+                                            DMIRROR: -1
+                                                used inconjunction with
+                                                Dadjoin , otherwise it
+                                              * works the same as mirror
+                                                FLAGS: 0 0
+                                                    wall flag settings
+                                                    ,unlike DF ,Outlaws
+                                                    uses one flag only.
+                                                    see Wall Flag List
+                                                  * <#wflags>
+                                                    LIGHT: 0
+                                                        Same as DF you
+                                                        can specify a
+                                                        seperate light
+                                                        value for a wall
+                                                        1 ~31 
+
+------------------------------------------------------------------------
+*Example 1 Adjoin of two sectors *
+
+SECTOR 1 (WALL 3) {main sector}
+    WALL: ABC  V1:   0  V2:   1  MID:  44  -5.00   6.62 TOP:   0   0.00   0.00 
+BOT:   0   0.00   0.00 OVERLAY:  -1   0.00   0.00  ADJOIN:  DEF  MIRROR:  2  
+DADJOIN:  -1  DMIRROR:  -1  FLAGS: 0 0   LIGHT: 0
+
+SECTOR 2 (WALL 2)
+    WALL: DEF  V1:   0  V2:   1  MID:  44  -5.00   6.62 TOP:   0   0.00   0.00 
+BOT:   0   0.00   0.00 OVERLAY:  -1   0.00   0.00  ADJOIN:  ABC  MIRROR:  3  
+DADJOIN:  -1  DMIRROR:  -1  FLAGS: 0 0   LIGHT: 0
+
+------------------------------------------------------------------------
+*Example 2 Adjoin of one wall to two sectors one above the other*
+
+SECTOR 1 (WALL 3) {main sector}
+    WALL: ABC  V1:   0  V2:   1  MID:  44  -5.00   6.62 TOP:   0   0.00   0.00 
+BOT:   0   0.00   0.00 OVERLAY:  -1   0.00   0.00  ADJOIN:  DEF  MIRROR:  2  
+DADJOIN: 1AF  DMIRROR: 4  FLAGS: 0 0   LIGHT: 0
+
+SECTOR 2 (WALL 2)  {lower sector}
+    WALL: DEF  V1:   0  V2:   1  MID:  44  -5.00   6.62 TOP:   0   0.00   0.00 
+BOT:   0   0.00   0.00 OVERLAY:  -1   0.00   0.00  ADJOIN:  ABC  MIRROR:  3  
+DADJOIN:  -1  DMIRROR:  -1  FLAGS: 0 0   LIGHT: 0
+
+SECTOR 3 (WALL 4)  {upper sector}
+    WALL: 1AF  V1:   0  V2:   1  MID:  44  -5.00   6.62 TOP:   0   0.00   0.00 
+BOT:   0   0.00   0.00 OVERLAY:  -1   0.00   0.00  ADJOIN:  ABC  MIRROR:  3  
+DADJOIN:  -1  DMIRROR:  -1  FLAGS: 0 0   LIGHT: 0
+
+------------------------------------------------------------------------
+
+*Sector Flags* See Sector Flags <#sectorflags>
+
+Unlike Dark Forces where there was 3 separate sector flag sections,
+Outlaws uses only 1 sector flag section. just add the values together
+for the value to add in the sector flag section eg: Flags 129 0 would be
+a sky sector with the player underwater (not for long :) )
+
+*Available Sector Flags*
+
+Value 	Function
+1 	Exterior Ceiling (sky)
+2	Exterior Floor (pit)
+4	Exterior top adjoin
+8	Exterior bot adjoin
+16	Door
+32	No slide on sloped floor (no effect on a flat floor)
+64	Velocity applies to floor only
+128	Water sector
+256	Automatic Swinging Door
+512	Reverse swing direction of auto door
+1024	Sun angle from lev file
+2048	Swirl the floor tx (swirling water)
+4096 	Secret area
+262144	Low damage sector
+524288	High damage sector
+1048576	Killing sector
+2097152	Low damage floor
+4194304	High damage floor
+8388608	Killing floor
+16777216	?
+33554432	Secret sector tag /counts secrets found
+67108864	No shaded floor
+134217728	Rail track pull chain (pulls train mine car ?)
+268435456	Rail line
+536870912	Hide sector on map
+1073741824	Sloped floor sector
+2147483648	Sloped ceiling sector
+
+
+*Wall Flags*
+
+See Walls Flags <#wallflags>
+
+Unlike Dark Forces where there was 3 separate wall flag sections,
+Outlaws uses only 1 wall flag section.
+
+*Available wall flags*
+Value	Function
+1	Adjoined mid tx
+2	Illuminated sign
+4	Tx flipped horizontally
+8	Tx anchored
+16	Sign tx anchored
+32	Transparency with tint
+64	Move left vertice during rotate or move wall
+128	Allow scroll top tx
+256	Allow scroll mid tx
+512	Allow scroll bot tx
+1024	Allow scroll sign tx
+2048	Fence player can`t walk through
+4096	Ignore height checking
+8192	Fence keep bad guys out
+16384	Glass break
+32768	Weapon projectiles may pass through
+65536	Not a rail in rail sector
+131072	Hide on map
+262144	Secret don`t show
+
+------------------------------------------------------------------------

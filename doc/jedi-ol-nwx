@@ -1,0 +1,186 @@
+Jedi Engine Binary Sprite Format for Outlaws (NWX)
+
+"New WaX" -> "NWX"
+
+This format is the spirtual successor to the WAX format as used in
+Star Wars: Dark Forces. However, it differs from the WAX format in
+several ways.
+
+David Lovejoy and Alexei Novikov's Outlaws specifications started work on this format, but it is not complete.
+
+See the following:
+https://web.archive.org/web/20010124073000/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/olspecs.htm
+
+I was able to decipher the format before discovering this work, although my decipherment is also incomplete.
+
+
+All multi-byte values are little-endian unless noted otherwise.
+
+All character values are from the ASCII character set.
+
+Fields without '=' have values that will vary.
+
+Fields are described in order of appearance.
+
+Curly braces '{' and '}' are used to logically seperate descriptions.
+
+Coordinates are floating-point numbers in the LVT format.
+They use the IEEE-754 format.
+
+
+GeneralProperties
+{
+    char[4] = "WAXF"        // Magic Identifier
+    uint32  = 0x00000002    // Major Version
+    uint32  = 0x00000001    // Minor Version
+
+    float = 1.0          // Unknown. Scale X? (IEEE-754)
+    float = 1.0          // Unknown. Scale Y? (IEEE-754)
+
+    uint32              // CELL Table Offset (Absolute)
+    uint32              // FRMT Table Offset (Absolute)
+    uint32              // CHOT Table Offset (Absolute)
+}
+
+// According to the specification, there could be extra data here.
+// However, the CELT table typical follows without any gap.
+
+CELTTable
+{
+    char[4] = "CELT"    // CELT Table Identifier (CELl Table)
+    uint32              // Number of Cells
+    uint32              // Size of this Header + Size of All Cell Data
+
+    Cell
+    {
+        uint32      // Cell ID
+        uint32      // Size of Column Offset Table + Compressed Pixel Data
+        uint32      // Cell Width
+        uint32      // Cell Height
+        uint32      // Cell Flags
+        // Number of Elements = Cell Height
+        // The offsets are relative to the beginning of Column Offset Table.
+        // If ((Cell Flags & 0x00000001) == 0x00000001), there are as many entries as the cell width.
+        // If ((Cell Flags & 0x00000001) == 0x00000000), there are as many entries as the cell height.
+        uint32[]    // Column Offset Table (Relative)
+
+        // According to the specification, there could be extra data here.
+        // However, the compressed pixel data typically follows without
+        // any gap.
+
+        // Must uncompress to a size of (Cell Width * Cell Height) bytes.
+        uint8[]     // Compressed Pixel Data
+
+        uint8 = 0xCD    // Always present. Even empty cells (Cell Size == 1, Cell Width == 0, No Column Table) will have this value.
+                        // Not sure if it's a flag of some kind.
+    }
+}
+
+FRMTTable
+{
+    char[4] = "FRMT"    // FRMT Table Identifier (FRaMe Table)
+    uint32              // Number of Frames
+    uint32              // Size of this Header + Size of All Frame Data
+    Frame
+    {
+        uint32          // Frame ID
+        uint32          // Unknown
+        uint32          // Unknown
+        float           // Frame Width (IEEE-754)
+        float           // Frame Height (IEEE-754)
+        uint32          // Unknown. Flip/Mirror Flag?
+        uint32          // Cell ID
+        int32           // X Offset
+        int32           // Y Offset
+        uint32          // Unknown
+    }
+}
+
+// According to the specification, there could be extra data here.
+// However, the CHOT table typical follows without any gap.
+
+CHOTTable
+{
+    char[4] = "CHOT"    // CHOT Table Identifier (CHOreograph Table)
+    uint32              // Number of Choreographs
+    uint32              // CHOT Table Size (Identifier + Header + All Data)
+    Choreograph
+    {
+        uint32          // Choreograph ID
+        uint32          // Choreograph Size (This Integer + All Data)
+
+        uint32[6]       // Choreograph Data Properties
+        ChoreographData
+        {
+            // Blocks of Three Two-Byte Records
+            SubData[]   // Choreograph Size - Choreograph Data Properties
+            SubData
+            {
+                int16      // Frame ID
+                int16      // Parameter 1
+                int16      // Parameter 2
+            }
+        }
+    }
+}
+
+// Compression Format Information (Rough)
+// Encoding scheme is run-length encoding using even/odd numbers to determine the operation on the bytes that follow.
+
+// Python-ish Psuedocode
+
+for offset in column_offsets:
+    seek(column_table_offset + offset)
+    control_byte = readbyte(file)
+    data = []
+
+    # Minimum meaningful compression is three bytes down to two bytes.
+
+    # 0x00 and 0x01 default to a single byte to copy.
+    if control_byte < 0x02:
+        data.append(readbyte(file))
+    # Even values signify direct copies.
+    elif control_byte % 2 == 0:
+        data.extend(readbytes(file, ((control_byte // 2) + 1)))
+    # Odd values signify compressed bytes.
+    else:
+        data.extend(readbyte(file) * ((control_byte // 2) + 1))
+
+Compression Control Byte Examples
+0x00 = copy next byte
+0x01 = copy next byte
+0x02 = copy next 2 bytes
+0x03 = duplicate next byte (floor(0x03 / 0x02) + 1) = 0x02 times
+(Two bytes is the minimum meaningful compression, so 0x03 is our first control byte that compresses.)
+0x04 = copy next 4 bytes
+0x05 = duplicate next byte 0x03 times
+0x06 = copy next 6 bytes
+0x07 = duplicate next byte 0x04 times
+0x08 = copy next 8 bytes
+0x09 = duplicate next byte 0x05 times
+0x0A = copy next 10 bytes
+
+
+The minimum size of CELL data is ONE byte.
+
+This is because the compressed pixel data is terminated with a single byte value of 0xCD.
+If the size of a CELL is 1, and the width of a CELL is 0, the CELL is empty.
+It won't have a column offset table, and it will have just the single terminator of 0xCD.
+
+
+
+
+Possible CHOR States
+
+SHOOT_CHOR
+WALK_CHOR
+CHEST_DIE_CHOR
+HIT_CHOR
+WATCH_CHOR
+DUCK_CHOR
+LEG_DIE_CHOR
+LEFT_DIE_CHOR
+RIGHT_DIE_CHOR
+RUN_CHOR
+WALK_SHOOT_CHOR
+RUN_SHOOT_CHOR

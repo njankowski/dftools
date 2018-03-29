@@ -1,0 +1,20 @@
+'-ac'
+
+Found this command line option by accident.
+
+Might be an interface to a driver or a debugging option.
+
+Yields the following output when executed.
+
+---
+Dark Forces Advanced Controller Interface...
+
+ACI Version:                      2.0
+Control Structure Version:        -268431264.7340040
+Control Structure Address:        0H
+ERROR: Bad Control Structure Version Number
+ERROR: Terminating Advanced Controller Interface...
+
+
+Press Any Key To Continue...
+---

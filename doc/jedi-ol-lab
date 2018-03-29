@@ -1,0 +1,60 @@
+Jedi Engine Asset Archive Format for Outlaws (LAB)
+
+Lucas Asset(s) Blob?
+Lucas Asset(s) Binary?
+
+This is an archive format, not unlike Star Wars: Dark Forces' GOB format or DOOM's WAD format.
+
+David Lovejoy and Alexei Novikov's Outlaws specifications document this format.
+
+See the following:
+https://web.archive.org/web/20010124073000/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/olspecs.htm
+
+It seems Guilherme Lampert was also able to pick-apart the format as well:
+http://glampert.com/2015/10-10/reverse-engineering-lucasarts-outlaws/
+
+I was able to decipher the format before discovering these works.
+
+
+All multi-byte values are little-endian unless noted otherwise.
+
+All character values are from the ASCII character set.
+
+Fields without '=' have values that will vary.
+
+Fields are described in order of appearance.
+
+Curly braces '{' and '}' are used to logically seperate descriptions.
+
+
+
+
+Header
+{
+    char[4] = "LABN"        // Magic Identifier
+    uint32 = 0x00010000     // Unknown, Probably Version
+    uint32                  // Number of Catalog Entries / Names in Name Table
+    uint32                  // Length of Name Table
+}
+
+Catalog
+{
+    CatalogEntry
+    {
+        uint32              // Offset to Name (Relative to Name Table)
+        uint32              // Offset to Data (Relative to Beginning of LAB)
+        uint32              // Length of Data
+        char[4]             // FourCC (Four Character Code) Identifier
+                            // This is a common scheme.
+                            // See https://en.wikipedia.org/wiki/FourCC
+                            // The characters will appear backwards if you view them in a hex editor.
+    }
+}
+
+NameTable
+{
+    NameTableEntry
+    {
+        char[]              // File Name, Null-Terminated
+    }
+}

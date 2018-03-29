@@ -1,0 +1,62 @@
+
+  Lab Files
+
+------------------------------------------------------------------------
+
+*LAB Files General*
+
+LAB files are containers for other files.The custom
+levels,textures,sounds etc are distributed as these file types.They are
+similar in function to Dark Forces .GOB files.
+
+*They have the following structure*
+
+Header
+Entry descriptors
+Name Pool
+Files
+
+The Lab Header is:
+
+* struct TLABHeader*
+ {
+   char Magic[4];	// contains "LABN" - LAB file signature
+   long int Version; 	// high word - major version, low word - 
+			// minor version. Current version is 1.0 (0x10000}
+   long int NFiles;	// Number of files in the LAB
+   long it NamePoolSize;// Size of the name pool
+ }
+
+Each of entry descriptors has the structure:
+
+struct TLABEntryDescriptor 
+{
+ long int Nameoffset; 	// offset of the name in the name pool
+ long int offset;	// absolute offset of  file's data from the beginning of the LAB
+ long int size;		// size of the file
+ char ResType[4];	// four letter type of file.
+}
+
+The following resource types are encountered:
+
+METI ("ITEM" backwards) - ITM files
+PXCP ("PCXP" backwards) - PCX pictures
+MTXT ("TXTM" backwards) - PCX textures
+FXTA ("ATXF" backwards) - ATX files (animated texture  definitions)
+FXAW ("WAXF" backwards) - NWX files (sprites&weapons;)
+DVAW ("WAVD" backwards) - WAV sounds
+SYHP ("PHYS" backwards) - PHY files (Physics description)
+BPCR ("RCPB" backwards) - RCS files (story scripts)
+BCSM ("MSCB" backwards) - MSC files (music script)
+TNFN ("NFNT" backwards) - LAF files (fonts)
+FTVL ("LVTF" backwards) - LVT files (level geometry)
+FTBO ("OBTF" backwards) - OBT files (level objects)
+FFNI ("INFF" backwards) - INF files
+\0\0\0\0 (all zeros) - all other files
+
+Name pool is names of files stored one after another, null terminated,
+something like: town.lvt\0town.obt\0town.inf\0
+
+Then follow data of files, one after another.
+
+------------------------------------------------------------------------

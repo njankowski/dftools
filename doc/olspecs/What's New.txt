@@ -1,0 +1,23 @@
+
+  Help What`s New
+
+------------------------------------------------------------------------
+
+*Whats New In Ver 0.2*
+
+    Changed to a menu and frame , from old html help style.
+        Updated welcome page 
+
+*Whats New In Ver 0.1*
+
+    The help is not completed yet.
+        Currently the ITM file section is being worked on. 21/jul/97 
+        Updated ITM "STR" 22/jul/97 
+        Updated ITM "STR" 23/jul/97 
+        Updated ITM "STR" 24/jul/97 
+        Updated ITM 24/jul/97 
+        Back to work on help. Updated ITM STR and INT 15/aug/97 
+        Updated ITM INT 16/aug/97 
+        Updated ITM INT 17/aug/97 
+
+------------------------------------------------------------------------

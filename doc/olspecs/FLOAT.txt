@@ -1,0 +1,407 @@
+
+  ITM Files
+
+------------------------------------------------------------------------
+*FLOAT *
+------------------------------------------------------------------------
+
+*Listing of all known Float type variables.*
+
+ACTIVATE_RADIUS <#FLOAT_activate_radius>
+FLOAT AIR_ACCEL_X 160
+FLOAT AIR_ACCEL_Z 200
+FLOAT AIR_VEL_MAX 28
+FLOAT AIR_VEL_JUMP 20
+FLOAT AIR_YAWRATE 180
+FLOAT COLLIDE_RADIUS 1.0 # collision radius
+CONFIDENCE <#FLOAT_confidence">
+FLOAT CROUCH_DIV 3.0 # ammount HEIGHT gets div'd by
+DAMAGE <#FLOAT_damage>
+DAMAGE_1 <#FLOAT_damage_1>
+DAMAGE_2 <#FLOAT_damage_2>
+FLOAT DAMAGE_MULTIPLIER .95
+DELAY <#FLOAT_delay>
+EFFRANGE_2 <#FLOAT_effrange_1>EFFRANGE_1</A><BR> <A HREF=>
+FLOAT E_CROUCH 2.0
+FLOAT E_JUMP -6.0
+FLOAT E_MOVE -9
+FLOAT E_REST 10
+FLOAT E_TURN 0.0
+FOV <#FLOAT_fov>
+FOV_DIST <#FLOAT_fov_dist>
+FREQ <#FLOAT_freq>
+FLOAT HEAD_HEIGHT 0.5
+HEALTH <#FLOAT_health>
+FLOAT HEIGHT 3.0
+KICK_AMOUNT <#FLOAT_kick_amount>
+KILL_DIST <#FLOAT_kill_dist>
+LOS_TIMER_TIME <#FLOAT_los_timer_time>
+FLOAT MASS 150.0
+MASS_2 <#FLOAT_mass_1>MASS_1</A><BR> <A HREF=>
+MAX_PLAYER_DIST <#FLOAT_max_player_dist>
+MIN_PLAYER_DIST <#FLOAT_min_player_dist>
+MOVE_INACCURACY <#FLOAT_move_inaccuracy>
+PANIC_INACCURACY <#FLOAT_panic_inaccuracy>
+PANIC_RATE <#FLOAT_panic_rate>
+FLOAT POS 1.0
+FLOAT RADIUS 1.0
+RAND <#FLOAT_rand>
+RANGE_1 <#FLOAT_range_1>
+RANGE_2 <#FLOAT_range_2>
+RATE_1 <#FLOAT_rate_1>
+RATE_2 <#FLOAT_rate_2>
+RUN_SPEED <#FLOAT_run_speed>
+SHOOT_TIMER_TIME <#FLOAT_shoot_timer_time>
+SPREAD_1 <#FLOAT_spread_1>
+SPREAD_2 <#FLOAT_spread_2>
+TAUNT_TIMER_TIME <#FLOAT_taunt_timer_time>
+THROW_MAX <#FLOAT_throw_max>
+THROW_MIN <#FLOAT_throw_min>
+FLOAT THROW_PITCH 35.0 # pitch angle used for throwing
+THROW_VELOCITY <#FLOAT_throw_velocity>
+VARIANCE_1 <#FLOAT_variance_1>
+VARIANCE_2 <#FLOAT_variance_2>
+FLOAT VOLUME 100
+WALK_SPEED <#FLOAT_walk_speed>
+FLOAT WALL_RADIUS 15.0 # radius of wall/sector destruction
+WATCH_TIMER_TIME <#FLOAT_watch_timer_time>
+WEAPON_INACCURACY <#FLOAT_weapon_inaccuracy>
+
+
+------------------------------------------------------------------------
+*FLOAT Variable Descriptions*
+
+
+------------------------------------------------------------------------
+*FLOAT ACTIVATE_RADIUS*
+
+ACTIVATE_RADIUS 50
+    Enemy will become activated when the player enters this radius
+    regardless of FOV (field of view) or LOS (line of sight).Normaly 0 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT CONFIDENCE*
+
+CONFIDENCE .5
+    Confidence recharge per second ,this level changes during game play
+    based on several factors .Defaut ( .75 )
+
+     1. Lowers enemy confidence
+          * getting hit
+          * seeing player for first time
+          * sneaking up on enemy
+          * shot in enemy`s general direction
+          * buddy gets hit 
+
+     2. Raises enemy confidence
+          * shooting target (player normaly)
+          * killing target
+          * buddy hits or kills target
+          * time (this is what the value is that you set in the ITM file)
+          * player runs out of ammo
+          * player reloads
+          * enemy sees more badguys 
+
+    Used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT DAMAGE*
+
+DAMAGE 2
+    How much damage is inflicted with each projectile Ie if using a
+    Shotgun with 5 shot_multiples a damage of .25 would equate to a
+    damage of 2.5 with one shot if all projectiles hit player. See INT
+    Shot_Multiples
+    <https://web.archive.org/web/20010127232700fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itmi.htm#INT_shot_multiples>
+
+    Used in bad guy files
+
+    ------------------------------------------------------------------------
+    *FLOAT DAMAGE_1*
+
+DAMAGE_1 .24
+    How much damage is inflicted with each projectile in normal firing
+    mode for weapon. Ie if using a Shotgun with 5 shot_multiples a
+    damage of .25 would equate to a damage of 2.5 with one shot if all
+    projectiles hit player. 
+    Used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT DAMAGE_2*
+
+DAMAGE_2 .24
+    How much damage is inflicted with each projectile in secondary
+    firing mode for weapon. Ie if using a Shotgun with 5 shot_multiples
+    a damage of .25 would equate to a damage of 2.5 with one shot if all
+    projectiles hit player. 
+    Used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT DELAY*
+
+DELAY -1
+    Sets the time interval before generator starts up ,assuming Master
+    is ON or left blank ,value is in minutes generaly 15 
+    Used in generator files
+
+    ------------------------------------------------------------------------
+    *FLOAT FOV*
+
+FOV 200
+    Maximum FOV (field of view) in degrees .Normaly 145 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT FOV_DIST*
+
+FOV_DIST 200
+    Maximum field of view distance . Normaly 300 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT EFFRANGE_1*
+
+EFFRANGE_1 50
+    Effective range of weapon in normal firing mode 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT EFFRANGE_2*
+
+EFFRANGE_2 4
+    Effective range of weapon in secondary firing mode 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT HEALTH*
+
+HEALTH 2
+    Begining health value ,higher the number more shots are required to
+    kill badguy .Normaly 3 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT KICK_AMOUNT*
+
+KICK_AMOUNT .24
+    Amount for weapon to kick when fired 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT KILL_DIST*
+
+KILL_DIST 50
+    Player will be killed with one shot within this distance. 
+    used in badguy/boss files
+
+    ------------------------------------------------------------------------
+    *FLOAT LOS_TIMER_TIME*
+
+LOS_TIMER_TIME 2
+    Internal timer for how often line of sight is checked between badguy
+    and player . Normaly (.25) 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT MASS_1*
+
+MASS_1 .25
+    Mass (weight ) of the wepons projectile in normal firing mode 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT MASS_2*
+
+MASS_2 .25
+    Mass (weight ) of the wepons projectile in secondary firing mode 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT MAX_PLAYER_DIST*
+
+MAX_PLAYER_DIST 200
+    Sets the mmaximum distance player can be that generation will occur
+    Value in feet generaly 200 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT MIN_PLAYER_DIST*
+
+MIN_PLAYER_DIST 50
+    Sets the minimum distance player can be that generation will occur
+    Value in feet generaly 50 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT MOVE_INACCURACY*
+
+MOVE_INACCURACY 10
+    Inaccuracy in shot due to player movement ,In degrees Normaly 20 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT PANIC_INACCURACY*
+
+PANIC_INACCURACY 6
+    Inaccuracy factor ( 0-7 ) defaults to ( 7 ) . 
+    Things that affect Inaccuracy
+
+     1. Less acurate:
+          * player fires a shot
+          * richochet near enemy 
+
+     2. More acurate:
+          * based on Panic_Rate
+          * player fires on empty chamber
+          * player reloads 
+
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT PANIC_RATE*
+
+PANIC_RATE 2
+    recovery rate for Panic_Inaccuracy <#FLOAT_panic_inaccuracy>
+    expressed in points per second .Normaly 2 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT RAND*
+
+RAND 4
+    A random time either added or subtracted to the Freq <#FLOAT_freq>
+    value 
+    used in generator files
+
+    ------------------------------------------------------------------------
+    *FLOAT RANGE_1*
+
+RANGE_1 4
+    Range of the weapon in normal firing mode. Should be more than
+    EFFRANGE_1 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT RANGE_2*
+
+RANGE_2 4
+    Range of the weapon in secondary firing mode. Should be more than
+    EFFRANGE_2 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT RATE_1*
+
+RATE_1 1200.4
+    Velocity of the weapon projectile in normal firing mode. feet per sec 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT RATE_2*
+
+RATE_2 1200.5
+    Velocity of the weapon projectile in secondary firing mode. feet per
+    second 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT RUN_SPEED*
+
+RUN_SPEED 22
+    How fast enemy runs .Normaly 12 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT SHOOT_TIMER_TIME*
+
+SHOOT_TIMER_TIME 15
+    Average time between shots . 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT SPREAD_1*
+
+SPREAD_1 4
+    Spread of shot if multiple projectiles . In degrees . Normal firing
+    mode 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT SPREAD_2*
+
+SPREAD_2 4
+    Spread of shot if multiple projectiles . In degrees . Secondary
+    firing mode 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT TAUNT_TIMER_TIME*
+
+TAUNT_TIMER_TIME 15
+    Changes the time the taunts are used Normaly 15 (seconds) 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT THROW_MAX*
+
+THROW_MAX 150
+    Maximum distance to throw object *Note :*Used withSTR Throw_item
+    <https://web.archive.org/web/20010127232700fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itms.htm#STR_throw_item>
+
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT THROW_MIN*
+
+THROW_MIN 50
+    Minimum distance to throw object *Note :*Used withSTR Throw_item
+    <https://web.archive.org/web/20010127232700fw_/http://www.code-alliance.com:80/~editors/outlaws/docs/ol_specs/itms.htm#STR_throw_item>
+
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT THROW_VELOCITY*
+
+THROW_VELOCITY 100
+    Speed of object thrown in feet per second .Normaly 50 -150 Note
+    :Used with STR Throw_item 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT VARIANCE_1*
+
+VARIANCE_1 1.0
+    Amount of variance in projectile variables 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT VARIANCE_2*
+
+VARIANCE_2 1.0
+    Amount of variance in projectile variables 
+    used in weapon files
+
+    ------------------------------------------------------------------------
+    *FLOAT WALK_SPEED*
+
+WALK_SPEED 8
+    Walk speed . Normaly 8 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT WATCH_TIMER_TIME*
+
+WATCH_TIMER_TIME 5
+    Enemy goes into watch mode (crouching) after not seeing player for
+    this time .Normaly 5 
+    used in badguy files
+
+    ------------------------------------------------------------------------
+    *FLOAT WEAPON_INACCURACY*
+
+WEAPON_INACCURACY 4
+    Inaccuracy due to weapon used (in degrees).Normaly 4 
+    used in badguy files
+
+    ------------------------------------------------------------------------

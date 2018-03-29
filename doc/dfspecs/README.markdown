@@ -1,5 +1,7 @@
 ### DF_SPECS.RTF
-The original unofficial specifications (v3.01, most recent). Converted from Windows Help format.
+The original unofficial specifications (v3.01, most recent).
+
+Converted from Windows Help format.
 
 *Author / contributor emails are in the RTF.*
 
