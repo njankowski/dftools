@@ -3,10 +3,7 @@ from formats import gob
 from util import bulkrw
 
 
-args = None
-
-
-def archive_gob():
+def archive(args):
     print('Archiving "' + args.directory + '" into GOB "' + args.gob + '"')
 
     entries = bulkrw.read_files(args.directory, args.recursive)
@@ -15,7 +12,7 @@ def archive_gob():
     print('Done')
 
 
-def extract_gob():
+def extract(args):
     print('Extracting "' + args.gob + '" into directory "' + args.directory + '"')
 
     entries = gob.read(args.gob)
@@ -30,13 +27,20 @@ def extract_gob():
     print('Done')
 
 
+def inspect(args):
+    pass
+
+
 def main():
     parser = argparse.ArgumentParser(prog='gobtool', description='Tool for Star Wars: Dark Forces GOB archives.')
     subparsers = parser.add_subparsers(dest='cmd', required=True, help='the operation to perform')
 
+    parser.add_argument('-v', '--verbose', action='store_true', help='print extra information')
+
 
     # Extract command subparser.
     extract_parser = subparsers.add_parser('extract', help='extract from a GOB')
+    extract_parser.set_defaults(func=extract)
     extract_parser.add_argument('-o', '--organize', help='create a subdirectory for each file extension in the archive', action='store_true')
     extract_parser.add_argument('-i', '--interactive', help='manual renaming when extracting files with bad filenames', action='store_true')
     extract_parser.add_argument('gob', help='GOB to extract from')
@@ -45,18 +49,24 @@ def main():
 
     # Archive command subparser.
     archive_parser = subparsers.add_parser('archive', help='archive into a GOB')
+    archive_parser.set_defaults(func=archive)
     archive_parser.add_argument('-r', '--recursive', help='archive all files in the directory and its subdirectories', action='store_true')
     archive_parser.add_argument('directory', help='directory to archive from')
     archive_parser.add_argument('gob', help='GOB to archive into')
 
 
+    # Inspect command subparser.
+    inspect_parser = subparsers.add_parser('inspect', help='print information about a GOB')
+    inspect_parser.set_defaults(func=inspect)
+    inspect_parser.add_argument('gob', help='GOB to inspect')
+
+
+    # Parse arguments.
     args = parser.parse_args()
 
 
-    if args.cmd == 'archive':
-        archive_gob()
-    elif args.cmd == 'extract':
-        extract_gob()
+    # Dispatch command.
+    args.func(args)
 
 
 if __name__ == '__main__':
