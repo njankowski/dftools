@@ -30,28 +30,34 @@ def extract_gob():
     print('Done')
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='gobtool',
-                                     description='Tool for Star Wars: Dark Forces GOB archives.')
+def main():
+    parser = argparse.ArgumentParser(prog='gobtool', description='Tool for Star Wars: Dark Forces GOB archives.')
+    subparsers = parser.add_subparsers(dest='cmd', required=True, help='the operation to perform')
 
-    parser.add_argument('-r', '--recursive',
-                        help='archive all files in the directory and its subdirectories (archive mode only)',
-                        action='store_true')
-    parser.add_argument('-o', '--organize',
-                        help='create a subdirectory for each file extension in the archive (extract mode only)',
-                        action='store_true')
-    parser.add_argument('-i', '--interactive',
-                        help='manual renaming when extracting files with bad filenames',
-                        action='store_true')
 
-    parser.add_argument('mode', choices=['archive', 'extract'],
-                        help='mode of operation')
-    parser.add_argument('gob', help='GOB to extract from / archive to')
-    parser.add_argument('directory', help='directory to extract to / archive from')
+    # Extract command subparser.
+    extract_parser = subparsers.add_parser('extract', help='extract from a GOB')
+    extract_parser.add_argument('-o', '--organize', help='create a subdirectory for each file extension in the archive', action='store_true')
+    extract_parser.add_argument('-i', '--interactive', help='manual renaming when extracting files with bad filenames', action='store_true')
+    extract_parser.add_argument('gob', help='GOB to extract from')
+    extract_parser.add_argument('directory', help='directory to extract into')
+
+
+    # Archive command subparser.
+    archive_parser = subparsers.add_parser('archive', help='archive into a GOB')
+    archive_parser.add_argument('-r', '--recursive', help='archive all files in the directory and its subdirectories', action='store_true')
+    archive_parser.add_argument('directory', help='directory to archive from')
+    archive_parser.add_argument('gob', help='GOB to archive into')
+
 
     args = parser.parse_args()
 
-    if args.mode == 'archive':
+
+    if args.cmd == 'archive':
         archive_gob()
-    elif args.mode == 'extract':
+    elif args.cmd == 'extract':
         extract_gob()
+
+
+if __name__ == '__main__':
+    main()
