@@ -1,10 +1,15 @@
 import argparse
+import os
 from formats import gob
 from util import bulkrw
 
 
 def archive(args):
-    print('Archiving "' + args.directory + '" into GOB "' + args.gob + '"')
+    # Normalize paths.
+    args.directory = os.path.abspath(args.directory)
+    args.gob = os.path.abspath(args.gob)
+
+    print(f'Archiving "{args.directory}" into GOB "{args.gob}"')
 
     entries = bulkrw.read_files(args.directory, args.recursive)
     gob.write(args.gob, entries)
@@ -13,7 +18,11 @@ def archive(args):
 
 
 def extract(args):
-    print('Extracting "' + args.gob + '" into directory "' + args.directory + '"')
+    # Normalize paths.
+    args.directory = os.path.abspath(args.directory)
+    args.gob = os.path.abspath(args.gob)
+
+    print(f'Extracting "{args.gob}" into directory "{args.directory}"')
 
     entries = gob.read(args.gob)
     bad_entries = bulkrw.write_files(args.directory, entries, args.organize)
