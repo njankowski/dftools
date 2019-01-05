@@ -30,7 +30,7 @@ def convert_bm():
     print('Done')
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(prog='bmtool',
                                      description='Tool for Star Wars: Dark Forces BM graphics.')
     parser.add_argument('-p', '--palette',
@@ -45,3 +45,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     convert_bm()
+
+
+if __name__ == '__main__':
+    main()

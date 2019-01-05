@@ -21,7 +21,7 @@ def convert_gmd():
     print('Done')
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(prog='gmdtool',
                                      description='Tool for Star Wars: Dark Forces GMD music.')
     parser.add_argument('file', help='file(s) to convert (as glob)')
@@ -29,3 +29,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     convert_gmd()
+
+
+if __name__ == '__main__':
+    main()

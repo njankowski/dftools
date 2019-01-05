@@ -26,7 +26,7 @@ def convert_fnt():
     print('Done')
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(prog='fnt',
                                      description='Tool for Star Wars: Dark Forces FNT graphics.')
     parser.add_argument('-p', '--palette',
@@ -41,3 +41,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     convert_fnt()
+
+
+if __name__ == '__main__':
+    main()

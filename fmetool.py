@@ -26,7 +26,7 @@ def convert_fme():
     print('Done')
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(prog='fmetool',
                                      description='Tool for Star Wars: Dark Forces FME graphics.')
     parser.add_argument('-p', '--palette',
@@ -41,3 +41,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     convert_fme()
+
+
+if __name__ == '__main__':
+    main()

@@ -25,7 +25,7 @@ def extract_wax():
     print('Done')
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(prog='waxtool',
                                      description='Tool for Star Wars: Dark Forces WAX graphics.')
 
@@ -41,3 +41,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     extract_wax()
+
+
+if __name__ == "__main__":
+    main()
