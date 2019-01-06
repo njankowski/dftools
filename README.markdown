@@ -5,7 +5,7 @@ Tools for Star Wars: Dark Forces assets.
 ***Be careful with these tools! At present, these tools will overwrite any files in a directory with identical names when writing files!***
 
 ### Requirements
-* Python 3
+* Python 3.6 or greater
 * Pillow (PIL Fork)
 
 ### Examples
@@ -53,6 +53,7 @@ Tools for Star Wars: Dark Forces assets.
 
 #### Containers
 * GOB (Asset Archive)
+* LAB (Asset Archive for Outlaws)
 
 #### Graphics
 * BM (Textures, Weapons)
@@ -102,6 +103,24 @@ Tools for Star Wars: Dark Forces assets.
 *Archives all of the files in folder "CUSTOM" (including subdirectories) in the current directory, to a GOB named "CUSTOM.GOB" in the current directory.*
 
 *Allows files to remain organized before packing.*
+
+#### labtool (Outlaws)
+**Extract a LAB**
+
+`python labtool.py extract "OUTLAWS.LAB" "OUTLAWS"`
+
+*Extracts a LAB named "OUTLAWS.LAB" in the current directory, to a folder "OUTLAWS" in the current directory.*
+
+*Will automatically create directories that do not exist.*
+
+`python labtool.py extract -o "OUTLAWS.LAB" "OUTLAWS"`
+
+`python labtool.py extract --organize "OUTLAWS.LAB" "OUTLAWS"`
+
+
+*Extracts a LAB named "OUTLAWS.LAB" in the current directory, to a folder "OUTLAWS" in the current directory.*
+
+*Will create a subdirectory (within the specified directory) for each file extension in the archive. Will place each file into the appropriate subdirectory.*
 
 #### fmetool
 **Convert an FME**

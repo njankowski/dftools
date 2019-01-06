@@ -6,28 +6,26 @@ from formats import bm
 from formats import pal
 
 
-args = None
-
-
-def convert_bm():
+def from_bm(args):
     if args.external:
+        args.external = os.path.abspath(args.external)
         rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
-        print('Loaded external palette "' + args.external + '"')
+        print(f'Loaded external palette "{args.external}"')
     else:
         rgb_palette = pal.default_palettes[args.palette]
-        print('Loaded built-in palette "' + args.palette + '"')
+        print(f'Loaded built-in palette "{args.palette}"')
 
+    args.file = os.path.abspath(args.file)
     images = glob.glob(args.file)
     for image in images:
         imageName = os.path.splitext(image)[0]
-        print('Converting "' + image + '"')
+        print(f'Converting "{image}"')
         converted_images = bm.to_images(bm.read(image), rgb_palette)
         for i in range(len(converted_images)):
             if len(converted_images) == 1:
-                converted_images[i].save(imageName + '.png')
+                converted_images[i].save(f'{imageName}.png')
             else:
-                converted_images[i].save(imageName + ' ('+ str(i) + ')' + '.png')
-    print('Done')
+                converted_images[i].save(f'{imageName}({str(i)}).png')
 
 
 def main():
@@ -44,7 +42,7 @@ def main():
 
     args = parser.parse_args()
 
-    convert_bm()
+    from_bm(args)
 
 
 if __name__ == '__main__':

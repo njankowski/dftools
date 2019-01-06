@@ -6,24 +6,21 @@ from formats import fnt
 from formats import pal
 
 
-args = None
-
-
-def convert_fnt():
+def from_fnt(args):
     if args.external:
+        args.external = os.path.abspath(args.external)
         rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
-        print('Loaded external palette "' + args.external + '"')
+        print(f'Loaded external palette "{args.external}"')
     else:
         rgb_palette = pal.default_palettes[args.palette]
-        print('Loaded built-in palette "' + args.palette + '"')
+        print(f'Loaded built-in palette "{args.palette}"')
 
+    args.file = os.path.abspath(args.file)
     images = glob.glob(args.file)
     for image in images:
         imageName = os.path.splitext(image)[0]
-        print('Converting "' + image + '"')
-        fnt.to_image(fnt.read(image), rgb_palette).save(imageName + '.png')
-
-    print('Done')
+        print(f'Converting "{image}"')
+        fnt.to_image(fnt.read(image), rgb_palette).save(f'{imageName}.png')
 
 
 def main():
@@ -40,7 +37,7 @@ def main():
 
     args = parser.parse_args()
 
-    convert_fnt()
+    from_fnt(args)
 
 
 if __name__ == '__main__':

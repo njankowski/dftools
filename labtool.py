@@ -24,8 +24,6 @@ def extract(args):
     elif bad_entries:
         print('Some files could not be saved. Use the "-i" or "--interactive" option to extract these files.')
 
-    print('Done')
-
 
 def main():
     parser = argparse.ArgumentParser(prog='labtool', description='Tool for Outlaws LAB archives.')

@@ -5,24 +5,21 @@ from formats import pal
 from formats import wax
 
 
-args = None
-
-
-def extract_wax():
+def from_wax(args):
     if args.external:
+        args.external = os.path.abspath(args.external)
         rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
-        print('Loaded external palette "' + args.external + '"')
+        print(f'Loaded external palette "{args.external}"')
     else:
         rgb_palette = pal.default_palettes[args.palette]
-        print('Loaded built-in palette "' + args.palette + '"')
+        print(f'Loaded built-in palette "{args.palette}"')
 
-    print('Converting "' + args.file + '"')
+    args.file = os.path.abspath(args.file)
+    print(f'Converting "{args.file}"')
     images = wax.to_images(wax.read(args.file), rgb_palette)
     waxName = os.path.splitext(args.file)[0]
     for image in images:
-        image[1].save(waxName + ' ' + image[0] + '.png')
-
-    print('Done')
+        image[1].save(f'{waxName} {image[0]}.png')
 
 
 def main():
@@ -40,7 +37,7 @@ def main():
 
     args = parser.parse_args()
 
-    extract_wax()
+    from_wax(args)
 
 
 if __name__ == "__main__":
