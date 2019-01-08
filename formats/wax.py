@@ -111,7 +111,7 @@ def to_images(wax, rgb_palette):
         for angle in state.actor_angles:
             frame_num = 0
             for frame in angle.actor_frames:
-                images.append((general_wax_states[state_num] + " (angle " + str(angle_num) + ") (frame " + str(frame_num) + ")", fme.to_image(frame, rgb_palette)))
+                images.append((f'{general_wax_states[state_num]}-a{angle_num}-f{frame_num}', fme.to_image(frame, rgb_palette)))
                 frame_num += 1
             angle_num += 1
         state_num += 1
@@ -119,16 +119,16 @@ def to_images(wax, rgb_palette):
 
 
 general_wax_states = {
-0: "moving",
-1: "attacking (primary)",
-2: "dying (melee)",
-3: "dying (bullet or explosion)",
+0: "walk",
+1: "attack",
+2: "die",
+3: "die-alt",
 4: "dead",
 5: "idle",
-6: "attack follow through (primary)",
-7: "attacking (secondary)",
-8: "attack follow through (secondary)",
-9: "jumping",
+6: "attack-follow",
+7: "attack-alt",
+8: "attack-follow-alt",
+9: "fly",
 10: "none",
 11: "none",
 12: "pain",
@@ -136,18 +136,18 @@ general_wax_states = {
 }
 
 remote_wax_states = {
-0: "moving",
+0: "walk",
 1: "idle",
-2: "dying",
-3: "dying"
+2: "die",
+3: "die"
 }
 
 scenery_wax_states = {
-0: "normal",
-1: "destroyed"
+0: "idle",
+1: "dead"
 }
 
 barrel_wax_states = {
-0: "normal",
-1: "exploding"
+0: "idle",
+1: "die"
 }

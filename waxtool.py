@@ -19,7 +19,7 @@ def from_wax(args):
     images = wax.to_images(wax.read(args.file), rgb_palette)
     waxName = os.path.splitext(args.file)[0]
     for image in images:
-        image[1].save(f'{waxName} {image[0]}.png')
+        image[1].save(f'{waxName}-{image[0]}.png')
 
 
 def main():
