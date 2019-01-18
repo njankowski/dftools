@@ -15,3 +15,15 @@ def to_image(data, width, height, rgb_palette, transparency):
                                 rgb_palette[data[row * width + col]][2],
                                 alpha)
     return image
+
+
+def to_image_graymap(data, width, height):
+    image = Image.new("RGBA", (width, height))
+    pixels = image.load()
+    for row in range(height):
+        for col in range(width):
+            pixels[col, row] = (data[row * width + col],
+                                data[row * width + col],
+                                data[row * width + col],
+                                255)
+    return image

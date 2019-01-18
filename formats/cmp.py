@@ -6,6 +6,7 @@ depending on the surrounding light value. It also contains a
 gradient for the headlamp.
 """
 from formats import pal
+from util import imaging
 
 # Some notes on the colormap.
 
@@ -59,3 +60,13 @@ def map_headlamp_gradient(colormap, distance):
         raise ValueError("distance value is out of range")
 
     return colormap[(len(colormap) - 128) + distance]
+
+
+def to_image(colormap, rgb_palette):
+    from PIL import Image
+    data = bytearray()
+    for j in range(31, -1, -1):
+        for i in range(0, 256):
+            data.append(map_color(colormap, j, i))
+    image = imaging.to_image(bytes(data), 256, 32, rgb_palette, False)
+    return image

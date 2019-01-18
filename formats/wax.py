@@ -101,6 +101,23 @@ def write(filename):
     pass
 
 
+def to_images_graymap(wax):
+    images = []
+    state_num = 0
+    angle_num = 0
+    frame_num = 0
+    for state in wax.actor_states:
+        angle_num = 0
+        for angle in state.actor_angles:
+            frame_num = 0
+            for frame in angle.actor_frames:
+                images.append((f'{general_wax_states[state_num]}-a{angle_num}-f{frame_num}', fme.to_image_graymap(frame)))
+                frame_num += 1
+            angle_num += 1
+        state_num += 1
+    return images
+
+
 def to_images(wax, rgb_palette):
     images = []
     state_num = 0

@@ -158,6 +158,14 @@ def write(filename, fme):
             file.write(bytes(compressed_data[0]))
 
 
+def to_image_graymap(fme):
+    from PIL import Image
+    image = imaging.to_image_graymap(fme.data.raw, fme.data.y, fme.data.x).transpose(Image.ROTATE_90)
+    if fme.display.flip == 1:
+        image = image.transpose(Image.FLIP_LEFT_RIGHT)
+    return image
+
+
 def to_image(fme, rgb_palette):
     from PIL import Image
     image = imaging.to_image(fme.data.raw, fme.data.y, fme.data.x, rgb_palette, True).transpose(Image.ROTATE_90)

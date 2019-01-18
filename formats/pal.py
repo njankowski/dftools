@@ -9,6 +9,8 @@ channel ranges from 0-63 inclusive.
 Dark Forces treats color 0 as transparent (under most conditions). All others are opaque.
 """
 import struct
+from util import imaging
+
 
 # The number of colors present in a palette.
 NUM_COLORS = 256
@@ -79,6 +81,12 @@ def rgb_to_vga13h(rgb_palette):
                                rgb_palette[color][2] >> 2))
 
     return palette
+
+
+def to_image(rgb_palette):
+    from PIL import Image
+    image = imaging.to_image(list(range(0,256)), 256, 1, rgb_palette, True)
+    return image
 
 
 # Dark Forces default color palettes as lists of RGB tuples.
