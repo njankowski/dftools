@@ -65,9 +65,9 @@ def vga13h_to_rgb(palette):
     rgb_palette = []
 
     for color in range(NUM_COLORS):
-        rgb_palette.append((palette[color][0] << 2,
-                            palette[color][1] << 2,
-                            palette[color][2] << 2))
+        rgb_palette.append(((palette[color][0] * 0xff) // 0x3f,
+                            (palette[color][1] * 0xff) // 0x3f,
+                            (palette[color][2] * 0xff) // 0x3f))
 
     return rgb_palette
 
@@ -76,9 +76,9 @@ def rgb_to_vga13h(rgb_palette):
     palette = []
 
     for color in range(NUM_COLORS):
-        palette.append((rgb_palette[color][0] >> 2,
-                               rgb_palette[color][1] >> 2,
-                               rgb_palette[color][2] >> 2))
+        palette.append(((rgb_palette[color][0] * 0x3f) // 0xff,
+                        (rgb_palette[color][1] * 0x3f) // 0xff,
+                        (rgb_palette[color][2] * 0x3f) // 0xff))
 
     return palette
 
