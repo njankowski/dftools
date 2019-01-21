@@ -12,7 +12,7 @@ def from_fme(args):
         rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
         print(f'Loaded external palette "{args.external}"')
     else:
-        rgb_palette = pal.default_palettes[args.palette]
+        rgb_palette = pal.load_internal(args.palette)
         print(f'Loaded built-in palette "{args.palette}"')
 
     args.file = os.path.abspath(args.file)
