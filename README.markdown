@@ -53,6 +53,7 @@ Tools for Star Wars: Dark Forces assets.
 
 #### Containers
 * GOB (Asset Archive)
+* LFD (LANDRU Asset Archive) (Briefings, Cutscenes, Menus)
 * LAB (Asset Archive for Outlaws)
 
 #### Graphics
