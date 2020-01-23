@@ -5,11 +5,18 @@ from util import bulkrw
 
 
 def archive(args):
-    pass
+    args.directory = os.path.abspath(args.directory)
+    args.lab = os.path.abspath(args.lab)
+
+    print(f'Archiving "{args.directory}" into LAB "{args.lab}"')
+
+    entries = bulkrw.read_files(args.directory, args.recursive)
+    lab.write(args.lab, entries)
+
+    print('Done')
 
 
 def extract(args):
-    # Normalize paths.
     args.directory = os.path.abspath(args.directory)
     args.lab = os.path.abspath(args.lab)
 
@@ -24,13 +31,12 @@ def extract(args):
     elif bad_entries:
         print('Some files could not be saved. Use the "-i" or "--interactive" option to extract these files.')
 
+    print('Done')
+
 
 def main():
     parser = argparse.ArgumentParser(prog='labtool', description='Tool for Outlaws LAB archives.')
     subparsers = parser.add_subparsers(dest='cmd', required=True, help='the operation to perform')
-
-    parser.add_argument('-v', '--verbose', action='store_true', help='print extra information')
-
 
     # Extract command subparser.
     extract_parser = subparsers.add_parser('extract', help='extract from a LAB')
@@ -41,9 +47,16 @@ def main():
     extract_parser.add_argument('directory', help='directory to extract into')
 
 
+    # Archive command subparser.
+    archive_parser = subparsers.add_parser('archive', help='archive into a LAB')
+    archive_parser.set_defaults(func=archive)
+    archive_parser.add_argument('-r', '--recursive', help='archive all files in the directory and its subdirectories', action='store_true')
+    archive_parser.add_argument('directory', help='directory to archive from')
+    archive_parser.add_argument('lab', help='LAB to archive into')
+
+
     # Parse arguments.
     args = parser.parse_args()
-
 
     # Dispatch command.
     args.func(args)

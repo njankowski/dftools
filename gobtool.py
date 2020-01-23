@@ -5,7 +5,6 @@ from util import bulkrw
 
 
 def archive(args):
-    # Normalize paths.
     args.directory = os.path.abspath(args.directory)
     args.gob = os.path.abspath(args.gob)
 
@@ -18,7 +17,6 @@ def archive(args):
 
 
 def extract(args):
-    # Normalize paths.
     args.directory = os.path.abspath(args.directory)
     args.gob = os.path.abspath(args.gob)
 
@@ -33,17 +31,12 @@ def extract(args):
     elif bad_entries:
         print('Some files could not be saved. Use the "-i" or "--interactive" option to extract these files.')
 
-
-def inspect(args):
-    pass
+    print('Done')
 
 
 def main():
     parser = argparse.ArgumentParser(prog='gobtool', description='Tool for Star Wars: Dark Forces GOB archives.')
     subparsers = parser.add_subparsers(dest='cmd', required=True, help='the operation to perform')
-
-    parser.add_argument('-v', '--verbose', action='store_true', help='print extra information')
-
 
     # Extract command subparser.
     extract_parser = subparsers.add_parser('extract', help='extract from a GOB')
@@ -62,15 +55,8 @@ def main():
     archive_parser.add_argument('gob', help='GOB to archive into')
 
 
-    # Inspect command subparser.
-    inspect_parser = subparsers.add_parser('inspect', help='print information about a GOB')
-    inspect_parser.set_defaults(func=inspect)
-    inspect_parser.add_argument('gob', help='GOB to inspect')
-
-
     # Parse arguments.
     args = parser.parse_args()
-
 
     # Dispatch command.
     args.func(args)

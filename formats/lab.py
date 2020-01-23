@@ -106,6 +106,8 @@ def write(filename, entries):
     :param entries: List of LAB entry tuples [(str, bytes), ..., ] where the tuple represents (name, data) of the entry
     :return: None
     """
+    raise NotImplementedError()
+
     meta_size, data_size = get_lab_size(entries)
     if (meta_size + data_size) > LAB_MAX_SIZE:
         raise LABException('Cannot create LAB because it would exceed maximum size.')
@@ -128,7 +130,7 @@ def write(filename, entries):
             file.write(struct.pack('<i', data_offset))
             file.write(struct.pack('<i', len(entry[1])))
             # Fix Me
-            file.write(struct.pack('<i', 0)))
+            file.write(struct.pack('<i', 0))
 
             name_offset += len(entry[0]) + 1
             data_offset += len(entry[1])
