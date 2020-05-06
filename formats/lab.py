@@ -2,6 +2,7 @@
 Outlaws
 LAB Container Functions
 """
+import os
 import struct
 
 
@@ -9,6 +10,51 @@ LAB_HEADER_SIZE = 16
 LAB_CATALOG_ENTRY_SIZE = 16
 
 LAB_MAX_SIZE = 2 ** 31 - 1
+
+
+fourcc_to_ext = \
+{
+    '\x00\x00\x00\x00': ['.chk', '.ver', '.msg', '.rcm', '.pcx'],
+    '3DOF': ['.3do'],
+    'ATXF': ['.atx'],
+    'INFF': ['.inf'],
+    'ITEM': ['.itm', '.rcm'],
+    'LVTF': ['.lvt', '.lvb'],
+    'MSCB': ['.msc'],
+    'NFNT': ['.laf'],
+    'OBTF': ['.obt', '.obb'],
+    'PCXP': ['.pcx'],
+    'PHYS': ['.phy'],
+    'RCPB': ['.rcs', '.rca'],
+    'TXTM': ['.pcx'],
+    'WAVD': ['.wav'],
+    'WAXF': ['.nwx']
+}
+
+
+ext_to_fourcc = \
+{
+    '.3do': ['3DOF'],
+    '.atx': ['ATXF'],
+    '.chk': ['\x00\x00\x00\x00'],
+    '.inf': ['INFF'],
+    '.itm': ['ITEM'],
+    '.laf': ['NFNT'],
+    '.lvb': ['LVTF'],
+    '.lvt': ['LVTF'],
+    '.msc': ['MSCB'],
+    '.msg': ['\x00\x00\x00\x00'],
+    '.nwx': ['WAXF'],
+    '.obb': ['OBTF'],
+    '.obt': ['OBTF'],
+    '.pcx': ['\x00\x00\x00\x00', 'PCXP', 'TXTM'],
+    '.phy': ['PHYS'],
+    '.rca': ['RCPB'],
+    '.rcm': ['\x00\x00\x00\x00', 'ITEM'],
+    '.rcs': ['RCPB'],
+    '.ver': ['\x00\x00\x00\x00'],
+    '.wav': ['WAVD']
+}
 
 
 class LABException(Exception):
@@ -41,7 +87,7 @@ def get_lab_size(entries):
     return (meta_size, data_size)
 
 
-def read(filename):
+def read(filename, include_fourcc=False):
     """Reads a LAB container and returns all stored files.
 
     :param filename: Path to the LAB to read
@@ -91,7 +137,10 @@ def read(filename):
 
             file.seek(next_entry)
 
-            entries.append((name, data))
+            if include_fourcc:
+                entries.append((name, data, fourcc))
+            else:
+                entries.append((name, data))
 
         if sum([(len(entry[0]) + 1) for entry in entries]) != name_table_len:
             return
@@ -106,8 +155,6 @@ def write(filename, entries):
     :param entries: List of LAB entry tuples [(str, bytes), ..., ] where the tuple represents (name, data) of the entry
     :return: None
     """
-    raise NotImplementedError()
-
     meta_size, data_size = get_lab_size(entries)
     if (meta_size + data_size) > LAB_MAX_SIZE:
         raise LABException('Cannot create LAB because it would exceed maximum size.')
@@ -129,8 +176,16 @@ def write(filename, entries):
             file.write(struct.pack('<i', name_offset))
             file.write(struct.pack('<i', data_offset))
             file.write(struct.pack('<i', len(entry[1])))
-            # Fix Me
-            file.write(struct.pack('<i', 0))
+
+            extension = os.path.splitext(entry[0])[1].lower()
+            if extension in ext_to_fourcc:
+                fourcc = ext_to_fourcc[extension]
+                if len(fourcc) != 1:
+                    print(f'Automatic FourCC selection was ambiguous for {entry[0]}')
+                file.write(struct.pack('<i', struct.unpack('<i', fourcc[0][::-1].encode('ascii'))[0]))
+            else:
+                print(f'Automatic FourCC selection failed for {entry[0]}')
+                file.write(struct.pack('<i', 0))
 
             name_offset += len(entry[0]) + 1
             data_offset += len(entry[1])
