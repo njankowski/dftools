@@ -608,11 +608,12 @@ def read(filename):
 def write_sector(file, sector):
     file.write(f'  SECTOR {sector.id}\n')
     file.write(f'    NAME {sector.name}\n')
+    file.write(f'    AMBIENT {sector.ambient}\n')
     file.write('    FLOOR TEXTURE {:} {:.2f} {:.2f} {:}\n'.format(*sector.floor_texture, 0))
     file.write('    FLOOR ALTITUDE {:.2f}\n'.format(sector.floor_altitude))
     file.write('    CEILING TEXTURE {:} {:.2f} {:.2f} {:}\n'.format(*sector.ceiling_texture, 0))
     file.write('    CEILING ALTITUDE {:.2f}\n'.format(sector.ceiling_altitude))
-    file.write('    SECOND ALTITUDE {:.2f}\n'.format(sector.ceiling_altitude))
+    file.write('    SECOND ALTITUDE {:.2f}\n'.format(sector.second_altitude))
     file.write('    FLAGS {:} {:} {:}\n'.format(*sector.flags))
     file.write('    LAYER {:}\n'.format(sector.layer))
 
