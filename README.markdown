@@ -1,71 +1,47 @@
 # dftools
-Tools for Star Wars: Dark Forces assets.
+Tools for Star Wars: Dark Forces and Outlaws assets.
 
-### First Off...
-***Be careful with these tools! At present, these tools will overwrite any files in a directory with identical names when writing files!***
+### Caution
+***These tools will overwrite files with identical names when converting or extracting.***
 
 ### Requirements
-* Python 3.6 or greater
-* Pillow (PIL Fork)
+* Python 3.6+
+* Pillow (Image Library)
+
+***
 
 ### Examples
 
-**fmetool**
-
 ![Jan Ors](examples/jan.png "Jan Ors")
-
-*Jan Ors*
-
 ![Stormtrooper Rifle](examples/ist-gunu.png "Stormtrooper Rifle")
-
-*Stormtrooper Rifle*
-
-**waxtool**
-
 ![Phase 1 Dark Trooper](examples/phase1.png "Phase 1 Dark Trooper")
 ![Phase 1 Dark Trooper (GROMAS)](examples/phase1-gromas.png "Phase 1 Dark Trooper (GROMAS)")
-
-*Phase 1 Dark Trooper (Right-side has GROMAS color palette for that extra spooky red tinge!)*
-
 ![Stormtrooper](examples/stormfin.png "Stormtrooper")
-
-*Stormtrooper*
-
-**bmtool**
-
 ![Stormtrooper Rifle (First Person)](examples/rifle1.png "Stormtrooper Rifle (First Person)")
-
-*Stormtrooper Rifle (First Person)*
-
-**fnttool**
 
 ![Ammo Font](examples/amonum.png "Ammo Font")
 
-*Ammo Font*
-
 ![Glowing Font](examples/glowing.png "Glowing Font")
-
-*Glowing Font*
 
 ***
 
 ### Supported Formats
 
 #### Containers
-* GOB (Asset Archive)
-* LFD (LANDRU Asset Archive) (Briefings, Cutscenes, Menus)
-* LAB (Asset Archive for Outlaws)
+* GOB
+* LFD
+* LAB
 
 #### Graphics
-* BM (Textures, Weapons)
-* CMP (Colormap)
-* FME (Static Sprites)
-* FNT (Bitmap Fonts)
-* PAL (Color Palette)
-* WAX (Animated Sprites)
+* BM
+* CMP
+* FME
+* FNT
+* PAL
+* WAX
 
 #### Sound
-* GMD (Custom MIDI Format 2)
+* GMD
 
 ***
 
