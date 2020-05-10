@@ -41,36 +41,20 @@ class Tokenizer():
 
 
     def __clean_comments(self, line):
-        start_index = line.find('/*')
-        end_index = line.find('*/')
-
-        if start_index == -1 and end_index == -1:
-            return line
-
-        if start_index != -1 and end_index == -1:
-            self.__active_comment += 1
-            line = line[:start_index]
-
-        if start_index == -1 and end_index != -1:
-            self.__active_comment -= 1
-            line = line[end_index + 2:]
-
         while True:
-            line = line[:start_index] + line[end_index + 2:]
-
             start_index = line.find('/*')
             end_index = line.find('*/')
 
             if start_index == -1 and end_index == -1:
                 break
-
-            if start_index != -1 and end_index == -1:
+            elif start_index != -1 and end_index == -1:
                 self.__active_comment += 1
                 line = line[:start_index]
-
-            if start_index == -1 and end_index != -1:
+            elif start_index == -1 and end_index != -1:
                 self.__active_comment -= 1
                 line = line[end_index + 2:]
+            else:
+                line = line[:start_index] + line[end_index + 2:]
 
         return line
 
@@ -93,6 +77,17 @@ class Tokenizer():
         return self.__current_tokens.pop(0)
 
 
+    def next_tokens_in_line(self):
+        if self.__current_line == None or len(self.__current_tokens) == 0:
+            self.__next_line()
+            self.__current_tokens = self.__current_line.split()
+
+        tokens = self.__current_tokens[:]
+        self.__current_tokens.clear()
+
+        return tokens
+
+
     def peek_token(self, lookahead):
         if self.__current_line == None or len(self.__current_tokens) == 0:
             self.__next_line()
@@ -111,15 +106,17 @@ class Tokenizer():
 
 
 def parse_object_sequence(tokenizer):
-    sequence = {}
-
     try:
         if tokenizer.peek_token(0) != 'SEQ':
-            return sequence
+            return
     except:
-        return sequence
+        return
+
+    sequence = {}
 
     sequence_token = tokenizer.next_token()
+    if sequence_token != 'SEQ':
+        raise Exception(f'Bad sequence keyword. Got "{sequence_token}"')
 
     while tokenizer.peek_token(0) != 'SEQEND':
         sequence_key = tokenizer.next_token()
@@ -370,7 +367,7 @@ def parse_pods(tokenizer):
 def parse_levelname(tokenizer):
     levelname_keyword = tokenizer.next_token()
     if levelname_keyword != 'LEVELNAME':
-        raise Exception(f'Bad levename keyword. Got "{levelname_keyword}"')
+        raise Exception(f'Bad level name keyword. Got "{levelname_keyword}"')
 
     levelname_token = tokenizer.next_token()
 
@@ -411,7 +408,7 @@ def write_objects(file, lev_objects):
     for lev_obj in lev_objects.objects:
         file.write('    CLASS: {:} DATA: {:} X: {:.2f} Y: {:.2f} Z: {:.2f} PCH: {:.2f} YAW: {:.2f} ROL: {:.2f} DIFF: {:}\n'.format(
             lev_obj.obj_class, lev_obj.data, lev_obj.x, lev_obj.y, lev_obj.z, lev_obj.pch, lev_obj.yaw, lev_obj.rol, lev_obj.diff))
-        if len(lev_obj.sequence) > 0:
+        if lev_obj.sequence and len(lev_obj.sequence) > 0:
              file.write('        SEQ\n')
              for seq_key, seq_val in lev_obj.sequence.items():
                  for val in seq_val:

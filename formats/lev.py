@@ -571,7 +571,7 @@ def parse_palette(tokenizer):
 def parse_levelname(tokenizer):
     levelname_keyword = tokenizer.next_token()
     if levelname_keyword != 'LEVELNAME':
-        raise Exception(f'Bad levename keyword. Got "{levelname_keyword}"')
+        raise Exception(f'Bad level name keyword. Got "{levelname_keyword}"')
 
     levelname_token = tokenizer.next_token()
 
