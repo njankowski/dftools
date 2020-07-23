@@ -1,3 +1,9 @@
+class INFAttribute:
+    def __init__(self):
+        self.name = None
+        self.value = None
+
+
 class LEVInfItem:
     def __init__(self):
         # level, sector, line
@@ -95,7 +101,8 @@ class Tokenizer():
 
 
 def parse_sequence(tokenizer):
-    sequence = {}
+    # Sequences are order dependent.
+    sequence = []
 
     sequence_token = tokenizer.next_token().lower()
     if sequence_token != 'seq':
@@ -107,11 +114,11 @@ def parse_sequence(tokenizer):
         while ':' not in tokenizer.peek_token(0) and 'seqend' not in tokenizer.peek_token(0).lower():
             sequence_value += ' ' + tokenizer.next_token()
 
-        sequence_value = sequence_value.strip()
-        if sequence_key in sequence:
-            sequence[sequence_key].append(sequence_value)
-        else:
-            sequence[sequence_key] = [sequence_value]
+        attribute = INFAttribute()
+        attribute.name = sequence_key
+        attribute.value = sequence_value
+
+        sequence.append(attribute)
 
     sequence_token = tokenizer.next_token()
 
@@ -226,9 +233,8 @@ def write_items(file, inf_objects):
             file.write(f' num: {item.wall_number}')
         file.write('\n')
         file.write('    seq\n')
-        for seq_key, seq_val in item.sequence.items():
-            for val in seq_val:
-                file.write(f'      {seq_key} {val}\n')
+        for attribute in item.sequence:
+            file.write(f'      {attribute.name} {attribute.value}\n')
         file.write('    seqend\n')
 
 
