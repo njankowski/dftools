@@ -125,10 +125,24 @@ def rle1_decompress(file, width, row_offsets):
             control_byte = struct.unpack("B", file.read(1))[0]
             # Uncompressed bytes.
             if control_byte <= 128:
+                # If the control byte tries to expand beyond the width of the column.
+                if control_byte + unpacked_bytes > width:
+                    # Calculate how many bytes remain in the column.
+                    control_byte = max(0, control_byte - unpacked_bytes)
+                    # Skip the malformed bytes.
+                    # e.g. If there are two bytes remaining to fill the column, skip two then read two.
+                    file.seek(file.tell() + control_byte)
                 decompressed.extend(list(file.read(control_byte)))
                 unpacked_bytes += control_byte
             # Expand compressed non-zero bytes.
             else:
+                # If the control byte tries to expand beyond the width of the column.
+                if (control_byte - 128) + unpacked_bytes > width:
+                    # Calculate how many bytes remain in the column.
+                    control_byte = max(0, (control_byte - 128) - unpacked_bytes)
+                    # Skip the malformed bytes.
+                    # e.g. If there are two bytes remaining to fill the column, skip two then read two.
+                    file.seek(file.tell() + control_byte)
                 decompressed.extend(list(file.read(1)) * (control_byte - 128))
                 unpacked_bytes += control_byte - 128
 
