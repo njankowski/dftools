@@ -138,6 +138,55 @@ def rle1_decompress(file, width, row_offsets):
     return decompressed
 
 
+def rle1_decompress_bugged(file, width, row_offsets, end_of_data):
+    decompressed = []
+
+    first_pass = True
+    for i, offset in enumerate(row_offsets):
+        if not first_pass:
+            if file.tell() > offset:
+                raise Exception(f'overlapped next offset by {file.tell() - offset} bytes')
+            elif file.tell() < offset:
+                print(f'{offset - file.tell()} dead bytes at offset {file.tell()}')
+
+        first_pass = False
+
+        if i + 1 < len(row_offsets):
+            max_offset = row_offsets[i + 1]
+        else:
+            max_offset = end_of_data
+
+        file.seek(offset)
+        unpacked_bytes = 0
+        while unpacked_bytes < width:
+            control_byte = struct.unpack("B", file.read(1))[0]
+            # Uncompressed bytes.
+            if control_byte <= 128:
+                # If the control byte tries to read into the next column offset.
+                if file.tell() + control_byte > max_offset:
+                    # Discard the control byte and read only one byte.
+                    control_byte = 1
+                    # Remove a single decompressed pixel at the end of the list.
+                    decompressed.pop()
+                decompressed.extend(list(file.read(control_byte)))
+                unpacked_bytes += control_byte
+            # Expand compressed non-zero bytes.
+            else:
+                # If the control byte tries to read into the next column offset.
+                if file.tell() + 1 > max_offset:
+                    # Discard the control byte and read only one byte.
+                    control_byte = 129
+                     # Remove a single decompressed pixel at the end of the list.
+                    decompressed.pop()
+                decompressed.extend(list(file.read(1)) * (control_byte - 128))
+                unpacked_bytes += control_byte - 128
+
+    if len(decompressed) != width * len(row_offsets):
+        raise Exception("decompressed data does not match expected decompressed size")
+
+    return decompressed
+
+
 def rle1_compress(data, width):
     if (len(data) % width != 0):
         raise Exception("width does not evenly divide data")

@@ -76,7 +76,11 @@ def read(filename):
                 if bm.compressed == compression.RLE0:
                     bm.raw_data = compression.rle0_decompress(file, bm.y, offset_table)
                 else:
-                    bm.raw_data = compression.rle1_decompress(file, bm.y, offset_table)
+                    try:
+                        bm.raw_data = compression.rle1_decompress(file, bm.y, offset_table)
+                    except:
+                        print('Normal RLE1 decompression failed. Attempting bugged variant.')
+                        bm.raw_data = compression.rle1_decompress_bugged(file, bm.y, offset_table, bm.data_size + 32)
 
         return bm
 
