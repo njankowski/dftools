@@ -41,8 +41,11 @@ class Wax:
 def read(filename):
     wax = Wax()
     with open(filename, "rb") as file:
-        magic = struct.unpack(">i", file.read(4))[0]
-        if magic != WAX_VERSION and magic != WAX_VERSION_ALT:
+        magic = file.read(4)
+        le_magic = struct.unpack("<i", magic)[0]
+        be_magic = struct.unpack(">i", magic)[0]
+        if le_magic != WAX_VERSION and le_magic != WAX_VERSION_ALT and \
+           be_magic != WAX_VERSION and be_magic != WAX_VERSION_ALT:
             raise Exception("WAX version is incorrect.")
 
         wax.num_sequences = struct.unpack("<i", file.read(4))[0]
