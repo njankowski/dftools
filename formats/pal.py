@@ -73,6 +73,17 @@ def vga13h_to_rgb(palette):
     return rgb_palette
 
 
+def vga13h_to_rgb_compat(palette):
+    rgb_palette = []
+
+    for color in range(NUM_COLORS):
+        rgb_palette.append((palette[color][0] << 2,
+                            palette[color][1] << 2,
+                            palette[color][2] << 2))
+
+    return rgb_palette
+
+
 def rgb_to_vga13h(rgb_palette):
     palette = []
 
@@ -102,6 +113,20 @@ def load_internal(name):
         palette.append((r, g, b))
 
     return vga13h_to_rgb(palette)
+
+
+def load_internal_compat(name):
+    decoded = base64.b64decode(default_palettes[name])
+
+    palette = []
+
+    for i in range(NUM_COLORS):
+        r = decoded[(i * 3) + 0]
+        g = decoded[(i * 3) + 1]
+        b = decoded[(i * 3) + 2]
+        palette.append((r, g, b))
+
+    return vga13h_to_rgb_compat(palette)
 
 
 ARC = \

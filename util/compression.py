@@ -123,6 +123,12 @@ def rle1_decompress(file, width, row_offsets):
         unpacked_bytes = 0
         while unpacked_bytes < width:
             control_byte = struct.unpack("B", file.read(1))[0]
+            # Discard control bytes equal to 128 and the data byte that follows them.
+            if control_byte == 128:
+                #print(f'bad rle1 control byte {control_byte} at offset {file.tell()}')
+                discard = file.read(1)
+                #print(f'discarded single data byte {discard}')
+                continue
             # Uncompressed bytes.
             if control_byte <= 128:
                 decompressed.extend(list(file.read(control_byte)))
@@ -179,8 +185,9 @@ def rle1_compress(data, width):
             non_contiguous_bytes = get_non_contiguous_count(trimmed_data, index, min((index // width) * width + width, len(trimmed_data)), 3)
 
             # Clamp non-contiguous bytes.
-            if non_contiguous_bytes > 128:
-                non_contiguous_bytes = 128
+            # Cannot use control byte 128, so the limit is 127.
+            if non_contiguous_bytes > 127:
+                non_contiguous_bytes = 127
 
             compressed.append(non_contiguous_bytes)
 

@@ -9,10 +9,16 @@ from formats import pal
 def from_bm(args):
     if args.external:
         args.external = os.path.abspath(args.external)
-        rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
+        if args.compatible:
+            rgb_palette = pal.vga13h_to_rgb_compat(pal.read(args.external))
+        else:
+            rgb_palette = pal.vga13h_to_rgb(pal.read(args.external))
         print(f'Loaded external palette "{args.external}"')
     else:
-        rgb_palette = pal.load_internal(args.palette)
+        if args.compatible:
+            rgb_palette = pal.load_internal_compat(args.palette)
+        else:
+            rgb_palette = pal.load_internal(args.palette)
         print(f'Loaded built-in palette "{args.palette}"')
 
     args.file = os.path.abspath(args.file)
@@ -37,6 +43,9 @@ def main():
                         default='SECBASE')
     parser.add_argument('-e', '--external',
                         help='Specifies an external color palette to load for conversion. Overrides --palette.)')
+    parser.add_argument('-c', '--compatible',
+                        help='Map color output like DF2 (BMPDF). Recommended for debugging only.',
+                        action='store_true')
 
     parser.add_argument('file', help='file(s) to convert (as glob)')
 
