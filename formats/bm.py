@@ -76,11 +76,19 @@ def read(filename):
                 if bm.compressed == compression.RLE0:
                     bm.raw_data = compression.rle0_decompress(file, bm.y, offset_table)
                 else:
-                    try:
-                        bm.raw_data = compression.rle1_decompress(file, bm.y, offset_table)
-                    except:
-                        print('Normal RLE1 decompression failed. Attempting bugged variant.')
-                        bm.raw_data = compression.rle1_decompress_bugged(file, bm.y, offset_table, bm.data_size + 32)
+                    bm.raw_data = compression.rle1_decompress(file, bm.y, offset_table)
+
+
+         # Try to catch certain BMs with bad header endianess.
+        if not (bm.x == 1 and bm.y != 1) and (bm.compressed == 0) and ((bm.x * bm.y) != bm.data_size):
+            #print('header may have incorrect endianess in multiple fields')
+            #print('attempting swap')
+            bm.x = ((bm.x & 0xFF00) >> 8) | ((bm.x & 0x00FF) << 8)
+            bm.y = ((bm.y & 0xFF00) >> 8) | ((bm.y & 0x00FF) << 8)
+            bm._idem_x = ((bm._idem_x & 0xFF00) >> 8) | ((bm._idem_x & 0x00FF) << 8)
+            bm._idem_y = ((bm._idem_y & 0xFF00) >> 8) | ((bm._idem_y & 0x00FF) << 8)
+            bm.compressed = ((bm.compressed & 0xFF00) >> 8) | ((bm.compressed & 0x00FF) << 8)
+            bm.data_size = ((bm.data_size & 0xFF00) >> 8) | ((bm.data_size & 0x00FF) << 8)
 
         return bm
 

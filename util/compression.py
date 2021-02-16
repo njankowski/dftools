@@ -123,61 +123,18 @@ def rle1_decompress(file, width, row_offsets):
         unpacked_bytes = 0
         while unpacked_bytes < width:
             control_byte = struct.unpack("B", file.read(1))[0]
+            # Discard control bytes equal to 128 and the data byte that follows them.
+            if control_byte == 128:
+                #print(f'bad rle1 control byte {control_byte} at offset {file.tell()}')
+                discard = file.read(1)
+                #print(f'discarded single data byte {discard}')
+                continue
             # Uncompressed bytes.
             if control_byte <= 128:
                 decompressed.extend(list(file.read(control_byte)))
                 unpacked_bytes += control_byte
             # Expand compressed non-zero bytes.
             else:
-                decompressed.extend(list(file.read(1)) * (control_byte - 128))
-                unpacked_bytes += control_byte - 128
-
-    if len(decompressed) != width * len(row_offsets):
-        raise Exception("decompressed data does not match expected decompressed size")
-
-    return decompressed
-
-
-def rle1_decompress_bugged(file, width, row_offsets, end_of_data):
-    decompressed = []
-
-    first_pass = True
-    for i, offset in enumerate(row_offsets):
-        if not first_pass:
-            if file.tell() > offset:
-                raise Exception(f'overlapped next offset by {file.tell() - offset} bytes')
-            elif file.tell() < offset:
-                print(f'{offset - file.tell()} dead bytes at offset {file.tell()}')
-
-        first_pass = False
-
-        if i + 1 < len(row_offsets):
-            max_offset = row_offsets[i + 1]
-        else:
-            max_offset = end_of_data
-
-        file.seek(offset)
-        unpacked_bytes = 0
-        while unpacked_bytes < width:
-            control_byte = struct.unpack("B", file.read(1))[0]
-            # Uncompressed bytes.
-            if control_byte <= 128:
-                # If the control byte tries to read into the next column offset.
-                if file.tell() + control_byte > max_offset:
-                    # Discard the control byte and read only one byte.
-                    control_byte = 1
-                    # Remove a single decompressed pixel at the end of the list.
-                    decompressed.pop()
-                decompressed.extend(list(file.read(control_byte)))
-                unpacked_bytes += control_byte
-            # Expand compressed non-zero bytes.
-            else:
-                # If the control byte tries to read into the next column offset.
-                if file.tell() + 1 > max_offset:
-                    # Discard the control byte and read only one byte.
-                    control_byte = 129
-                     # Remove a single decompressed pixel at the end of the list.
-                    decompressed.pop()
                 decompressed.extend(list(file.read(1)) * (control_byte - 128))
                 unpacked_bytes += control_byte - 128
 
@@ -228,8 +185,9 @@ def rle1_compress(data, width):
             non_contiguous_bytes = get_non_contiguous_count(trimmed_data, index, min((index // width) * width + width, len(trimmed_data)), 3)
 
             # Clamp non-contiguous bytes.
-            if non_contiguous_bytes > 128:
-                non_contiguous_bytes = 128
+            # Cannot use control byte 128, so the limit is 127.
+            if non_contiguous_bytes > 127:
+                non_contiguous_bytes = 127
 
             compressed.append(non_contiguous_bytes)
 
