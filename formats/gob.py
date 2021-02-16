@@ -107,7 +107,11 @@ def read(filename):
             data_length = struct.unpack('<i', file.read(4))[0]
 
             raw_name = file.read(13)
-            name = raw_name[0 : raw_name.index(0)].decode('ascii')
+            try:
+                name = raw_name[0 : raw_name.index(0)].decode('ascii')
+            except ValueError:
+                name = raw_name.decode('ascii')
+                print(f'catalog entry {i} has no null terminator in its filename "{name}"')
 
             data = b''
 

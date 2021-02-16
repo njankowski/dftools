@@ -5,10 +5,9 @@ import struct
 from formats import fme
 
 
-WAX_VERSION = 0x00100100
+WAX_VERSION = 0x00011000
 # The "Day of the Tentacle" (point-and-click game by Lucas Arts) WAX included as an easter egg in Dark Forces uses this magic value.
-WAX_VERSION_ALT = 0x00000100
-
+WAX_VERSION_ALT = 0x00010000
 
 class ActorAngle:
     def __init__(self):
