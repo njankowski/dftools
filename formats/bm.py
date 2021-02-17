@@ -80,7 +80,7 @@ def read(filename):
 
 
          # Try to catch certain BMs with bad header endianess.
-        if not (bm.x == 1 and bm.y != 1) and (bm.compressed == 0) and ((bm.x * bm.y) != bm.data_size):
+        if not (bm.x == 1 and bm.y != 1) and (bm.compressed == 0) and (bm.data_size != 0) and ((bm.x * bm.y) != bm.data_size):
             #print('header may have incorrect endianess in multiple fields')
             #print('attempting swap')
             bm.x = ((bm.x & 0xFF00) >> 8) | ((bm.x & 0x00FF) << 8)
