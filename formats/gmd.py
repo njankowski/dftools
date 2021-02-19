@@ -22,11 +22,21 @@ def read(filename):
     with open(filename, 'rb') as file:
         gmd = Gmd()
 
+        file.seek(0, 2)
+        end_offset = file.tell()
+        file.seek(0)
+
         # extra imuse header
         if file.read(4) != b'MIDI':
             raise Exception('File has no GMD magic identifier.')
 
         gmd.size = struct.unpack('>i', file.read(4))[0]
+
+        # Fix the GMD size if it erroneously equals the whole file size.
+        # Let correct or any other strange size values fall through untouched.
+        if gmd.size == end_offset:
+            print('gmd size fixup applied')
+            gmd.size = end_offset - 8
 
         bytes_read = 0
         while bytes_read < gmd.size:
