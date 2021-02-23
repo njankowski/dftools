@@ -23,7 +23,7 @@ def extract(args):
     print(f'Extracting "{args.gob}" into directory "{args.directory}"')
 
     entries = gob.read(args.gob)
-    bad_entries = bulkrw.write_files(args.directory, entries, args.organize)
+    bad_entries = bulkrw.write_files(args.directory, entries, args.organize, args.overwrite)
 
     if args.interactive and bad_entries:
         print('Some files could not be saved. Please provide a name for each file when prompted.')
@@ -43,6 +43,7 @@ def main():
     extract_parser.set_defaults(func=extract)
     extract_parser.add_argument('-o', '--organize', help='create a subdirectory for each file extension in the archive', action='store_true')
     extract_parser.add_argument('-i', '--interactive', help='manual renaming when extracting files with bad filenames', action='store_true')
+    extract_parser.add_argument('-f', '--overwrite', help='overwrite existing files and directories when extracting', action='store_true')
     extract_parser.add_argument('gob', help='GOB to extract from')
     extract_parser.add_argument('directory', help='directory to extract into')
 

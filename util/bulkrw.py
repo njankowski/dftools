@@ -1,7 +1,5 @@
-"""Utility functions for reading and writing files in bulk."""
-
-
 import os
+from collections import Counter
 
 
 def read_files(directory, recursive):
@@ -29,16 +27,40 @@ def read_files(directory, recursive):
     return entries
 
 
-def write_files(directory, entries, organize):
-    """Write a list of file entries to a directory."""
+def write_files(directory, entries, organize, overwrite):
+    """Write a list of files to a directory.
+
+    :param directory: The directory to write the files to
+    :param entries: List of file tuples [(str, bytes), ..., ] where the tuple represents (name, data) of the file
+    :param organize: If True, create a directory for each file type and place files of that type there
+    :param overwrite: If True, allow directories and files to be overwritten
+    :return: List of file tuples that could not be written, if any
+    """
     # (filename, data)
     bad_entries = []
 
-    # Get absolute path, just in case working directory changes.
+    # Get absolute path.
     directory = os.path.abspath(directory)
 
     # Make top-level.
-    os.makedirs(directory, exist_ok=True)
+    if os.path.isdir(directory) and not overwrite:
+        print(f'Directory "{directory}" already exists. Aborting.')
+        return
+    else:
+        os.makedirs(directory, exist_ok=True)
+
+    # Append number to duplicate files.
+    filename_counts = Counter([name for (name, data) in entries])
+    duplicate_files = [name for name, count in filename_counts.items() if count > 1]
+
+    for filename in duplicate_files:
+        value = 0
+        for i, entry in enumerate(entries):
+            if entry[0] == filename:
+                new_name = os.path.splitext(filename)[0] + f'-{value}' + os.path.splitext(filename)[1]
+                entries[i] = (new_name, entry[1])
+                value += 1
+                print(f'Duplicate filename "{filename}" renamed to "{new_name}"')
 
     # Prepare extensions for translation into directories.
     extensions = set()
@@ -49,13 +71,16 @@ def write_files(directory, entries, organize):
         # Create subdirectories.
         for extension in set(extensions):
             try:
-                os.makedirs(os.path.join(directory, extension), exist_ok=True)
+                if os.path.isdir(directory) and not overwrite:
+                    print(f'Directory "{directory}" already exists. Aborting.')
+                    return
+                else:
+                    os.makedirs(os.path.join(directory, extension), exist_ok=True)
             except OSError:
                 # Remove bad extensions.
                 extensions.remove(extension)
-                print('Could not make directory "{extension}. \
-                Files with this extension will be in the top-level directory \
-                if possible.'.format(extension=extension))
+                print(f'Could not make directory "{extension}"')
+                print('Files with this extension will be in the top-level directory if possible.')
 
     # Write files.
     for entry in entries:
@@ -65,11 +90,13 @@ def write_files(directory, entries, organize):
         else:
             file_name = os.path.join(directory, entry[0])
         try:
+            if os.path.isfile(file_name) and not overwrite:
+                print(f'File "{file_name}" already exists. File not overwritten.')
             with open(file_name, 'wb') as open_file:
                 open_file.write(entry[1])
         except OSError:
             bad_entries.append(entry)
-            print('Bad filename "' + file_name + '". File not written.')
+            print(f'Bad filename "{file_name}". File not written.')
 
     return bad_entries
 
