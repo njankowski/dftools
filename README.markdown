@@ -1,16 +1,25 @@
 # dftools
-Tools for Star Wars: Dark Forces and Outlaws assets.
 
-### Caution
-***These tools will overwrite files with identical names when converting or extracting.***
+## What is it?
+**dftools** is a suite of Python programs that can be used for working with game assets from:
+- Star Wars: Dark Forces (https://en.wikipedia.org/wiki/Star_Wars:_Dark_Forces)
+- Outlaws (https://en.wikipedia.org/wiki/Outlaws_(1997_video_game))
 
-### Requirements
-* Python 3.6+
-* Pillow (Image Library)
 
-***
+## What do I need to use it?
+- Python 3.9+ (https://www.python.org/)
+- Pillow (https://pypi.org/project/Pillow/)
 
-### Examples
+## Who helped with the project so far?
+- njankowski
+- Karjala
+  - Reported BM examples with broken compression schemes
+  - Reported WAX examples with broken identifier fields
+  - Reported GMD example with broken size field
+
+## What are some examples of assets that I can convert?
+
+Here are some static sprites, animated sprite stills, weapons, and fonts from Dark Forces.
 
 ![Jan Ors](examples/jan.png "Jan Ors")
 ![Stormtrooper Rifle](examples/ist-gunu.png "Stormtrooper Rifle")
@@ -20,136 +29,81 @@ Tools for Star Wars: Dark Forces and Outlaws assets.
 ![Stormtrooper Rifle (First Person)](examples/rifle1.png "Stormtrooper Rifle (First Person)")
 
 ![Ammo Font](examples/amonum.png "Ammo Font")
-
 ![Glowing Font](examples/glowing.png "Glowing Font")
 
-***
+## What are the supported formats?
 
-### Supported Formats
-
-#### Containers
-* GOB
-* LFD
-* LAB
+#### Container
+GOB, LFD, LAB
 
 #### Graphics
-* BM
-* CMP
-* FME
-* FNT
-* PAL
-* WAX
+ANIM (ANM), BM, CMP, DELT (DLT), FME, FNT, NWX, PAL, PLTT (PLT), WAX
 
 #### Sound
-* GMD
+GMID, GMD
+
+#### Level
+INF, LEV, LVB, O
+
+#### 3D
+VUE
 
 ***
 
-### How To
+## How can I use it?
 
-#### gobtool
-**Extract a GOB**
+For detailed information, view the project wiki; otherwise, this quick guide may help you get started.
 
-*There are some GOBs out there with bad filenames archived inside (e.x. the Dark Forces demo). The tool will print a warning if it tried to write a file but could not.*
+All tools have a built-in usage guide that can be seen by running the program with no arguments, or with the '-h' or '--help' options.
 
-`python gobtool.py extract "DARK.GOB" "DARK"`
+For example, with the **dfarc** program:
 
-*Extracts a GOB named "DARK.GOB" in the current directory, to a folder "DARK" in the current directory.*
+`python dfarc.py`
 
-*Will automatically create directories that do not exist.*
+`python dfarc.py -h`
 
-`python gobtool.py extract -o "DARK.GOB" "DARK"`
+`python dfarc.py --help`
 
-`python gobtool.py extract --organize "DARK.GOB" "DARK"`
+## Quick Examples
 
+It is advised that you do not experiment in your game's installation directory.
 
-*Extracts a GOB named "DARK.GOB" in the current directory, to a folder "DARK" in the current directory.*
+Copy the assets elsewhere to be practiced on to avoid destroying your game's install.
 
-*Will create a subdirectory (within the specified directory) for each file extension in the archive. Will place each file into the appropriate subdirectory.*
+### Extract a Container
 
-**Make a GOB**
+If you want to explore all of a game's individual files, they are stored in containers.
 
-`python gobtool.py archive "CUSTOM.GOB" "CUSTOM"`
+You can extract all of those individual files to a directory so that they can be inspected individually.
 
-*Archives all of the files in folder "CUSTOM" (top-level only) in the current directory, to a GOB named "CUSTOM.GOB" in the current directory.*
+`python dfarc.py extract DARK.GOB DARK`
 
-`python gobtool.py archive -r "CUSTOM.GOB" "CUSTOM"`
+### Create a Container
 
-`python gobtool.py archive --recursive "CUSTOM.GOB" "CUSTOM"`
+If you want to repack those same files into a container, you can do that as well.
 
-*Archives all of the files in folder "CUSTOM" (including subdirectories) in the current directory, to a GOB named "CUSTOM.GOB" in the current directory.*
+`python dfarc.py create DARK DARK.GOB`
 
-*Allows files to remain organized before packing.*
+### Convert a Graphics File (Static Sprite, Texture, or Font Examples)
 
-#### labtool (Outlaws)
-**Extract a LAB**
+The tools bmtool, fmetool, and fnttool can be used to convert files of their respective namesakes.
 
-`python labtool.py extract "OUTLAWS.LAB" "OUTLAWS"`
+They will convert the image(s) into a PNG (https://en.wikipedia.org/wiki/Portable_Network_Graphics)
 
-*Extracts a LAB named "OUTLAWS.LAB" in the current directory, to a folder "OUTLAWS" in the current directory.*
-
-*Will automatically create directories that do not exist.*
-
-`python labtool.py extract -o "OUTLAWS.LAB" "OUTLAWS"`
-
-`python labtool.py extract --organize "OUTLAWS.LAB" "OUTLAWS"`
-
-
-*Extracts a LAB named "OUTLAWS.LAB" in the current directory, to a folder "OUTLAWS" in the current directory.*
-
-*Will create a subdirectory (within the specified directory) for each file extension in the archive. Will place each file into the appropriate subdirectory.*
-
-#### fmetool
-**Convert an FME**
-
-*PNG only.*
-
-*Tool uses glob (e.x. wildcard) patterns for file(s) specification.*
-
-*Writes converted files into the same directory."*
+For example, the following command will convert all the FME files in "sprites/" to PNGs, and place those PNGs into the same directory.
 
 `python fmetool.py "sprites/*.fme"`
 
-*Converts all FME files in the sprites directory to "filename.png" using default palette SECBASE.*
+### Convert an Animated Sprite
 
-`python fmetool.py -p JABSHIP "sprites/JAN.fme"`
-
-*Converts a single FME "JAN.FME" in the sprites directory to "JAN.png" using built-in palette JABSHIP.*
-
-`python fmetool.py -p "palettes/custom.pal" "sprites/JAN.fme"`
-
-*Converts a single FME "JAN.FME" in the sprites directory to "JAN.png" using external palette "palettes/custom.pal".*
-
-**Make an FME**
-
-*Not supported.*
-
-#### waxtool
-**Convert a WAX**
-
-*PNG only.*
-
-*Images are auto-labeled based on sprite state.*
-
-*Only can convert one WAX at a time. Make sure to gather converted files before continuing use.*
-
-*Writes converted files into the same directory.*
-
-*Palette can be specified, much like fmetool.*
+The following command will convert a single WAX "PHASE1.WAX" into multiple images, and place those PNGs into the same directory.
 
 `python waxtool.py "sprites/PHASE1.WAX"`
 
-*Converts a single WAX "PHASE1.WAX" into multiple images.*
+## Give me more Dark Forces! (Unaffiliated with this Project)
 
+If you're looking around for Dark Forces stuff, these might interest you.
 
-**Make a WAX**
-
-*Not supported.*
-
-#### bmtool
-
-*Refer to fmetool. Its operation is identical, except that bmtool may generate multiple image files per BM.*
-
-#### fnttool
-
-*Refer to fmetool. Its operation is identical.*
+- https://df-21.net/
+- https://twitter.com/DF21net
+- https://discord.gg/6T9NvMh2MC (DF-21 Discord)
