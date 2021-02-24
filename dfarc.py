@@ -86,7 +86,6 @@ def main():
     parser.add_argument('-v', '--verbose', help='print extra information', action='store_true')
     subparsers = parser.add_subparsers(dest='cmd', required=True)
 
-
     extract_parser = subparsers.add_parser('extract', help='extract from a container')
     extract_parser.set_defaults(func=do_extract)
     extract_parser.add_argument('-f', '--overwrite', help='overwrite existing directories when extracting', action='store_true')
@@ -95,7 +94,6 @@ def main():
     extract_parser.add_argument('container', help='container to extract from')
     extract_parser.add_argument('directory', help='directory to extract into')
 
-
     create_parser = subparsers.add_parser('create', help='create a container')
     create_parser.set_defaults(func=do_create)
     create_parser.add_argument('-f', '--overwrite', help='overwrite existing container files when creating', action='store_true')
@@ -103,18 +101,14 @@ def main():
     create_parser.add_argument('directory', help='directory to pack from')
     create_parser.add_argument('container', help='container to create')
 
-
     if len(sys.argv) == 1:
         parser.print_help(file=sys.stderr)
         sys.exit(1)
 
-
     if len(sys.argv) > 1 and sys.argv[1] == 'archive':
         sys.argv[1] = 'create'
 
-
     args = parser.parse_args()
-
 
     args.func(args)
 
