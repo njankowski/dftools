@@ -109,6 +109,10 @@ def main():
         sys.exit(1)
 
 
+    if len(sys.argv) > 1 and sys.argv[1] == 'archive':
+        sys.argv[1] = 'create'
+
+
     args = parser.parse_args()
 
 
