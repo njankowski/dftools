@@ -13,10 +13,6 @@ GOB_CATALOG_ENTRY_SIZE = 21
 GOB_MAX_SIZE = 2 ** 31 - 1
 
 
-class GOBException(Exception):
-    pass
-
-
 def is_valid_entry_name(filename):
     """Return whether a name is valid as an entry name.
 
@@ -137,12 +133,12 @@ def write(filename, entries, strict_naming=True):
     """
     meta_size, data_size = get_gob_size(entries)
     if (meta_size + data_size) > GOB_MAX_SIZE:
-        raise GOBException('Cannot create GOB because it would exceed maximum size.')
+        raise Exception('Cannot create GOB because it would exceed maximum size.')
 
     if strict_naming:
         for entry in entries:
             if not is_valid_entry_name(entry[0]):
-                raise GOBException('"' + entry[0] + '" is an invalid entry name.')
+                raise Exception('"' + entry[0] + '" is an invalid entry name.')
 
     with open(filename, 'wb') as file:
         file.write(b'GOB\n')
