@@ -62,10 +62,10 @@ def do_create(args):
     vprint.set_verbose(args.verbose)
 
     if not os.path.isdir(args.directory):
-        sys.exit(f'"{args.container}" is not a directory to create from.')\
+        sys.exit(f'"{args.directory}" is not a directory to create from.')\
 
     if not args.overwrite and os.path.isfile(args.container):
-        sys.exit(f'Cannot create "{args.directory}" because it already exists.\nUse the "-f" or "--overwrite" option to overwrite the container.')
+        sys.exit(f'Cannot create "{args.container}" because it already exists.\nUse the "-f" or "--overwrite" option to overwrite the container.')
 
     extension = os.path.splitext(os.path.basename(args.container))[1].lower().lstrip('.')
 
