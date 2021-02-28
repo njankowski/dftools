@@ -127,20 +127,22 @@ def read(filename):
         return entries
 
 
-def write(filename, entries):
+def write(filename, entries, strict_naming=True):
     """Writes a GOB container given a path and a list of GOB entries.
 
     :param filename: Path to write the GOB to
     :param entries: List of GOB entry tuples [(str, bytes), ..., ] where the tuple represents (name, data) of the entry
+    :param strict_naming: Check names against DOS filename rules
     :return: None
     """
     meta_size, data_size = get_gob_size(entries)
     if (meta_size + data_size) > GOB_MAX_SIZE:
         raise GOBException('Cannot create GOB because it would exceed maximum size.')
 
-    for entry in entries:
-        if not is_valid_entry_name(entry[0]):
-            raise GOBException('"' + entry[0] + '" is an invalid entry name.')
+    if strict_naming:
+        for entry in entries:
+            if not is_valid_entry_name(entry[0]):
+                raise GOBException('"' + entry[0] + '" is an invalid entry name.')
 
     with open(filename, 'wb') as file:
         file.write(b'GOB\n')
