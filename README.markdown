@@ -13,9 +13,10 @@
 ## Who helped with the project so far?
 - njankowski
 - Karjala
-  - Reported BM examples with broken compression schemes
-  - Reported WAX examples with broken identifier fields
-  - Reported GMD example with broken size field
+  - Reported BM examples with broken compression schemes, wrong endianess fields, and zeroed fields
+  - Reported GOB example with duplicate entries and non null-terminated names
+  - Reported WAX examples with wrong endianess fields
+  - Reported GMD example with wrong size field
 
 ## What are some examples of assets that I can convert?
 
