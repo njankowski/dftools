@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 from formats import gob, lab, lfd
-from util import bulkrw
+from util import bulkrw, vprint
 
 
 read_functions = {
@@ -22,6 +22,8 @@ write_functions = {
 def do_extract(args):
     args.directory = os.path.abspath(args.directory)
     args.container = os.path.abspath(args.container)
+
+    vprint.set_verbose(args.verbose)
 
     if not os.path.isfile(args.container):
         sys.exit(f'"{args.container}" is not a container file to extract from.')\
@@ -57,6 +59,8 @@ def do_create(args):
     args.directory = os.path.abspath(args.directory)
     args.container = os.path.abspath(args.container)
 
+    vprint.set_verbose(args.verbose)
+
     if not os.path.isdir(args.directory):
         sys.exit(f'"{args.container}" is not a directory to create from.')\
 
@@ -83,7 +87,6 @@ def do_create(args):
 
 def main():
     parser = argparse.ArgumentParser(prog='dfarc', description='Tool for Star Wars: Dark Forces and Outlaws containers.')
-    parser.add_argument('-v', '--verbose', help='print extra information', action='store_true')
     subparsers = parser.add_subparsers(dest='cmd', required=True)
 
     extract_parser = subparsers.add_parser('extract', help='extract from a container')
@@ -91,6 +94,7 @@ def main():
     extract_parser.add_argument('-f', '--overwrite', help='overwrite existing directories when extracting', action='store_true')
     extract_parser.add_argument('-i', '--interactive', help='manual renaming when extracting files with bad filenames', action='store_true')
     extract_parser.add_argument('-o', '--organize', help='create a subdirectory for each file extension in the container', action='store_true')
+    extract_parser.add_argument('-v', '--verbose', help='print extra information', action='store_true')
     extract_parser.add_argument('container', help='container to extract from')
     extract_parser.add_argument('directory', help='directory to extract into')
 
@@ -98,6 +102,7 @@ def main():
     create_parser.set_defaults(func=do_create)
     create_parser.add_argument('-f', '--overwrite', help='overwrite existing container files when creating', action='store_true')
     create_parser.add_argument('-r', '--recursive', help='pack all files in the directory and its subdirectories', action='store_true')
+    create_parser.add_argument('-v', '--verbose', help='print extra information', action='store_true')
     create_parser.add_argument('directory', help='directory to pack from')
     create_parser.add_argument('container', help='container to create')
 
