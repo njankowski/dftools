@@ -1,0 +1,35 @@
+Sith Engine Asset Archive Format for Star Wars Jedi Knight: Dark Forces 2 (GOB)
+
+
+All multi-byte values are little-endian unless noted otherwise.
+
+All character values are from the ASCII character set.
+
+Fields without '=' have values that will vary.
+
+Fields are described in order of appearance.
+
+Curly braces '{' and '}' are used to logically seperate descriptions.
+
+
+
+
+Header
+{
+    char[4] = "GOB "        // Identifier
+    uint32 = 0x0000_0014    // Version
+    uint32                  // Offset to Catalog (Absolute) (Usually 0x0000_000C, Immediately Following Header)
+    uint32                  // Number of Catalog Entries
+}
+
+Catalog
+{
+    CatalogEntry
+    {
+        uint32              // Data Offset (Absolute)
+        uint32              // Data Length
+        char[128]           // Data Name (Null Terminated) (Pathlike)
+    }
+}
+
+Data
