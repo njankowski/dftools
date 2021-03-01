@@ -6,6 +6,7 @@ from util.vprint import vprint, set_verbose
 
 read_functions = {
     'anim': anim.read,
+    'anm': anim.read,
     'gob': gob.read,
     'lab': lab.read,
     'lfd': lfd.read
