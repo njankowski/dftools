@@ -57,7 +57,7 @@ def write_files(directory, entries, organize, overwrite):
         value = 0
         for i, entry in enumerate(entries):
             if entry[0] == filename:
-                new_name = os.path.splitext(filename)[0] + f'-{value}' + os.path.splitext(filename)[1]
+                new_name = os.path.splitext(filename)[0] + f'_{value}' + os.path.splitext(filename)[1]
                 entries[i] = (new_name, entry[1])
                 value += 1
                 print(f'Duplicate filename "{filename}" renamed to "{new_name}"')

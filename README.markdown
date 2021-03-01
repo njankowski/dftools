@@ -35,10 +35,10 @@ Here are some static sprites, animated sprite stills, weapons, and fonts from Da
 ## What are the supported formats?
 
 #### Container
-GOB, LFD, LAB
+ANIM (ANM), GOB, LFD, LAB
 
 #### Graphics
-ANIM (ANM), BM, CMP, DELT (DLT), FME, FNT, NWX, PAL, PLTT (PLT), WAX
+BM, CMP, DELT (DLT), FME, FNT, NWX, PAL, PLTT (PLT), WAX
 
 #### Sound
 GMID, GMD

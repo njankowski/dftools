@@ -1,10 +1,11 @@
 import argparse, glob, os, sys
-from formats import gob, lab, lfd
+from formats import anim, gob, lab, lfd
 from util import bulkrw
 from util.vprint import vprint, set_verbose
 
 
 read_functions = {
+    'anim': anim.read,
     'gob': gob.read,
     'lab': lab.read,
     'lfd': lfd.read
