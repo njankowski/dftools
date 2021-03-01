@@ -57,13 +57,13 @@ For detailed information, view the project wiki; otherwise, this quick guide may
 
 All tools have a built-in usage guide that can be seen by running the program with no arguments, or with the '-h' or '--help' options.
 
-For example, with the **dfarc** program:
+For example, with the **dfex** program:
 
-`python dfarc.py`
+`python dfex.py`
 
-`python dfarc.py -h`
+`python dfex.py -h`
 
-`python dfarc.py --help`
+`python dfex.py --help`
 
 ## Quick Examples
 
@@ -77,13 +77,17 @@ If you want to explore all of a game's individual files, they are stored in cont
 
 You can extract all of those individual files to a directory so that they can be inspected individually.
 
-`python dfarc.py extract DARK.GOB DARK`
+For example, the following command will extract all files in "DARK.GOB" into a directory called "DARK".
+
+`python dfex.py DARK.GOB`
 
 ### Create a Container
 
 If you want to repack those same files into a container, you can do that as well.
 
-`python dfarc.py create DARK DARK.GOB`
+For example, the following command will create a container called "DARK.GOB" from a directory called "DARK".
+
+`python dfarc.py DARK DARK.GOB`
 
 ### Convert a Graphics File (Static Sprite, Texture, or Font Examples)
 
@@ -97,7 +101,7 @@ For example, the following command will convert all the FME files in "sprites/" 
 
 ### Convert an Animated Sprite
 
-The following command will convert a single WAX "PHASE1.WAX" into multiple images, and place those PNGs into the same directory.
+For example, the following command will convert a single WAX "PHASE1.WAX" into multiple images, and place those PNGs into the same directory.
 
 `python waxtool.py "sprites/PHASE1.WAX"`
 
