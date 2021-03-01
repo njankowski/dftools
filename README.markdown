@@ -41,7 +41,7 @@ ANIM (ANM), GOB, LFD, LAB
 BM, CMP, DELT (DLT), FME, FNT, NWX, PAL, PLTT (PLT), WAX
 
 #### Sound
-GMID, GMD
+GMID, GMD, VOC
 
 #### Level
 INF, LEV, LVB, O

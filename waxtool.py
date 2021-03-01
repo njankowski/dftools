@@ -1,8 +1,6 @@
-import argparse
-import os
+import argparse, os
+from formats.df import pal, wax
 from PIL import Image
-from formats import pal
-from formats import wax
 
 
 def from_wax(args):

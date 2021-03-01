@@ -1,8 +1,6 @@
-import argparse
-import glob
-import os
+import argparse, glob, os
+from formats.df import pal
 from PIL import Image
-from formats import pal
 
 
 def from_pal(args):

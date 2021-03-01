@@ -1,9 +1,6 @@
-import argparse
-import glob
-import os
+import argparse, glob, os
+from formats.df import cmp, pal
 from PIL import Image
-from formats import cmp
-from formats import pal
 
 
 def from_cmp(args):

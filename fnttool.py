@@ -1,9 +1,6 @@
-import argparse
-import glob
-import os
+import argparse, glob, os
+from formats.df import fnt, pal
 from PIL import Image
-from formats import fnt
-from formats import pal
 
 
 def from_fnt(args):

@@ -1,8 +1,6 @@
-import argparse
-import os
+import argparse, os
+from formats.df import delt, pltt
 from PIL import Image
-from formats import delt
-from formats import pltt
 
 
 def from_delt(args):

@@ -1,5 +1,6 @@
 import argparse, glob, os, sys
-from formats import anim, gob, lab, lfd
+from formats.df import anim, gob, lfd
+from formats.ol import lab
 from util import bulkrw
 from util.vprint import vprint, set_verbose
 

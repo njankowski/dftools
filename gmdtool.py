@@ -1,7 +1,5 @@
-import argparse
-import glob
-import os
-from formats import gmd
+import argparse, glob, os
+from formats.df import gmd
 
 def from_gmd(args):
     args.file = os.path.abspath(args.file)

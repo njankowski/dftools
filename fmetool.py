@@ -1,9 +1,6 @@
-import argparse
-import glob
-import os
+import argparse, glob, os
+from formats.df import fme, pal
 from PIL import Image
-from formats import fme
-from formats import pal
 
 
 def from_fme(args):
