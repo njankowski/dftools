@@ -1,5 +1,5 @@
 from PIL import Image
-from formats import pal
+from formats.df import pal
 
 def to_image(data, width, height, rgb_palette, transparency):
     image = Image.new("RGBA", (width, height))

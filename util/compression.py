@@ -123,20 +123,17 @@ def rle1_decompress(file, width, row_offsets):
         unpacked_bytes = 0
         while unpacked_bytes < width:
             control_byte = struct.unpack("B", file.read(1))[0]
-            # Discard control bytes equal to 128 and the data byte that follows them.
-            if control_byte == 128:
-                #print(f'bad rle1 control byte {control_byte} at offset {file.tell()}')
-                discard = file.read(1)
-                #print(f'discarded single data byte {discard}')
-                continue
+            count = control_byte & 0b0111_1111
+            compressed = ((control_byte & 0b1000_0000) == 0b1000_0000)
             # Uncompressed bytes.
-            if control_byte <= 128:
-                decompressed.extend(list(file.read(control_byte)))
-                unpacked_bytes += control_byte
+            if not compressed:
+                data = file.read(count)
+                decompressed.extend(list(data))
             # Expand compressed non-zero bytes.
             else:
-                decompressed.extend(list(file.read(1)) * (control_byte - 128))
-                unpacked_bytes += control_byte - 128
+                data = file.read(1)
+                decompressed.extend(list(data) * count)
+            unpacked_bytes += count
 
     if len(decompressed) != width * len(row_offsets):
         raise Exception("decompressed data does not match expected decompressed size")
