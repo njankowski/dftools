@@ -7,6 +7,7 @@ RLE1 compresses spans of bytes with any value.
 Keep in mind that the "row" being operated on is actually a column of image data.
 """
 import struct
+from operator import itemgetter
 
 NONE = 0
 RLE1 = 1
@@ -229,36 +230,42 @@ def find_duplicate_rows(data, width):
     # Split data into rows.
     index = 0
     split_data = [[] for i in range(height)]
-    for i in range(height):
-        split_data[i].extend(data[index : index + width])
+    for i in range(len(split_data)):
+        split_data[i].extend((i, data[index : index + width]))
         index += width
+
+    # Sort rows by their values.
+    sorted_data = sorted(split_data, key=itemgetter(1))
 
     # Find and mark duplicates.
     # List of tuples in the form (parent row, duplicate row).
     removed_rows = []
-    for i in range(height):
-        # Skip if already marked as duplicate.
-        if [item for item in removed_rows if item[1] == i]:
-            continue
-        for j in range(i + 1, height):
-            if split_data[i] == split_data[j]:
-                removed_rows.append((i, j))
+    i = 0
+    while i < len(sorted_data):
+        j = i + 1
+        while j < len(sorted_data):
+            if sorted_data[i][1] == sorted_data[j][1]:
+                removed_rows.append((sorted_data[i][0], sorted_data[j][0]))
+                j += 1
+            else:
+                break
+        i = j
 
     # Remove duplicates.
     cleaned_data = []
-    for i in range(height):
+    for i in range(len(split_data)):
         # Do not copy data if marked as duplicate.
         if [item for item in removed_rows if item[1] == i]:
             continue
         else:
-            cleaned_data.append(split_data[i])
+            cleaned_data.append(split_data[i][1])
 
     # Flatten data.
     flattened_data = []
     for row in cleaned_data:
         flattened_data.extend(row)
 
-    return (removed_rows, flattened_data)
+    return ([row for row in removed_rows], flattened_data)
 
 
 def get_contiguous_count(list, start, end, value):
