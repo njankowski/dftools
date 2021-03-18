@@ -146,8 +146,6 @@ def rle1_compress(data, width):
     if (len(data) % width != 0):
         raise Exception("width does not evenly divide data")
 
-
-
     compressed = []
     row_offsets = []
 
@@ -318,21 +316,21 @@ def get_non_contiguous_count(list, start, end, contiguous_limit, contiguous_valu
         index += contiguous
     return total
 
+
 def calc_ideal_compression_fme(data, width):
     uncompressed = len(data)
     rle0 = len(rle0_compress(data, width)[0])
-    # In order of preference.
     if uncompressed <= rle0:
         return NONE
     else:
         return RLE0
+
 
 def calc_ideal_compression_bm(data, width):
     uncompressed = len(data)
     rle0 = len(rle0_compress(data, width)[0])
     rle1 = len(rle1_compress(data, width)[0])
 
-    # In order of preference.
     if (uncompressed <= rle0 and uncompressed <= rle1):
         return NONE
     if (rle0 <= uncompressed and rle0 <= rle1):
