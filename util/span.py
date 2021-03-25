@@ -96,8 +96,9 @@ def merge_spans(spans, in_place=False):
         current_max = current_span[1]
         # Skip empty spans.
         if current_min == current_max:
-            i -= 1
+            # Delete the empty span.
             del spans[i]
+            i -= 1
             continue
         elif current_max < current_min:
             raise ValueError('max must be greater than min')
@@ -110,8 +111,11 @@ def merge_spans(spans, in_place=False):
             candidate_max = candidate_span[1]
             # Skip empty spans.
             if candidate_min == candidate_max:
-                j -= 1
-                break
+                # Delete the empty span.
+                del spans[j]
+                i -= 1
+                j = i - 1
+                continue
             elif candidate_max < candidate_min:
                 raise ValueError('max must be greater than min')
             # If the candidate span overlaps or is adjacent, merge it.
@@ -149,7 +153,7 @@ class SpanSet:
 
 
     def add(self, span):
-        """Adds a single span to the span set.
+        """Add a single span to the span set.
 
         Triggers a sort and merge of the span set.
 
@@ -160,8 +164,20 @@ class SpanSet:
         merge_spans(self.spans, in_place=True)
 
 
+    def extend(self, spans):
+        """Add a list of spans to the span set.
+
+        Triggers a sort and merge of the span set.
+
+        :param spans: List of span tuples [(min, max), ..., ] to initialize the set with, where each span is [min, max)
+        :return: None
+        """
+        self.spans.extend(spans)
+        merge_spans(self.spans, in_place=True)
+
+
     def minimum(self):
-        """Finds and returns the minimum value in the span set.
+        """Find and return the minimum value in the span set.
 
         :return: The minimum value in the span set, inclusive
         """
@@ -169,7 +185,7 @@ class SpanSet:
 
 
     def maximum(self):
-        """Finds and returns the maximum value in the span set.
+        """Find and return the maximum value in the span set.
 
         :return: The maximum value in the span set, exclusive
         """
@@ -177,7 +193,7 @@ class SpanSet:
 
 
     def inside(self, value):
-        """Checks if a value intersects the span set.
+        """Check if a value intersects the span set.
 
         :param value: Value to check for intersection with the set
         :return: True if the value intersects the set; otherwise, False
@@ -189,7 +205,7 @@ class SpanSet:
 
 
     def invert(self, span_min_max=None):
-        """Inverts the span set and returns a new span set.
+        """Invert the span set and returns a new span set.
 
         :param span_min: Minimum value to clamp the inversion against
         :param span_max: Maximum value to clamp the inversion against
