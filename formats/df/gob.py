@@ -2,8 +2,8 @@
 Star Wars: Dark Forces
 GOB Container Functions
 """
-import string
-import struct
+from util.span import CheckedAccessFileContext
+import string, struct
 
 
 GOB_HEADER_SIZE = 8
@@ -87,7 +87,7 @@ def read(filename):
     :param filename: Path to the GOB to read
     :return: List of GOB entry tuples [(str, bytes), ..., ] where the tuple represents (name, data) of the entry
     """
-    with open(filename, 'rb') as file:
+    with CheckedAccessFileContext(open(filename, 'rb')) as file:
         entries = []
 
         if file.read(4) != b'GOB\n':
@@ -140,7 +140,7 @@ def write(filename, entries, strict_naming=True):
             if not is_valid_entry_name(entry[0]):
                 raise Exception('"' + entry[0] + '" is an invalid entry name.')
 
-    with open(filename, 'wb') as file:
+    with CheckedAccessFileContext(open(filename, 'wb')) as file:
         file.write(b'GOB\n')
 
         file.write(struct.pack('<i', GOB_HEADER_SIZE + data_size))
