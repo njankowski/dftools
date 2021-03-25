@@ -243,9 +243,10 @@ class CheckedAccessFileContext:
         start = self.file.tell()
         self.__check_access(start, 'Start ')
         b = self.file.read(size)
-        end = self.file.tell()
-        self.__check_access(end - 1, 'End ')
-        self.spanset.add((start, end))
+        if b:
+            end = self.file.tell()
+            self.__check_access(end - 1, 'End ')
+            self.spanset.add((start, end))
         return b
 
 
@@ -265,3 +266,11 @@ class CheckedAccessFileContext:
 
     def tell(self):
         return self.file.tell()
+
+
+    def accessed_regions(self):
+        return self.spanset.spans[:]
+
+
+    def unaccessed_regions(self):
+        return self.spanset.invert().spans
