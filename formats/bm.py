@@ -22,7 +22,9 @@ class Bm:
 def read(filename):
     with open(filename, 'rb') as file:
         bm = Bm()
-        if file.read(4) != b'BM \x1e':
+        identifier = file.read(4)
+        # Identifier may erroneously omit the space character and split the \x1e byte across two bytes for some user generated files.
+        if identifier != b'BM \x1e' and identifier != b'BM\x01\x0e':
             raise Exception("BM has no magic identifier.")
 
         bm.x = struct.unpack('<h', file.read(2))[0]
