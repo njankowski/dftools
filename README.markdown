@@ -69,13 +69,13 @@ Tools for Star Wars: Dark Forces and Outlaws assets.
 
 **Make a GOB**
 
-`python gobtool.py archive "CUSTOM.GOB" "CUSTOM"`
+`python gobtool.py archive "CUSTOM" "CUSTOM.GOB"`
 
 *Archives all of the files in folder "CUSTOM" (top-level only) in the current directory, to a GOB named "CUSTOM.GOB" in the current directory.*
 
-`python gobtool.py archive -r "CUSTOM.GOB" "CUSTOM"`
+`python gobtool.py archive -r "CUSTOM" "CUSTOM.GOB"`
 
-`python gobtool.py archive --recursive "CUSTOM.GOB" "CUSTOM"`
+`python gobtool.py archive --recursive "CUSTOM" "CUSTOM.GOB"`
 
 *Archives all of the files in folder "CUSTOM" (including subdirectories) in the current directory, to a GOB named "CUSTOM.GOB" in the current directory.*
 
